@@ -7,7 +7,7 @@ int main(int argc, char* argv[])
 	File::SetFilePath("Assets");
 	std::cout << File::GetFilePath() << std::endl;
 
-	std::unique_ptr<Engine> engine = std::make_unique<Engine>();
+	std::unique_ptr<Engine> engine;
 	engine->Initialize();
 
 	while (!engine->IsQuit())
@@ -29,4 +29,3 @@ int main(int argc, char* argv[])
 
 	return 0;
 }
-//testtesttesttesttesttesttest
