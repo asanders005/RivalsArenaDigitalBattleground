@@ -163,7 +163,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Component\CardComponent.cpp" />
     <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\RivalsArena.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">
@@ -171,17 +173,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Build\Assets\Scenes\GameOver.json" />
-    <None Include="..\Build\Assets\Scenes\GameWin.json" />
-    <None Include="..\Build\Assets\Scenes\Initialize.json" />
-    <None Include="..\Build\Assets\Scenes\Level1.json" />
-    <None Include="..\Build\Assets\Scenes\Level2.json" />
-    <None Include="..\Build\Assets\Scenes\Level3.json" />
-    <None Include="..\Build\Assets\Scenes\prototypeScene.json" />
-    <None Include="..\Build\Assets\Scenes\prototypeTilemap.json" />
-    <None Include="..\Build\Assets\Scenes\Title.json" />
-    <None Include="..\Build\Assets\Scenes\UI.json" />
     <None Include="cpp.hint" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Component\CardComponent.h" />
+    <ClInclude Include="Source\RivalsArena.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

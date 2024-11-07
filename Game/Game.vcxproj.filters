@@ -9,21 +9,18 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Resource Files\Levels">
-      <UniqueIdentifier>{e1edb98a-513d-4fa4-8819-865ac129ee93}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\Prototypes">
-      <UniqueIdentifier>{a87f7c7c-add2-487e-9e4c-f34310b3d10d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\StateScreens">
-      <UniqueIdentifier>{30dca6f2-5c42-4f69-95eb-f587755661b3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\Other">
-      <UniqueIdentifier>{f0e6c978-fa5b-4ad3-b2d4-6526a7ed3835}</UniqueIdentifier>
+    <Filter Include="Source\Components">
+      <UniqueIdentifier>{133fc11c-79ed-40c2-9d7d-088b5218d0af}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RivalsArena.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Component\CardComponent.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -31,35 +28,13 @@
     <None Include="cpp.hint">
       <Filter>Source</Filter>
     </None>
-    <None Include="..\Build\Assets\Scenes\Level2.json">
-      <Filter>Resource Files\Levels</Filter>
-    </None>
-    <None Include="..\Build\Assets\Scenes\Level1.json">
-      <Filter>Resource Files\Levels</Filter>
-    </None>
-    <None Include="..\Build\Assets\Scenes\prototypeTilemap.json">
-      <Filter>Resource Files\Prototypes</Filter>
-    </None>
-    <None Include="..\Build\Assets\Scenes\prototypeScene.json">
-      <Filter>Resource Files\Prototypes</Filter>
-    </None>
-    <None Include="..\Build\Assets\Scenes\GameOver.json">
-      <Filter>Resource Files\StateScreens</Filter>
-    </None>
-    <None Include="..\Build\Assets\Scenes\Title.json">
-      <Filter>Resource Files\StateScreens</Filter>
-    </None>
-    <None Include="..\Build\Assets\Scenes\Initialize.json">
-      <Filter>Resource Files\Other</Filter>
-    </None>
-    <None Include="..\Build\Assets\Scenes\UI.json">
-      <Filter>Resource Files\Other</Filter>
-    </None>
-    <None Include="..\Build\Assets\Scenes\Level3.json">
-      <Filter>Resource Files\Levels</Filter>
-    </None>
-    <None Include="..\Build\Assets\Scenes\GameWin.json">
-      <Filter>Resource Files\StateScreens</Filter>
-    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\RivalsArena.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Component\CardComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
