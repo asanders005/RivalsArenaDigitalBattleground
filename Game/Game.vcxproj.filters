@@ -12,6 +12,9 @@
     <Filter Include="Source\Components">
       <UniqueIdentifier>{133fc11c-79ed-40c2-9d7d-088b5218d0af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Framework">
+      <UniqueIdentifier>{f8721ef4-75c5-4679-a314-a195c85ffd8f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -20,8 +23,11 @@
     <ClCompile Include="Source\RivalsArena.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Component\CardComponent.cpp">
-      <Filter>Source</Filter>
+    <ClCompile Include="Source\Components\DeckComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\PlayerComponent.cpp">
+      <Filter>Source\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -33,8 +39,17 @@
     <ClInclude Include="Source\RivalsArena.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Component\CardComponent.h">
+    <ClInclude Include="Source\Components\PlayerComponent.h">
       <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\DeckComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\CounterComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\EventData.h">
+      <Filter>Source\Framework</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

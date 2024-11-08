@@ -163,7 +163,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Component\CardComponent.cpp" />
+    <ClCompile Include="Source\Components\DeckComponent.cpp" />
+    <ClCompile Include="Source\Components\PlayerComponent.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\RivalsArena.cpp" />
   </ItemGroup>
@@ -176,7 +177,10 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Component\CardComponent.h" />
+    <ClInclude Include="Source\Components\CounterComponent.h" />
+    <ClInclude Include="Source\Components\DeckComponent.h" />
+    <ClInclude Include="Source\Components\PlayerComponent.h" />
+    <ClInclude Include="Source\Framework\EventData.h" />
     <ClInclude Include="Source\RivalsArena.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -44,6 +44,7 @@
     <ClInclude Include="Source\Core\Singleton.h" />
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\Event\Event.h" />
+    <ClInclude Include="Source\Event\EventData.h" />
     <ClInclude Include="Source\Event\EventManager.h" />
     <ClInclude Include="Source\Event\Observer.h" />
     <ClInclude Include="Source\Framework\Actor.h" />

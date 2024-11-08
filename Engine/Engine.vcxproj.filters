@@ -292,6 +292,9 @@
     <ClInclude Include="Source\Components\TextureAnimationComponent.h">
       <Filter>Source\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Event\EventData.h">
+      <Filter>Source\Event</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
