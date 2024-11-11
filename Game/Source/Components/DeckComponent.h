@@ -1,7 +1,8 @@
 #pragma once
 #include "Components/Component.h"
+#include "Event/EventManager.h"
 
-class DeckComponent : public Component
+class DeckComponent : public Component, public Observer
 {
 public:
 	CLASS_DECLARATION(DeckComponent)
@@ -11,9 +12,16 @@ public:
 
 	void Update(float dt) override;
 
+	void OnDraw(const Event& event);
+	void OnDiscard(const Event& event);
+	void OnBuyHero(const Event& event);
+	void OnBuyConsumable(const Event& event);
+	void OnUpgradeConsumable(const Event& event);
 
 private:
 	// Deck will read deck file in Initialize
-	std::string m_deckFile;
-	//std::map<std::string, std::unique_ptr<class Card>> m_cards;
+	std::vector<std::string> m_draw;
+	std::vector<std::string> m_discard;
+	std::vector<std::string> m_upgradesConsumable;
+	std::vector<std::string> m_upgradesHeroes;
 };
