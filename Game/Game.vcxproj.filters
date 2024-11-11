@@ -29,6 +29,9 @@
     <ClCompile Include="Source\Components\PlayerComponent.cpp">
       <Filter>Source\Components</Filter>
     </ClCompile>
+    <ClCompile Include="CardComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint">
@@ -50,6 +53,9 @@
     </ClInclude>
     <ClInclude Include="Source\Framework\EventData.h">
       <Filter>Source\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="CardComponent.h">
+      <Filter>Source\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
