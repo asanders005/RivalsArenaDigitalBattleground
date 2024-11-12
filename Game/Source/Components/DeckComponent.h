@@ -1,6 +1,7 @@
 #pragma once
 #include "Components/Component.h"
 #include "Event/EventManager.h"
+#include <random>
 
 class DeckComponent : public Component, public Observer
 {
@@ -12,6 +13,9 @@ public:
 
 	void Update(float dt) override;
 
+	void ShuffleDraw();
+
+	// Events
 	void OnDraw(const Event& event);
 	void OnDiscard(const Event& event);
 	void OnBuyHero(const Event& event);
@@ -19,9 +23,13 @@ public:
 	void OnUpgradeConsumable(const Event& event);
 
 private:
-	// Deck will read deck file in Initialize
-	std::vector<std::string> m_draw;
-	std::vector<std::string> m_discard;
-	std::vector<std::string> m_upgradesConsumable;
-	std::vector<std::string> m_upgradesHeroes;
+	// Vectors containing strings to create cards from
+	int m_cardsInHand = 0;
+	std::list<std::string> m_draw;
+	std::list<std::string> m_hand;
+	std::list<std::string> m_discard;
+	std::list<std::string> m_upgradesConsumable;
+	std::list<std::string> m_upgradesHeroes;
+
+	std::default_random_engine m_rng = std::default_random_engine{ (unsigned int)time(0) };
 };

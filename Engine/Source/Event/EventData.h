@@ -2,5 +2,5 @@
 
 struct EventData
 {
-
+	virtual void DisplayData();
 };
