@@ -14,6 +14,7 @@ public:
 	{
 		HEALTH,
 		XP,
+		HERO_XP,
 		GIMMICK
 	};
 
