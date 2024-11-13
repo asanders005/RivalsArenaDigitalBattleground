@@ -8,20 +8,8 @@ public:
 	CLASS_DECLARATION(CardComponent)
 	CLASS_PROTOTYPE(CardComponent)
 
-	virtual void Play()
-	{
-		if (!m_defensive) {
-			// choose between players to play against
-		}
-		// else m_targetplayer = the player
+	virtual void Play();
 
-		if (m_cooldownTimer == 0)
-		{
-			m_cooldownTimer = m_cooldown;
-		}
-	}
-
-public:
 	enum class CardTier : char
 	{
 		STARTER,
