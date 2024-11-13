@@ -10,7 +10,7 @@ public:
 	CLASS_DECLARATION(TrackerModifierCardComponent)
 	CLASS_PROTOTYPE(TrackerModifierCardComponent)
 
-	enum class TrackerType
+	enum class Tracker
 	{
 		HEALTH,
 		XP,
@@ -20,7 +20,7 @@ public:
 	void Play() override;
 
 private:
-	TrackerType m_tracker = TrackerType::HEALTH;
+	Tracker m_tracker = Tracker::HEALTH;
 	int m_changeValue = 0;
 
 

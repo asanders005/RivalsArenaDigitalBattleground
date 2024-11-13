@@ -5,12 +5,12 @@ void TrackerModifierCardComponent::Play()
 	CardComponent::Play();
 	switch (m_tracker)
 	{
-	case TrackerType::HEALTH:
+	case Tracker::HEALTH:
 	{
 		EVENT_NOTIFY_DATA(ModifyHealth, TrackerEventData(m_targetPlayer, m_changeValue));
 		break;
 	}
-	case TrackerType::XP:
+	case Tracker::XP:
 	{
 		EVENT_NOTIFY_DATA(ModifyXP, TrackerEventData(m_targetPlayer, m_changeValue));
 		break;
