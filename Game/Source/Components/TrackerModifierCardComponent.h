@@ -44,4 +44,10 @@ private:
 	TrackerType m_tracker = TrackerType::HEALTH;
 	int m_changeValue = 0;
 
+
+	// Inherited via CardComponent
+	void Initialize() override;
+
+	void Update(float dt) override;
+
 };
