@@ -34,5 +34,7 @@ protected:
 	bool m_optional = false;
 	bool m_defensive = false;
 	std::string m_targetPlayer;
+	CardTier m_tier;
+	PlayPhase m_phase;
 
 };

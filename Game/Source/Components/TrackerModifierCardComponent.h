@@ -22,7 +22,7 @@ public:
 
 private:
 	Tracker m_tracker = Tracker::HEALTH;
-	int m_changeValue = 0;
+	int m_changeAmount = 0;
 
 
 	// Inherited via CardComponent
