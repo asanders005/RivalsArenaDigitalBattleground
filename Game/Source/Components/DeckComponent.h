@@ -1,5 +1,6 @@
 #pragma once
 #include <list>
+#include "rapidjson/document.h"
 
 #include "Components/Component.h"
 

@@ -13,10 +13,18 @@ void CardComponent::Play()
 	}
 }
 
+void CardComponent::Initialize()
+{
+}
+
+void CardComponent::Update(float dt)
+{
+}
+
 
 void CardComponent::Read(const json_t& value)
 {
-	rapidjson::Value deckvalue = value.FindMember("deck")->value.GetObject();
+	//
 }
 
 void CardComponent::Write(json_t& value)

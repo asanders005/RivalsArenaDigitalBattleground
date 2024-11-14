@@ -10,12 +10,11 @@ void DeckComponent::Update(float dt)
 
 void DeckComponent::Read(const json_t& value)
 {
-    rapidjson::Value deckvalue = value.FindMember("deck")->value.GetObject();
     DeckData deck;
-    READ_DATA_NAME(deckvalue,"starter",deck.starter);
-    READ_DATA_NAME(deckvalue,"tier1",deck.tier1);
-    READ_DATA_NAME(deckvalue,"tier2",deck.tier2);
-    READ_DATA_NAME(deckvalue,"hero",deck.hero);
+    READ_DATA_NAME(value.FindMember("deck")->value.GetObject(),"starter",deck.starter);
+    READ_DATA_NAME(value.FindMember("deck")->value.GetObject(),"tier1",deck.tier1);
+    READ_DATA_NAME(value.FindMember("deck")->value.GetObject(),"tier2",deck.tier2);
+    READ_DATA_NAME(value.FindMember("deck")->value.GetObject(),"hero",deck.hero);
     for ( const auto& e : deck.starter)
     {
         m_draw.push_back(e);
