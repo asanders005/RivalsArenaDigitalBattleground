@@ -5,21 +5,21 @@
 
 struct TargetEventData : public EventData
 {
-	TargetEventData(std::string target) : target{ target } {}
+	TargetEventData(std::string targetPlayer) : targetPlayer{ targetPlayer } {}
 
-	std::string target;
+	std::string targetPlayer;
 };
 
 struct CardNameEventData : public EventData
 {
 	CardNameEventData() = default;
-	CardNameEventData(const std::string& cardName, const std::string& playerID) :
+	CardNameEventData(const std::string& cardName, const std::string& targetPlayer) :
 		cardName{ cardName },
-		playerID{ playerID }
+		targetPlayer{ targetPlayer }
 	{}
 
+	std::string targetPlayer;
 	std::string cardName;
-	std::string playerID;
 };
 
 struct CardBuyEventData : public EventData
