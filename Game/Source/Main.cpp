@@ -1,10 +1,15 @@
 #include "Engine.h"
 #include "RivalsArena.h"
 
+#include "Components/DeckComponent.h"
+#include "Framework/GameEventData.h"
+
 #include <iostream>
 
 int main(int argc, char* argv[])
 {
+	srand((int)time(0));
+
 	File::SetFilePath("Assets");
 	std::cout << File::GetFilePath() << std::endl;
 

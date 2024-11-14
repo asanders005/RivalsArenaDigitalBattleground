@@ -1,5 +1,5 @@
 #include "PlayerComponent.h"
-#include "../Framework/EventData.h"
+#include "Framework/GameEventData.h"
 
 FACTORY_REGISTER(PlayerComponent);
 
@@ -7,7 +7,6 @@ void PlayerComponent::Initialize()
 {
 
 	ADD_OBSERVER(PlayerDamage, PlayerComponent::OnUpdateTracker);
-	EVENT_NOTIFY_DATA(PlayerDamage, GameEventData{ "reet" });
 }
 
 void PlayerComponent::Update(float dt)
