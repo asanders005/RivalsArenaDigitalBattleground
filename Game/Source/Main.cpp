@@ -2,6 +2,7 @@
 #include "RivalsArena.h"
 
 #include "Components/DeckComponent.h"
+#include "Framework/GameEventData.h"
 
 #include <iostream>
 
@@ -19,7 +20,21 @@ int main(int argc, char* argv[])
 	game->Initialize();
 
 	DeckComponent deck;
-	deck.ShuffleDraw();
+	deck.Initialize();
+	for (int i = 0; i < 5; i++)
+	{
+		EVENT_NOTIFY_DATA(DrawCard, TargetEventData("5"));
+	}
+
+	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card", "5"));
+	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card", "5"));
+	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card", "5"));
+	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card1", "5"));
+	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card1", "5"));
+	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card1", "5"));
+	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card2", "5"));
+	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card2", "5"));
+	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card3", "5"));
 
 	while (!engine->IsQuit())
 	{

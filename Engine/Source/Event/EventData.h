@@ -1,6 +1,9 @@
 #pragma once
+#include <string>
 
 struct EventData
 {
-	virtual void DisplayData();
+	EventData() = default;
+	
+	std::string dataName = "";
 };

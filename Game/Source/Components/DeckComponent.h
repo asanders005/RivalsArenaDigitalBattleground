@@ -13,14 +13,15 @@ public:
 
 	void Update(float dt) override;
 
-	void ShuffleDraw();
-
 	// Events
 	void OnDraw(const Event& event);
 	void OnDiscard(const Event& event);
 	void OnBuyHero(const Event& event);
 	void OnBuyConsumable(const Event& event);
 	void OnUpgradeConsumable(const Event& event);
+
+private:
+	void ShuffleDraw();
 
 private:
 	// Vectors containing strings to create cards from

@@ -1,13 +1,25 @@
 #pragma once
-#include "Event/EventData.h"
+#include "Event/Event.h"
 
 #include <string>
 
-struct GameEventData : public EventData
+struct TargetEventData : public EventData
 {
-	GameEventData(std::string target) : target{ target } {}
+	TargetEventData(std::string target) : target{ target } {}
 
 	std::string target;
+};
+
+struct CardNameEventData : public EventData
+{
+	CardNameEventData() = default;
+	CardNameEventData(const std::string& cardName, const std::string& playerID) :
+		cardName{ cardName },
+		playerID{ playerID }
+	{}
+
+	std::string cardName;
+	std::string playerID;
 };
 
 struct CardBuyEventData : public EventData
