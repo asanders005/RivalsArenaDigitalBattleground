@@ -1,5 +1,5 @@
 {
-    "deck" : {
+    "deck" : [
         "starter" : [
             "Springlock","Saferoom"
         ],
@@ -12,7 +12,7 @@
         "hero" : [
             "Freddy Fazbear","Springtrap"
         ]
-    },
+    ],
     "starter" : [
         {
             "name": "Springlock",
