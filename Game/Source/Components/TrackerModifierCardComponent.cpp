@@ -15,6 +15,11 @@ void TrackerModifierCardComponent::Play()
 		EVENT_NOTIFY_DATA(ModifyXP, TrackerEventData(m_targetPlayer, m_changeValue));
 		break;
 	}
+	case Tracker::HERO_XP:
+	{
+		EVENT_NOTIFY_DATA(ModifyHeroXP, TrackerEventData(m_targetPlayer, m_changeValue));
+		break;
+	}
 	default:
 	{
 		EVENT_NOTIFY_DATA(ModifyGimmick, TrackerEventData(m_targetPlayer, m_changeValue));
