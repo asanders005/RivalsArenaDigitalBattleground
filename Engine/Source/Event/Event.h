@@ -3,15 +3,14 @@
 
 #include <string>
 #include <variant>
+#include <memory>
 
 using id_t = std::string;
 
 struct Event
 {
-	using data_t = std::variant<int, bool, float, std::string, EventData>;
-
-	Event(const id_t& id, data_t data) : id{ id }, data{ data } {}
+	Event(const id_t& id, const EventData& data) : id{ id }, data{ data } {}
 
 	id_t id;
-	data_t data;
+	EventData data;
 };

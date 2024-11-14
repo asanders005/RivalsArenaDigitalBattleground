@@ -1,10 +1,15 @@
 #include "Engine.h"
 #include "RivalsArena.h"
 
+#include "Components/DeckComponent.h"
+#include "Framework/GameEventData.h"
+
 #include <iostream>
 
 int main(int argc, char* argv[])
 {
+	srand((int)time(0));
+
 	File::SetFilePath("Assets");
 	std::cout << File::GetFilePath() << std::endl;
 
@@ -13,6 +18,23 @@ int main(int argc, char* argv[])
 
 	auto game = std::make_unique<RivalsArena>(engine.get());
 	game->Initialize();
+
+	DeckComponent deck;
+	deck.Initialize();
+	for (int i = 0; i < 5; i++)
+	{
+		EVENT_NOTIFY_DATA(DrawCard, TargetEventData("5"));
+	}
+
+	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card", "5"));
+	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card", "5"));
+	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card", "5"));
+	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card1", "5"));
+	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card1", "5"));
+	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card1", "5"));
+	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card2", "5"));
+	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card2", "5"));
+	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card3", "5"));
 
 	while (!engine->IsQuit())
 	{

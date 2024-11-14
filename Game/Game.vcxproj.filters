@@ -51,7 +51,7 @@
     <ClInclude Include="Source\Components\CounterComponent.h">
       <Filter>Source\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Framework\EventData.h">
+    <ClInclude Include="Source\Framework\GameEventData.h">
       <Filter>Source\Framework</Filter>
     </ClInclude>
     <ClInclude Include="CardComponent.h">
