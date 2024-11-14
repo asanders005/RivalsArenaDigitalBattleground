@@ -19,23 +19,6 @@ int main(int argc, char* argv[])
 	auto game = std::make_unique<RivalsArena>(engine.get());
 	game->Initialize();
 
-	DeckComponent deck;
-	deck.Initialize();
-	for (int i = 0; i < 5; i++)
-	{
-		EVENT_NOTIFY_DATA(DrawCard, TargetEventData("5"));
-	}
-
-	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card", "5"));
-	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card", "5"));
-	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card", "5"));
-	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card1", "5"));
-	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card1", "5"));
-	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card1", "5"));
-	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card2", "5"));
-	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card2", "5"));
-	EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData("card3", "5"));
-
 	while (!engine->IsQuit())
 	{
 		// update
