@@ -30,3 +30,14 @@ struct CardBuyEventData : public EventData
 	std::string cardName;
 	// Card tier enum tier
 };
+
+struct TrackerEventData : public EventData
+{
+	TrackerEventData(std::string targetPlayer, int changeValue) :
+		targetPlayer{ targetPlayer },
+		changeValue{ changeValue } 
+	{}
+
+	std::string targetPlayer;
+	int changeValue = 0;
+};

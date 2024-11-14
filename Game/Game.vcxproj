@@ -163,9 +163,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CardComponent.cpp" />
+    <ClCompile Include="Source\Components\CardComponent.cpp" />
     <ClCompile Include="Source\Components\DeckComponent.cpp" />
     <ClCompile Include="Source\Components\PlayerComponent.cpp" />
+    <ClCompile Include="Source\Components\TrackerModifierCardComponent.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\RivalsArena.cpp" />
   </ItemGroup>
@@ -178,9 +179,10 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CardComponent.h" />
+    <ClInclude Include="Source\Components\CardComponent.h" />
     <ClInclude Include="Source\Components\CounterComponent.h" />
     <ClInclude Include="Source\Components\DeckComponent.h" />
+    <ClInclude Include="Source\Components\TrackerModifierCardComponent.h" />
     <ClInclude Include="Source\Components\PlayerComponent.h" />
     <ClInclude Include="Source\Framework\GameEventData.h" />
     <ClInclude Include="Source\RivalsArena.h" />

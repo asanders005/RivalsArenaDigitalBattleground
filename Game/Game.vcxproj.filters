@@ -29,8 +29,11 @@
     <ClCompile Include="Source\Components\PlayerComponent.cpp">
       <Filter>Source\Components</Filter>
     </ClCompile>
-    <ClCompile Include="CardComponent.cpp">
-      <Filter>Source</Filter>
+    <ClCompile Include="Source\Components\CardComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\TrackerModifierCardComponent.cpp">
+      <Filter>Source\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -54,7 +57,10 @@
     <ClInclude Include="Source\Framework\GameEventData.h">
       <Filter>Source\Framework</Filter>
     </ClInclude>
-    <ClInclude Include="CardComponent.h">
+    <ClInclude Include="Source\Components\CardComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\TrackerModifierCardComponent.h">
       <Filter>Source\Components</Filter>
     </ClInclude>
   </ItemGroup>
