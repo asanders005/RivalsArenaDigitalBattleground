@@ -9,12 +9,15 @@ public:
 	enum class eState
 	{
 		TITLE,
+		GAME_START,
 		UPKEEP,
 		MAIN,
 		BUY,
 		END,
-		REACT
+		REACT,
+		GAME_OVER
 	};
+
 public:
 	RivalsArena(Engine* engine) : Game{ engine } {}
 
@@ -29,10 +32,11 @@ public:
 	// Events
 	// -----------Template---------------
 	// void OnLevelComplete(const Event& event);
+	void OnCardPlay(const Event& event);
 
 private:
 	eState m_state{ eState::TITLE };
-	int m_level = 0;
+	std::vector<std::string> m_players;
 
 	std::unique_ptr<class Scene> m_scene;
 	class Actor* m_audioController{ nullptr };
