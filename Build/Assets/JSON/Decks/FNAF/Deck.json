@@ -1,0 +1,25 @@
+{
+  "deck": {
+    "starter": [
+      "Springlock",
+      "Springlock",
+      "Springlock",
+      "Springlock",
+      "Saferoom",
+      "Saferoom",
+      "Saferoom"
+    ],
+    "tier1": [
+      "Fire",
+      "Freddys Pizza"
+    ],
+    "tier2": [
+      "S.C.U.P.R.",
+      "Midnight Motorist"
+    ],
+    "hero": [
+      "Freddy Fazbear",
+      "Springtrap"
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "actors": [
+    {
+      "name": "player",
+      "tag": "player",
+      "prototype": true,
+      "components": [
+        {
+          "type": "PlayerComponent"
+        }
+      ]
+    }
+  ]
+}

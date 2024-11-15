@@ -1,0 +1,156 @@
+{
+  "actors": [
+    {
+      "name": "Springlock",
+      "tag": "card",
+      "prototype": true,
+      "transform": {
+        "scale": 0.15
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "Textures/Decks/FNAF/Springlock.png"
+        },
+        {
+          "type": "CardComponent",
+          "name": "Springlock",
+          "cardTier": "Starter"
+        }
+      ]
+    },
+    {
+      "name": "Saferoom",
+      "tag": "card",
+      "prototype": true,
+      "transform": {
+        "scale": 0.15
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "Textures/Decks/FNAF/Saferoom.png"
+        },
+        {
+          "type": "CardComponent",
+          "name": "Saferoom",
+          "cardTier": "Starter"
+        }
+      ]
+    },
+    {
+      "name": "Fire",
+      "tag": "card",
+      "prototype": true,
+      "transform": {
+        "scale": 0.25
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "Textures/Decks/FNAF/Fire.png"
+        },
+        {
+          "type": "CardComponent",
+          "name": "Fire",
+          "cardTier": "Tier_1"
+        }
+      ]
+    },
+    {
+      "name": "Freddys Pizza",
+      "tag": "card",
+      "prototype": true,
+      "transform": {
+        "scale": 0.25
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "Textures/Decks/FNAF/Freddy_Fazbear's_Pizza.png"
+        },
+        {
+          "type": "CardComponent",
+          "name": "Freddys Pizza",
+          "cardTier": "Tier_1"
+        }
+      ]
+    },
+    {
+      "name": "S.C.U.P.R.",
+      "tag": "card",
+      "prototype": true,
+      "transform": {
+        "scale": 0.25
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "Textures/Decks/FNAF/S.C.U.P.R..png"
+        },
+        {
+          "type": "CardComponent",
+          "name": "S.C.U.P.R.",
+          "cardTier": "Tier_2"
+        }
+      ]
+    },
+    {
+      "name": "Midnight Motorist",
+      "tag": "card",
+      "prototype": true,
+      "transform": {
+        "scale": 0.25
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "Textures/Decks/FNAF/Midnight_Motorist.png"
+        },
+        {
+          "type": "CardComponent",
+          "name": "Midnight Motorist",
+          "cardTier": "Tier_2"
+        }
+      ]
+    },
+    {
+      "name": "Freddy Fazbear",
+      "tag": "card",
+      "prototype": true,
+      "transform": {
+        "scale": 0.25
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "Textures/Decks/FNAF/Freddy_Fazbear.png"
+        },
+        {
+          "type": "CardComponent",
+          "name": "Freddy Fazbear",
+          "cardTier": "Hero"
+        }
+      ]
+    },
+    {
+      "name": "Springtrap",
+      "tag": "card",
+      "prototype": true,
+      "transform": {
+        "scale": 0.25
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "Textures/Decks/FNAF/Springtrap.png"
+        },
+        {
+          "type": "CardComponent",
+          "name": "Springtrap",
+          "cardTier": "Hero"
+        }
+      ]
+    }
+  ]
+}

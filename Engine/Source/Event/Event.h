@@ -9,8 +9,8 @@ using id_t = std::string;
 
 struct Event
 {
-	Event(const id_t& id, const EventData& data) : id{ id }, data{ data } {}
+	Event(const id_t& id, EventData* data) : id{ id }, data{ data } {}
 
 	id_t id;
-	EventData data;
+	EventData* data;
 };

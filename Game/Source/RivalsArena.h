@@ -14,6 +14,7 @@ public:
 		MAIN,
 		BUY,
 		END,
+		SELECTION,
 		REACT,
 		GAME_OVER
 	};
@@ -29,14 +30,16 @@ public:
 
 	void Draw(Renderer& renderer) override;
 
-	// Events
-	// -----------Template---------------
-	// void OnLevelComplete(const Event& event);
-	void OnCardPlay(const Event& event);
+	//Events
+	//void OnCardPlay(const Event& event);
 
 private:
-	eState m_state{ eState::TITLE };
+	void CreatePlayer(const std::string& playerID);
+
+private:
+	eState m_state{ eState::GAME_START };
 	std::vector<std::string> m_players;
+	std::string m_activePlayer;
 
 	std::unique_ptr<class Scene> m_scene;
 	class Actor* m_audioController{ nullptr };

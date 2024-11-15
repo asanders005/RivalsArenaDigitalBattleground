@@ -5,7 +5,8 @@
 
 struct TargetEventData : public EventData
 {
-	TargetEventData(std::string targetPlayer) : targetPlayer{ targetPlayer } {}
+	TargetEventData() = default;
+	TargetEventData(const std::string& targetPlayer) : targetPlayer{ targetPlayer } {}
 
 	std::string targetPlayer;
 };

@@ -1,16 +1,13 @@
 #include "Engine.h"
 #include "RivalsArena.h"
 
-#include "Components/DeckComponent.h"
-#include "Framework/GameEventData.h"
-
 #include <iostream>
 
 int main(int argc, char* argv[])
 {
 	srand((int)time(0));
 	
-	File::SetFilePath("../Assets");
+	File::SetFilePath("Assets");
 	std::cout << File::GetFilePath() << std::endl;
 
 	auto engine = std::make_unique<Engine>();
@@ -18,10 +15,6 @@ int main(int argc, char* argv[])
 
 	auto game = std::make_unique<RivalsArena>(engine.get());
 	game->Initialize();
-
-	DeckComponent deck;
-	rapidjson::Document doc = rapidjson::Document().;
-	deck.Read("");
 
 	while (!engine->IsQuit())
 	{

@@ -31,7 +31,7 @@ void Scene::Update(float dt)
 void Scene::Draw(Renderer& renderer)
 {
 	for (auto& actor : actors)
-	{
+	{		
 		if (actor->isActive) actor->Draw(renderer);
 	}
 }

@@ -4,6 +4,8 @@
 #include "Components/TextureComponent.h"
 #include "Engine.h"
 
+FACTORY_REGISTER(CardComponent);
+
 void CardComponent::Initialize()
 {
   
@@ -22,7 +24,7 @@ void CardComponent::Play()
 	}
 	if (m_tier != CardTier::HERO)
 	{
-		EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData(m_cardName, m_targetPlayer));
+		EVENT_NOTIFY_DATA(DiscardCard, new CardNameEventData(m_cardName, m_targetPlayer));
 		owner->isDestroyed = true;
 	}
 }
@@ -31,15 +33,15 @@ void CardComponent::Update(float dt)
 {
 	if (owner->scene->engine->GetInput().GetMouseButtonPressed(0))
 	{
-		bool isHoveringOverCard;
+		bool isHoveringOverCard = true;
 		TextureComponent* textureComponent = owner->GetComponent<TextureComponent>();
 		Vector2 mousePosition = owner->scene->engine->GetInput().GetMousePosition();
 		Vector2 position = owner->transform.position;
 
-		if (mousePosition.x < position.x - (0.5 * textureComponent->source.w) ||
-			mousePosition.x > position.x + (0.5 * textureComponent->source.w) ||
-			mousePosition.y < position.y - (0.5 * textureComponent->source.h) ||
-			mousePosition.y > position.y + (0.5 * textureComponent->source.h))
+		if (mousePosition.x < position.x - (0.5 * (textureComponent->source.w * owner->transform.scale)) ||
+			mousePosition.x > position.x + (0.5 * (textureComponent->source.w * owner->transform.scale)) ||
+			mousePosition.y < position.y - (0.5 * (textureComponent->source.h * owner->transform.scale)) ||
+			mousePosition.y > position.y + (0.5 * (textureComponent->source.h * owner->transform.scale)))
 		{
 			isHoveringOverCard = false;
 		}
@@ -54,15 +56,15 @@ void CardComponent::Update(float dt)
 
 void CardComponent::Read(const json_t& value)
 {
-	READ_DATA_NAME(value, "Name", m_cardName);
-	READ_DATA_NAME(value, "Cooldown", m_cooldown);
-	READ_DATA_NAME(value, "Optional", m_optional);
-	READ_DATA_NAME(value, "Defensive", m_defensive);
+	READ_DATA_NAME(value, "name", m_cardName);
+	READ_DATA_NAME(value, "cooldown", m_cooldown);
+	READ_DATA_NAME(value, "optional", m_optional);
+	READ_DATA_NAME(value, "defensive", m_defensive);
 
 	std::string tier = "";
 	std::string phase = "";
-	READ_DATA_NAME(value, "CardTier", tier);
-	READ_DATA_NAME(value, "PlayPhase", phase);
+	READ_DATA_NAME(value, "cardTier", tier);
+	READ_DATA_NAME(value, "playPhase", phase);
 
 	if (tier == "TIER_1") m_tier = CardTier::TIER_1;
 	else if (tier == "TIER_2") m_tier = CardTier::TIER_2;

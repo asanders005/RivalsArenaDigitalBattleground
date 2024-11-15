@@ -15,6 +15,15 @@
     <Filter Include="Source\Framework">
       <UniqueIdentifier>{f8721ef4-75c5-4679-a314-a195c85ffd8f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\JSON">
+      <UniqueIdentifier>{276a32de-7396-48a2-a1a8-4941ce913715}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\JSON\Decks">
+      <UniqueIdentifier>{ff4f274d-30ed-410d-8f0f-cd821a3bfca2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\JSON\Decks\FNAF">
+      <UniqueIdentifier>{f8343875-f1c9-4f0d-8e8d-832fe9d3326c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -39,6 +48,15 @@
   <ItemGroup>
     <None Include="cpp.hint">
       <Filter>Source</Filter>
+    </None>
+    <None Include="Build\Assets\JSON\Initialize.json">
+      <Filter>Resource Files\JSON</Filter>
+    </None>
+    <None Include="..\Build\Assets\JSON\Decks\FNAF\Cards.json">
+      <Filter>Resource Files\JSON\Decks\FNAF</Filter>
+    </None>
+    <None Include="..\Build\Assets\JSON\Decks\FNAF\Deck.json">
+      <Filter>Resource Files\JSON\Decks\FNAF</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

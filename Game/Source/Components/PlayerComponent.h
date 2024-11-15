@@ -14,9 +14,13 @@ public:
 
 	void OnUpdateTracker(const Event& event);
 
+public:
+	std::string playerID;
+
 private:
 	int m_health = 0;
 	int m_exp = 0;
 	int m_heroExp = 0;
+
 
 };
