@@ -1,7 +1,5 @@
 #pragma once
 #include "CardComponent.h"
-#include "../Framework/GameEventData.h"
-#include "Event/EventManager.h"
 
 
 class TrackerModifierCardComponent : public CardComponent

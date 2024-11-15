@@ -1,5 +1,7 @@
 #pragma once
 #include "Components/Component.h"
+#include "../Framework/GameEventData.h"
+#include "Event/EventManager.h"
 #include <string>
 
 class CardComponent : public Component
@@ -26,6 +28,8 @@ public:
 		PASSIVE,
 		REACTION,
 	};
+
+	void Update(float dt) override;
 
 protected:
 	std::string m_cardName;

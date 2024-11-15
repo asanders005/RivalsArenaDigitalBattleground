@@ -1,4 +1,8 @@
 #include "CardComponent.h"
+#include "Framework/Actor.h"
+#include "Framework/Scene.h"
+#include "Components/TextureComponent.h"
+#include "Engine.h"
 
 void CardComponent::Play()
 {
@@ -10,6 +14,35 @@ void CardComponent::Play()
 	if (m_cooldownTimer == 0)
 	{
 		m_cooldownTimer = m_cooldown;
+	}
+	if (m_tier != CardTier::HERO)
+	{
+		EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData(m_cardName, m_targetPlayer));
+		owner->isDestroyed = true;
+	}
+}
+
+void CardComponent::Update(float dt)
+{
+	if (owner->scene->engine->GetInput().GetMouseButtonPressed(0))
+	{
+		bool isHoveringOverCard;
+		TextureComponent* textureComponent = owner->GetComponent<TextureComponent>();
+		Vector2 mousePosition = owner->scene->engine->GetInput().GetMousePosition();
+		Vector2 position = owner->transform.position;
+
+		if (mousePosition.x < position.x - (0.5 * textureComponent->source.w) ||
+			mousePosition.x > position.x + (0.5 * textureComponent->source.w) ||
+			mousePosition.y < position.y - (0.5 * textureComponent->source.h) ||
+			mousePosition.y > position.y + (0.5 * textureComponent->source.h))
+		{
+			isHoveringOverCard = false;
+		}
+
+		if (isHoveringOverCard)
+		{
+			Play();
+		}
 	}
 }
 
