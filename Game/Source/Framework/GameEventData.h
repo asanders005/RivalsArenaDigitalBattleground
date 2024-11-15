@@ -3,11 +3,32 @@
 
 #include <string>
 
-struct GameEventData : public EventData
+struct TargetEventData : public EventData
 {
-	GameEventData(std::string target) : target{ target } {}
+	TargetEventData(std::string targetPlayer) : targetPlayer{ targetPlayer } {}
 
-	std::string target;
+	std::string targetPlayer;
+};
+
+struct CardNameEventData : public EventData
+{
+	CardNameEventData() = default;
+	CardNameEventData(const std::string& cardName, const std::string& targetPlayer) :
+		cardName{ cardName },
+		targetPlayer{ targetPlayer }
+	{}
+
+	std::string targetPlayer;
+	std::string cardName;
+};
+
+struct CardBuyEventData : public EventData
+{
+	CardBuyEventData() = default;
+	CardBuyEventData(const std::string& cardName /*Card Tier Enum rier*/) : cardName{ cardName } {}
+
+	std::string cardName;
+	// Card tier enum tier
 };
 
 struct TrackerEventData : public EventData

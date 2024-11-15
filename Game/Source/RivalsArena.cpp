@@ -20,9 +20,7 @@ bool RivalsArena::Initialize()
 	/*m_pauseText = Factory::Instance().Create<Actor>("pauseText");
 	m_pauseText->Initialize();*/
 
-	/*ADD_OBSERVER(PlayerDead, FungalLeap::OnPlayerDead);
-	ADD_OBSERVER(AddPoints, FungalLeap::OnAddPoints);
-	ADD_OBSERVER(LevelComplete, FungalLeap::OnLevelComplete);*/
+	ADD_OBSERVER(CardPlayed, RivalsArena::OnCardPlay);
 
 	return true;
 }
@@ -38,6 +36,8 @@ void RivalsArena::Update(float dt)
 	{
 	case RivalsArena::eState::TITLE:
 		break;
+	case RivalsArena::eState::GAME_START:
+		break;
 	case RivalsArena::eState::UPKEEP:
 		break;
 	case RivalsArena::eState::MAIN:
@@ -47,6 +47,8 @@ void RivalsArena::Update(float dt)
 	case RivalsArena::eState::END:
 		break;
 	case RivalsArena::eState::REACT:
+		break;
+	case RivalsArena::eState::GAME_OVER:
 		break;
 	}
 }

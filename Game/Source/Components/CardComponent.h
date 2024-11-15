@@ -1,5 +1,7 @@
 #pragma once
 #include "Components/Component.h"
+#include "../Framework/GameEventData.h"
+#include "Event/EventManager.h"
 #include <string>
 
 class CardComponent : public Component
@@ -29,6 +31,7 @@ public:
 
 	void Initialize() override;
 
+
 	void Update(float dt) override;
 
 protected:
@@ -38,5 +41,10 @@ protected:
 	bool m_optional = false;
 	bool m_defensive = false;
 	std::string m_targetPlayer;
+
+
+	CardTier m_tier;
+	PlayPhase m_phase;
+
 
 };
