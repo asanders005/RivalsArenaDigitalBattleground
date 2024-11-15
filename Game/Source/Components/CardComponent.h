@@ -29,6 +29,8 @@ public:
 		REACTION,
 	};
 
+	void Update(float dt) override;
+
 protected:
 	std::string m_cardName;
 	int m_cooldownTimer = 0;

@@ -2,7 +2,6 @@
 
 void TrackerModifierCardComponent::Play()
 {
-	CardComponent::Play();
 	switch (m_tracker)
 	{
 	case Tracker::HEALTH:
@@ -26,6 +25,7 @@ void TrackerModifierCardComponent::Play()
 		break;
 	}
 	}
+	CardComponent::Play();
 }
 
 void TrackerModifierCardComponent::Read(const json_t& value)
