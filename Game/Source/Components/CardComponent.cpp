@@ -1,4 +1,5 @@
 #include "CardComponent.h"
+#include "Framework/Actor.h"
 
 void CardComponent::Play()
 {
@@ -10,6 +11,11 @@ void CardComponent::Play()
 	if (m_cooldownTimer == 0)
 	{
 		m_cooldownTimer = m_cooldown;
+	}
+	if (m_tier != CardTier::HERO)
+	{
+		EVENT_NOTIFY_DATA(DiscardCard, CardNameEventData(m_cardName, m_targetPlayer));
+		owner->isDestroyed = true;
 	}
 }
 
