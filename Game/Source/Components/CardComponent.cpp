@@ -4,6 +4,11 @@
 #include "Components/TextureComponent.h"
 #include "Engine.h"
 
+void CardComponent::Initialize()
+{
+  
+}
+
 void CardComponent::Play()
 {
 	if (!m_defensive) {

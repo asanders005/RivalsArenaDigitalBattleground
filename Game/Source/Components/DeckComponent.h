@@ -1,11 +1,19 @@
 #pragma once
-#include "Components/Component.h"
-#include "Event/EventManager.h"
-#include <random>
+#include <list>
+#include "rapidjson/document.h"
 
-class DeckComponent : public Component, public Observer
+#include "Components/Component.h"
+
+class DeckComponent : public Component
 {
 public:
+	struct DeckData
+	{
+		std::vector<std::string> starter;
+		std::vector<std::string> tier1;
+		std::vector<std::string> tier2;
+		std::vector<std::string> hero;
+	};
 	CLASS_DECLARATION(DeckComponent)
 	CLASS_PROTOTYPE(DeckComponent)
 
@@ -13,24 +21,12 @@ public:
 
 	void Update(float dt) override;
 
-	// Events
-	void OnDraw(const Event& event);
-	void OnDiscard(const Event& event);
-	void OnBuyHero(const Event& event);
-	void OnBuyConsumable(const Event& event);
-	void OnUpgradeConsumable(const Event& event);
 
 private:
-	void ShuffleDraw();
-
-private:
-	// Vectors containing strings to create cards from
-	int m_cardsInHand = 0;
+	// Deck will read deck file in Initialize
+	std::string m_deckFile;
 	std::list<std::string> m_draw;
-	std::list<std::string> m_hand;
-	std::list<std::string> m_discard;
 	std::list<std::string> m_upgradesConsumable;
 	std::list<std::string> m_upgradesHeroes;
-
-	std::default_random_engine m_rng = std::default_random_engine{ (unsigned int)time(0) };
+	//std::map<std::string, std::unique_ptr<class Card>> m_cards;
 };

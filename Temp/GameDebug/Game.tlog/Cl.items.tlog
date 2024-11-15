@@ -1,5 +1,6 @@
-C:\Users\asanders\source\repos\Projects\RivalsArenaDigitalBattleground\Game\CardComponent.cpp;C:\Users\asanders\source\repos\Projects\RivalsArenaDigitalBattleground\Temp\GameDebug\CardComponent.obj
-C:\Users\asanders\source\repos\Projects\RivalsArenaDigitalBattleground\Game\Source\Components\DeckComponent.cpp;C:\Users\asanders\source\repos\Projects\RivalsArenaDigitalBattleground\Temp\GameDebug\DeckComponent.obj
-C:\Users\asanders\source\repos\Projects\RivalsArenaDigitalBattleground\Game\Source\Components\PlayerComponent.cpp;C:\Users\asanders\source\repos\Projects\RivalsArenaDigitalBattleground\Temp\GameDebug\PlayerComponent.obj
-C:\Users\asanders\source\repos\Projects\RivalsArenaDigitalBattleground\Game\Source\Main.cpp;C:\Users\asanders\source\repos\Projects\RivalsArenaDigitalBattleground\Temp\GameDebug\Main.obj
-C:\Users\asanders\source\repos\Projects\RivalsArenaDigitalBattleground\Game\Source\RivalsArena.cpp;C:\Users\asanders\source\repos\Projects\RivalsArenaDigitalBattleground\Temp\GameDebug\RivalsArena.obj
+C:\Neumont\Rider\Source\RivalsArenaDigitalBattleground\Game\Source\Components\CardComponent.cpp;C:\Neumont\Rider\Source\RivalsArenaDigitalBattleground\Temp\GameDebug\CardComponent.obj
+C:\Neumont\Rider\Source\RivalsArenaDigitalBattleground\Game\Source\Components\DeckComponent.cpp;C:\Neumont\Rider\Source\RivalsArenaDigitalBattleground\Temp\GameDebug\DeckComponent.obj
+C:\Neumont\Rider\Source\RivalsArenaDigitalBattleground\Game\Source\Components\PlayerComponent.cpp;C:\Neumont\Rider\Source\RivalsArenaDigitalBattleground\Temp\GameDebug\PlayerComponent.obj
+C:\Neumont\Rider\Source\RivalsArenaDigitalBattleground\Game\Source\Components\TrackerModifierCardComponent.cpp;C:\Neumont\Rider\Source\RivalsArenaDigitalBattleground\Temp\GameDebug\TrackerModifierCardComponent.obj
+C:\Neumont\Rider\Source\RivalsArenaDigitalBattleground\Game\Source\Main.cpp;C:\Neumont\Rider\Source\RivalsArenaDigitalBattleground\Temp\GameDebug\Main.obj
+C:\Neumont\Rider\Source\RivalsArenaDigitalBattleground\Game\Source\RivalsArena.cpp;C:\Neumont\Rider\Source\RivalsArenaDigitalBattleground\Temp\GameDebug\RivalsArena.obj
