@@ -19,4 +19,14 @@ private:
 	int m_exp = 0;
 	int m_heroExp = 0;
 
+	int in_hand = 5;
+
+	std::string id;
+	bool isActive = false;
+
+	// Events
+	void ModifyPlayerHealth(const Event& event);
+	void ChangeExp(const Event& event);
+	void ChangeHeroExp(const Event& event);
+	void OnReact(const Event& event);
 };

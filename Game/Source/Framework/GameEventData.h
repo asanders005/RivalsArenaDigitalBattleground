@@ -33,6 +33,7 @@ struct CardBuyEventData : public EventData
 
 struct TrackerEventData : public EventData
 {
+	TrackerEventData() = default;
 	TrackerEventData(std::string targetPlayer, int changeValue) :
 		targetPlayer{ targetPlayer },
 		changeValue{ changeValue } 
