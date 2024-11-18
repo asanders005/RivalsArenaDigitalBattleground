@@ -40,9 +40,9 @@ void DeckComponent::ShuffleDraw()
 
 void DeckComponent::OnDraw(const Event& event)
 {
-	if (auto data = dynamic_cast<TargetEventData*>(event.data))
+	if (auto data = dynamic_cast<StringEventData*>(event.data))
 	{
-		if (owner->GetComponent<PlayerComponent>()->playerID == data->targetPlayer)
+		if (owner->GetComponent<PlayerComponent>()->playerID == data->string)
 		{
 
 			int currentCard = m_cardsInHand + 1;
@@ -57,6 +57,7 @@ void DeckComponent::OnDraw(const Event& event)
 				card->transform.position = { Vector2{ i * 180.0f + 70, 600.0f } };
 				owner->scene->AddActor(std::move(card), true);
 				currentCard++;
+				std::cout << "Drawing Card: " << cardName << std::endl;
 			}
 			m_cardsInHand = 5;
 		}
@@ -85,13 +86,13 @@ void DeckComponent::OnDiscard(const Event& event)
 			{
 				std::cout << "Card: " << cardName << " is not in hand\n";
 			}
-			if (m_cardsInHand == 0) EVENT_NOTIFY_DATA(DrawCards, new TargetEventData(owner->GetComponent<PlayerComponent>()->playerID));
+			if (m_cardsInHand == 0) EVENT_NOTIFY_DATA(DrawCards, new StringEventData(owner->GetComponent<PlayerComponent>()->playerID));
 		}
 
-		for (auto card : m_discard)
+		/*for (auto card : m_discard)
 		{
 			std::cout << card << std::endl;
-		}
+		}*/
 		//}
 		delete data;
 	}

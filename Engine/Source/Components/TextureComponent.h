@@ -12,6 +12,8 @@ public:
 	void Update(float dt) override;
 	void Draw(Renderer& renderer) override;
 
+	void UpdateTexture(const std::string& textureName);
+
 public:
 	std::string textureName;
 	Rect source;

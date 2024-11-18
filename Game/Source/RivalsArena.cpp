@@ -28,6 +28,7 @@ bool RivalsArena::Initialize()
 	m_pauseText->Initialize();*/
 
 	//ADD_OBSERVER(CardPlayed, RivalsArena::OnCardPlay);
+	ADD_OBSERVER(CheckCard, RivalsArena::OnCheckCard);
 
 	return true;
 }
@@ -50,7 +51,7 @@ void RivalsArena::Update(float dt)
 
 		for (auto& player : m_players)
 		{
-			EVENT_NOTIFY_DATA(DrawCards, new TargetEventData{ player });
+			EVENT_NOTIFY_DATA(DrawCards, new StringEventData{ player });
 		}
 		m_state = RivalsArena::eState::UPKEEP;
 		break;
@@ -75,6 +76,11 @@ void RivalsArena::Update(float dt)
 void RivalsArena::Draw(Renderer& renderer)
 {
 	m_scene->Draw(renderer);
+}
+
+void RivalsArena::OnCheckCard(const Event& event)
+{
+
 }
 
 void RivalsArena::CreatePlayer(const std::string& playerID)

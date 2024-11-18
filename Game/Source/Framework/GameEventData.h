@@ -3,23 +3,23 @@
 
 #include <string>
 
-struct TargetEventData : public EventData
+struct StringEventData : public EventData
 {
-	TargetEventData() = default;
-	TargetEventData(const std::string& targetPlayer) : targetPlayer{ targetPlayer } {}
+	StringEventData() = default;
+	StringEventData(const std::string& string) : string{ string } {}
 
-	std::string targetPlayer;
+	std::string string;
 };
 
 struct CardNameEventData : public EventData
 {
 	CardNameEventData() = default;
-	CardNameEventData(const std::string& cardName, const std::string& targetPlayer) :
-		cardName{ cardName },
-		targetPlayer{ targetPlayer }
+	CardNameEventData(const std::string& cardID, const std::string& cardName) :
+		cardID{ cardID },
+		cardName{ cardName } 
 	{}
 
-	std::string targetPlayer;
+	std::string cardID;
 	std::string cardName;
 };
 

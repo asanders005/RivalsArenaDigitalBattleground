@@ -33,6 +33,24 @@ void TextureComponent::Draw(Renderer& renderer)
 	if (isActive) renderer.DrawTexture(texture, transform, source, hflip);
 }
 
+void TextureComponent::UpdateTexture(const std::string& txName)
+{
+	textureName = txName;
+
+	if (!textureName.empty())
+	{
+		texture = ResourceManager::Instance().Get<Texture>(textureName, owner->scene->engine->GetRenderer());
+	}
+
+	if (texture && source.w == 0 && source.h == 0)
+	{
+		source.x = 0;
+		source.y = 0;
+		source.w = (int)texture->GetSize().x;
+		source.h = (int)texture->GetSize().y;
+	}
+}
+
 void TextureComponent::Read(const json_t& value)
 {
 	READ_DATA(value, textureName);

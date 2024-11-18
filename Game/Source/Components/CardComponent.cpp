@@ -4,6 +4,8 @@
 #include "Components/TextureComponent.h"
 #include "Engine.h"
 
+#include <iostream>
+
 FACTORY_REGISTER(CardComponent);
 
 void CardComponent::Initialize()
@@ -13,6 +15,7 @@ void CardComponent::Initialize()
 
 void CardComponent::Play()
 {
+	std::cout << "Playing Card: " << m_cardName << std::endl;
 	if (!m_defensive) {
 		// choose between players to play against
 	}
