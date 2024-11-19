@@ -8,30 +8,13 @@ FACTORY_REGISTER(CardComponent);
 
 void CardComponent::Initialize()
 {
-  
-}
-
-void CardComponent::Play()
-{
-	if (!m_defensive) {
-		// choose between players to play against
-	}
-	// else m_targetplayer = the player
-
-	if (m_cooldownTimer == 0)
-	{
-		m_cooldownTimer = m_cooldown;
-	}
-	if (m_tier != CardTier::HERO)
-	{
-		EVENT_NOTIFY_DATA(DiscardCard, new CardNameEventData(m_cardName, m_targetPlayer));
-		owner->isDestroyed = true;
-	}
+	ADD_OBSERVER(PlayCard, CardComponent::OnPlay);
+	ADD_OBSERVER(TryDiscardCard, CardComponent::OnDiscard);
 }
 
 void CardComponent::Update(float dt)
 {
-	if (owner->scene->engine->GetInput().GetMouseButtonPressed(0))
+	if (owner->scene->engine->GetInput().GetMouseButtonPressed(0) && !owner->scene->engine->GetInput().GetPrevMouseButtonDown(0))
 	{
 		bool isHoveringOverCard = true;
 		TextureComponent* textureComponent = owner->GetComponent<TextureComponent>();
@@ -48,7 +31,7 @@ void CardComponent::Update(float dt)
 
 		if (isHoveringOverCard)
 		{
-			Play();
+			EVENT_NOTIFY_DATA(TryPlayCard, new CardPhaseInfoEventData(m_cardID, m_phase));
 		}
 	}
 }
@@ -81,4 +64,48 @@ void CardComponent::Read(const json_t& value)
 void CardComponent::Write(json_t& value)
 {
 	//
+}
+
+void CardComponent::OnPlay(const Event& event)
+{
+	if (auto data = dynamic_cast<CardIDEventData*>(event.data))
+	{
+		if (m_cardID == data->cardID)
+		{
+			if (!m_defensive) {
+				// choose between players to play against
+			}
+			// else m_targetplayer = the player
+
+			if (m_cooldownTimer == 0)
+			{
+				m_cooldownTimer = m_cooldown;
+			}
+
+			Ability();
+			DiscardCard();
+		}
+		delete data;
+	}
+}
+
+void CardComponent::OnDiscard(const Event& event)
+{
+	if (auto data = dynamic_cast<CardIDEventData*>(event.data))
+	{
+		if (m_cardID == data->cardID)
+		{
+			DiscardCard();
+		}
+		delete data;
+	}
+}
+
+void CardComponent::DiscardCard()
+{
+	if (m_tier != CardTier::HERO)
+	{
+		EVENT_NOTIFY_DATA(DiscardCard, new CardNameEventData(m_cardName, m_targetPlayer, m_deckID));
+		owner->isDestroyed = true;
+	}
 }

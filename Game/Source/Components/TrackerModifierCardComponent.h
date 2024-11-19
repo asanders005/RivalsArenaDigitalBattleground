@@ -18,16 +18,12 @@ public:
 		GIMMICK
 	};
 
-	void Play() override;
+	void Ability() override;
+	void Initialize() override;
+	void Update(float dt) override;
 
 private:
 	Tracker m_tracker = Tracker::HEALTH;
 	int m_changeAmount = 0;
-
-
-	// Inherited via CardComponent
-	void Initialize() override;
-
-	void Update(float dt) override;
 
 };

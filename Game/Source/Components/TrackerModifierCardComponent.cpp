@@ -1,6 +1,6 @@
 #include "TrackerModifierCardComponent.h"
 
-void TrackerModifierCardComponent::Play()
+void TrackerModifierCardComponent::Ability()
 {
 	switch (m_tracker)
 	{
@@ -25,7 +25,6 @@ void TrackerModifierCardComponent::Play()
 		break;
 	}
 	}
-	CardComponent::Play();
 }
 
 void TrackerModifierCardComponent::Read(const json_t& value)
