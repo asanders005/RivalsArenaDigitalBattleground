@@ -75,7 +75,10 @@ void CardComponent::OnPlay(const Event& event)
 			if (!m_defensive) {
 				// choose between players to play against
 			}
-			// else m_targetplayer = the player
+			else 
+			{
+				m_targetPlayer = m_deckID;
+			}
 
 			if (m_cooldownTimer == 0)
 			{
@@ -83,7 +86,6 @@ void CardComponent::OnPlay(const Event& event)
 			}
 
 			Ability();
-			DiscardCard();
 		}
 		delete data;
 	}

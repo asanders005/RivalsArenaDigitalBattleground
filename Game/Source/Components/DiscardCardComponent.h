@@ -25,7 +25,8 @@ private:
 	int m_minDiscard = 0;
 	int m_maxDiscard = 0;
 	int m_defaultPointsAwarded = 0;
-	std::vector<PointsAwardedPerCard> specialPoints;
+	std::vector<PointsAwardedPerCard> m_specialPoints;
+	TrackerModifierCardComponent::Tracker m_trackerAddedTo = TrackerModifierCardComponent::Tracker::XP;
 
 	void OnOtherCardDiscard(const Event& event);
 

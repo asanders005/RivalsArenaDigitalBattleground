@@ -25,6 +25,8 @@ void TrackerModifierCardComponent::Ability()
 		break;
 	}
 	}
+
+	DiscardCard();
 }
 
 void TrackerModifierCardComponent::Read(const json_t& value)
