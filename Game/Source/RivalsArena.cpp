@@ -88,7 +88,7 @@ void RivalsArena::CreatePlayer(const std::string& playerID)
 	auto player = Factory::Instance().Create<Actor>("player");
 	player->GetComponent<PlayerComponent>()->playerID = playerID;
 
-	std::unique_ptr<Component> deck = std::make_unique<DeckComponent>();
+	std::unique_ptr<Component> deck = std::make_unique<DeckComponent>(playerID);
 	rapidjson::Document document;
 	Json::Load("JSON/Decks/FNAF/Deck.json", document);
 	deck->Read(document);

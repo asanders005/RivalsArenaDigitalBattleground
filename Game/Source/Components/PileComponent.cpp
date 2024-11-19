@@ -33,9 +33,20 @@ void PileComponent::Update(float dt)
 	}
 }
 
+void PileComponent::UpdateTexture(const std::string& textureName)
+{
+	owner->GetComponent<TextureComponent>()->UpdateTexture(textureName);
+}
+
 void PileComponent::OnUpdateTexture(const Event& event)
 {
-	// Use texture.UpdateTexture() to change image on pile when a card is discarded, bought, etc.
+	if (auto data = dynamic_cast<PileTextureUpdateEventData*>(event.data))
+	{
+		if (data->targetPlayer == m_playerID && data->targetPile == m_name)
+		{
+			owner->GetComponent<TextureComponent>()->UpdateTexture(data->textureName);
+		}
+	}
 }
 
 void PileComponent::Read(const json_t& value)
@@ -45,4 +56,5 @@ void PileComponent::Read(const json_t& value)
 
 void PileComponent::Write(json_t& value)
 {
+	//
 }
