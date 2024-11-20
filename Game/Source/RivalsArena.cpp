@@ -51,7 +51,7 @@ void RivalsArena::Update(float dt)
 
 		for (auto& player : m_players)
 		{
-			EVENT_NOTIFY_DATA(DrawCards, new StringEventData{ player });
+			EVENT_NOTIFY_DATA(DrawCard, new StringEventData{ player });
 		}
 		m_state = RivalsArena::eState::UPKEEP;
 		break;
@@ -85,14 +85,16 @@ void RivalsArena::OnCheckCard(const Event& event)
 
 void RivalsArena::CreatePlayer(const std::string& playerID)
 {
-	auto player = Factory::Instance().Create<Actor>("player");
-	player->GetComponent<PlayerComponent>()->playerID = playerID;
+	if (auto player = Factory::Instance().Create<Actor>("player"))
+	{
+		player->GetComponent<PlayerComponent>()->playerID = playerID;
 
-	std::unique_ptr<Component> deck = std::make_unique<DeckComponent>(playerID);
-	rapidjson::Document document;
-	Json::Load("JSON/Decks/FNAF/Deck.json", document);
-	deck->Read(document);
-	player->AddComponent(std::move(deck));
+		std::unique_ptr<Component> deck = std::make_unique<DeckComponent>(playerID);
+		rapidjson::Document document;
+		Json::Load("JSON/Decks/FNAF/Deck.json", document);
+		deck->Read(document);
+		player->AddComponent(std::move(deck));
 
-	m_scene->AddActor(std::move(player), true);
+		m_scene->AddActor(std::move(player), true);
+	}
 }

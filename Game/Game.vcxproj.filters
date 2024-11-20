@@ -52,14 +52,14 @@
     <None Include="cpp.hint">
       <Filter>Source</Filter>
     </None>
-    <None Include="Build\Assets\JSON\Initialize.json">
-      <Filter>Resource Files\JSON</Filter>
-    </None>
     <None Include="..\Build\Assets\JSON\Decks\FNAF\Cards.json">
       <Filter>Resource Files\JSON\Decks\FNAF</Filter>
     </None>
     <None Include="..\Build\Assets\JSON\Decks\FNAF\Deck.json">
       <Filter>Resource Files\JSON\Decks\FNAF</Filter>
+    </None>
+    <None Include="..\Build\Assets\JSON\Initialize.json">
+      <Filter>Resource Files\JSON</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

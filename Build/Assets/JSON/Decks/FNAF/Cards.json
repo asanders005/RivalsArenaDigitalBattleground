@@ -58,7 +58,7 @@
       ]
     },
     {
-      "name": "Freddys Pizza",
+      "name": "Freddys_Pizza",
       "tag": "card",
       "prototype": true,
       "transform": {
@@ -96,7 +96,7 @@
       ]
     },
     {
-      "name": "Midnight Motorist",
+      "name": "Midnight_Motorist",
       "tag": "card",
       "prototype": true,
       "transform": {
@@ -115,7 +115,7 @@
       ]
     },
     {
-      "name": "Freddy Fazbear",
+      "name": "Freddy_Fazbear",
       "tag": "card",
       "prototype": true,
       "transform": {

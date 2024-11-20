@@ -36,6 +36,18 @@ public:
 private:
 	void ShuffleDraw();
 
+	void DisplayPile(const std::string& pile);
+	void UpdateDisplayPile(int index);
+
+private:
+	enum class DisplayingPile
+	{
+		NONE,
+		DISCARD,
+		CONSUMABLE,
+		HERO
+	};
+
 private:
 	std::string m_deckID;
 	std::string m_deckName;
@@ -48,6 +60,8 @@ private:
 	std::list<std::string> m_heroes;
 	std::list<std::string> m_upgradesConsumable;
 	std::list<std::string> m_upgradesHeroes;
+
+	DisplayingPile m_displayingPile = DisplayingPile::NONE;
 
 	std::default_random_engine m_rng = std::default_random_engine{ (unsigned int)time(0) };
 };

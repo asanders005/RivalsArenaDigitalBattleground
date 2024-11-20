@@ -179,7 +179,7 @@
   <ItemGroup>
     <None Include="..\Build\Assets\JSON\Decks\FNAF\Cards.json" />
     <None Include="..\Build\Assets\JSON\Decks\FNAF\Deck.json" />
-    <None Include="Build\Assets\JSON\Initialize.json" />
+    <None Include="..\Build\Assets\JSON\Initialize.json" />
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>

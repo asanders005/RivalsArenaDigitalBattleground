@@ -2,6 +2,8 @@
 #include "Engine.h"
 #include "Framework/GameEventData.h"
 
+FACTORY_REGISTER(PileComponent);
+
 void PileComponent::Initialize()
 {
 	ADD_OBSERVER(UpdatePileTexture, PileComponent::OnUpdateTexture);
@@ -24,7 +26,7 @@ void PileComponent::Update(float dt)
 			{
 				return;
 			}
-			EVENT_NOTIFY_DATA(DisplayPile, new StringEventData{ m_name });	
+			EVENT_NOTIFY_DATA(DisplayPile, new PlayerStringEventData(m_playerID, m_name));
 		}
 		else
 		{
@@ -51,7 +53,7 @@ void PileComponent::OnUpdateTexture(const Event& event)
 
 void PileComponent::Read(const json_t& value)
 {
-	READ_DATA_NAME(value, "Pile_Name", m_name);
+	//READ_DATA_NAME(value, "Pile_Name", m_name);
 }
 
 void PileComponent::Write(json_t& value)
