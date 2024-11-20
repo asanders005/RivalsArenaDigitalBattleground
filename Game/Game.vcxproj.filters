@@ -45,7 +45,13 @@
       <Filter>Source\Components</Filter>
     </ClCompile>
     <ClCompile Include="Source\Components\DiscardCardComponent.cpp">
-      <Filter>Source</Filter>
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\IncomingDamageCardComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\DrawCardComponent.cpp">
+      <Filter>Source\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +91,12 @@
       <Filter>Source\Components</Filter>
     </ClInclude>
     <ClInclude Include="Source\Components\DiscardCardComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\IncomingDamageCardComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\DrawCardComponent.h">
       <Filter>Source\Components</Filter>
     </ClInclude>
   </ItemGroup>

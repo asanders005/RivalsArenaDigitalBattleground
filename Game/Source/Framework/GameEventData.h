@@ -1,6 +1,7 @@
 #pragma once
 #include "Event/EventData.h"
 #include "../Components/CardComponent.h"
+#include "../Components/TrackerModifierCardComponent.h"
 
 #include <string>
 
@@ -47,13 +48,36 @@ struct CardBuyEventData : public EventData
 
 struct TrackerEventData : public EventData
 {
-	TrackerEventData(std::string targetPlayer, int changeValue) :
+	TrackerEventData(std::string targetPlayer, int changeValue, bool roundUp = false) :
 		targetPlayer{ targetPlayer },
-		changeValue{ changeValue } 
+		changeValue{ (float) changeValue },
+		roundUp{ roundUp }
+	{}
+
+	TrackerEventData(std::string targetPlayer, float changeValue, bool roundUp = false) :
+		targetPlayer{ targetPlayer },
+		changeValue{ changeValue },
+		roundUp{ roundUp }
 	{}
 
 	std::string targetPlayer;
-	int changeValue = 0;
+	float changeValue = 0;
+	bool roundUp = false;
+};
+
+struct PointSpendingQueryEventData : public EventData
+{
+	PointSpendingQueryEventData(std::string targetPlayer, std::string cardID, int changeValue, TrackerModifierCardComponent::Tracker trackerModifying) :
+		targetPlayer{ targetPlayer },
+		cardID{ cardID },
+		changeValue{ changeValue },
+		trackerModifying{ trackerModifying }
+	{}
+
+	std::string targetPlayer;
+	std::string cardID;
+	int changeValue;
+	TrackerModifierCardComponent::Tracker trackerModifying;
 };
 
 struct CardPhaseInfoEventData : public EventData

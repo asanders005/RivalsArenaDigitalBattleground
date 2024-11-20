@@ -2,7 +2,6 @@
 #include "CardComponent.h"
 #include "../Framework/GameEventData.h"
 #include "Event/EventManager.h"
-#include "TrackerModifierCardComponent.h"
 
 
 class DiscardCardComponent : public CardComponent
@@ -26,11 +25,9 @@ private:
 	int m_maxDiscard = 0;
 	int m_defaultPointsAwarded = 0;
 	std::vector<PointsAwardedPerCard> m_specialPoints;
-	TrackerModifierCardComponent::Tracker m_trackerAddedTo = TrackerModifierCardComponent::Tracker::XP;
+	Tracker m_trackerAddedTo = Tracker::XP;
 
 	void OnOtherCardDiscard(const Event& event);
-
-	// Inherited via CardComponent
 
 };
 

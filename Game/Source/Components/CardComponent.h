@@ -34,6 +34,14 @@ public:
 		REACTION,
 	};
 
+	enum class Tracker
+	{
+		HEALTH,
+		XP,
+		HERO_XP,
+		GIMMICK
+	};
+
 	void Initialize() override;
 
 

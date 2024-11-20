@@ -1,0 +1,96 @@
+#include "IncomingDamageCardComponent.h"
+
+void IncomingDamageCardComponent::Initialize()
+{
+	ADD_OBSERVER(PlayConfirmation, IncomingDamageCardComponent::OnPlayConfirmation);
+}
+
+void IncomingDamageCardComponent::Ability()
+{
+	m_points = 0;
+	m_modification = m_baseModificationAmount;
+	if (m_maxPointsSpent == m_minPointsSpent) m_points = m_maxPointsSpent;
+	else
+	{
+		// Prompt the player for amount of points to spend
+		m_modification += (m_points * m_modificationPerPointSpent);
+	}
+
+	if (m_modification == 0) return;
+
+	if (m_points == 0) AbilityFunctionality();
+	else EVENT_NOTIFY_DATA(TrySpendPoints, new PointSpendingQueryEventData(m_deckID, m_cardID, -m_points, m_trackerSpent));
+}
+
+void IncomingDamageCardComponent::OnPlayConfirmation(const Event& event)
+{
+	if (auto data = dynamic_cast<CardIDEventData*>(event.data))
+	{
+		if (m_cardID == data->cardID)
+		{
+			AbilityFunctionality();
+		}
+	}
+}
+
+void IncomingDamageCardComponent::AbilityFunctionality()
+{
+	if (m_multiply) EVENT_NOTIFY_DATA(MultiplyIncomingDamage, new TrackerEventData(m_deckID, m_modification, m_roundUp));
+	else EVENT_NOTIFY_DATA(AddIncomingDamage, new TrackerEventData(m_deckID, m_modification));
+
+	switch (m_trackerSpent)
+	{
+	case Tracker::HEALTH:
+	{
+		EVENT_NOTIFY_DATA(ModifyHealth, new TrackerEventData(m_deckID, -m_points));
+		break;
+	}
+	case Tracker::XP:
+	{
+		EVENT_NOTIFY_DATA(ModifyXP, new TrackerEventData(m_deckID, -m_points));
+		break;
+	}
+	case Tracker::HERO_XP:
+	{
+		EVENT_NOTIFY_DATA(ModifyHeroXP, new TrackerEventData(m_deckID, -m_points));
+		break;
+	}
+	default:
+	{
+		EVENT_NOTIFY_DATA(ModifyGimmick, new TrackerEventData(m_deckID, -m_points));
+		break;
+	}
+	}
+
+	DiscardCard();
+}
+
+void IncomingDamageCardComponent::Update(float dt)
+{
+}
+
+void IncomingDamageCardComponent::Initialize()
+{
+}
+
+void IncomingDamageCardComponent::Read(const json_t& value)
+{
+	READ_DATA_NAME(value, "baseModificationAmount", m_baseModificationAmount);
+	READ_DATA_NAME(value, "multiply", m_multiply);
+	READ_DATA_NAME(value, "roundUp", m_roundUp);
+	READ_DATA_NAME(value, "maxPointsSpent", m_maxPointsSpent);
+	READ_DATA_NAME(value, "minPointsSpent", m_minPointsSpent);
+	READ_DATA_NAME(value, "modificationPerPoint", m_modificationPerPointSpent);
+
+	std::string tracker = "";
+	READ_DATA_NAME(value, "Tracker", tracker);
+
+	if (tracker == "XP") m_trackerSpent = Tracker::XP;
+	else if (tracker == "HERO_XP") m_trackerSpent = Tracker::HERO_XP;
+	else if (tracker == "HEALTH") m_trackerSpent = Tracker::HEALTH;
+	else m_trackerSpent = Tracker::GIMMICK;
+}
+
+void IncomingDamageCardComponent::Write(json_t& value)
+{
+}
