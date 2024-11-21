@@ -1,6 +1,6 @@
 #pragma once
 #include "Event/EventData.h"
-#include "Components/CardComponent.h"
+#include "Components/Cards/CardComponent.h"
 
 #include <string>
 
@@ -39,9 +39,9 @@ struct PileTextureUpdateEventData : public EventData
 struct CardNameEventData : public EventData
 {
 	CardNameEventData() = default;
-	CardNameEventData(const std::string& cardName, const std::string& targetPlayer, const std::string& deckID) :
+	CardNameEventData(const std::string& cardID, const std::string& cardName, const std::string& deckID) :
+		cardID{ cardID },
 		cardName{ cardName },
-		targetPlayer{ targetPlayer },
 		deckID{ deckID }
 	{}
 
@@ -63,10 +63,10 @@ struct CardIDEventData : public EventData
 struct CardBuyEventData : public EventData
 {
 	CardBuyEventData() = default;
-	CardBuyEventData(const std::string& cardName /*CardComponent::CardTier cardTier*/) : cardName{ cardName }/*, cardTier{ cardTier }*/ {}
+	CardBuyEventData(const std::string& cardName /*::CardTier cardTier*/) : cardName{ cardName }/*, cardTier{ cardTier }*/ {}
 
 	std::string cardName;
-	//CardComponent::CardTier cardTier;
+	//CardTier cardTier;
 };
 
 struct TrackerEventData : public EventData
@@ -90,7 +90,7 @@ struct TrackerEventData : public EventData
 
 struct PointSpendingQueryEventData : public EventData
 {
-	PointSpendingQueryEventData(std::string targetPlayer, std::string cardID, int changeValue, CardComponent::Tracker trackerModifying) :
+	PointSpendingQueryEventData(std::string targetPlayer, std::string cardID, int changeValue, CardEnums::Tracker trackerModifying) :
 		targetPlayer{ targetPlayer },
 		cardID{ cardID },
 		changeValue{ changeValue },
@@ -100,13 +100,13 @@ struct PointSpendingQueryEventData : public EventData
 	std::string targetPlayer;
 	std::string cardID;
 	int changeValue;
-	CardComponent::Tracker trackerModifying;
+	CardEnums::Tracker trackerModifying;
 };
 
 struct CardPhaseInfoEventData : public EventData
 {
 	CardPhaseInfoEventData() = default;
-	CardPhaseInfoEventData(const std::string& cardId, const CardComponent::PlayPhase& playPhase) :
+	CardPhaseInfoEventData(const std::string& cardId, const CardEnums::PlayPhase& playPhase) :
 		cardId{ cardId },
 		deckId{ deckId }
 	{}

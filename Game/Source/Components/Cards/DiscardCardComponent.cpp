@@ -1,5 +1,6 @@
 #include "DiscardCardComponent.h"
 #include "Engine.h"
+#include "Framework/GameEventData.h"
 
 void DiscardCardComponent::Initialize()
 {
@@ -31,17 +32,17 @@ void DiscardCardComponent::OnOtherCardDiscard(const Event& event)
 
 			switch (m_trackerAddedTo)
 			{
-			case TrackerModifierCardComponent::Tracker::HEALTH:
+			case CardEnums::Tracker::HEALTH:
 			{
 				EVENT_NOTIFY_DATA(ModifyHealth, new TrackerEventData(m_deckID, pointsAdded));
 				break;
 			}
-			case TrackerModifierCardComponent::Tracker::GIMMICK:
+			case CardEnums::Tracker::GIMMICK:
 			{
 				EVENT_NOTIFY_DATA(ModifyGimmick, new TrackerEventData(m_deckID, pointsAdded));
 				break;
 			}
-			case TrackerModifierCardComponent::Tracker::HERO_XP:
+			case CardEnums::Tracker::HERO_XP:
 			{
 				EVENT_NOTIFY_DATA(ModifyHeroXP, new TrackerEventData(m_deckID, pointsAdded));
 				break;

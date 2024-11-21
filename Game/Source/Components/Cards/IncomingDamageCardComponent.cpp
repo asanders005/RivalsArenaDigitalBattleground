@@ -1,4 +1,7 @@
 #include "IncomingDamageCardComponent.h"
+#include "Framework/GameEventData.h"
+
+FACTORY_REGISTER(IncomingDamageCardComponent);
 
 void IncomingDamageCardComponent::Initialize()
 {
@@ -40,17 +43,17 @@ void IncomingDamageCardComponent::AbilityFunctionality()
 
 	switch (m_trackerSpent)
 	{
-	case Tracker::HEALTH:
+	case CardEnums::Tracker::HEALTH:
 	{
 		EVENT_NOTIFY_DATA(ModifyHealth, new TrackerEventData(m_deckID, -m_points));
 		break;
 	}
-	case Tracker::XP:
+	case CardEnums::Tracker::XP:
 	{
 		EVENT_NOTIFY_DATA(ModifyXP, new TrackerEventData(m_deckID, -m_points));
 		break;
 	}
-	case Tracker::HERO_XP:
+	case CardEnums::Tracker::HERO_XP:
 	{
 		EVENT_NOTIFY_DATA(ModifyHeroXP, new TrackerEventData(m_deckID, -m_points));
 		break;
@@ -69,10 +72,6 @@ void IncomingDamageCardComponent::Update(float dt)
 {
 }
 
-void IncomingDamageCardComponent::Initialize()
-{
-}
-
 void IncomingDamageCardComponent::Read(const json_t& value)
 {
 	READ_DATA_NAME(value, "BaseModificationAmount", m_baseModificationAmount);
@@ -85,10 +84,10 @@ void IncomingDamageCardComponent::Read(const json_t& value)
 	std::string tracker = "";
 	READ_DATA_NAME(value, "Tracker", tracker);
 
-	if (tracker == "XP") m_trackerSpent = Tracker::XP;
-	else if (tracker == "HERO_XP") m_trackerSpent = Tracker::HERO_XP;
-	else if (tracker == "HEALTH") m_trackerSpent = Tracker::HEALTH;
-	else m_trackerSpent = Tracker::GIMMICK;
+	if (tracker == "XP") m_trackerSpent = CardEnums::Tracker::XP;
+	else if (tracker == "HERO_XP") m_trackerSpent = CardEnums::Tracker::HERO_XP;
+	else if (tracker == "HEALTH") m_trackerSpent = CardEnums::Tracker::HEALTH;
+	else m_trackerSpent = CardEnums::Tracker::GIMMICK;
 }
 
 void IncomingDamageCardComponent::Write(json_t& value)

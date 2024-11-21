@@ -15,7 +15,7 @@ private:
 	int m_pointCostPerCard = 0;
 	int m_minCardsDrawn = 0;
 	int m_maxCardsDrawn = 0;
-	Tracker m_trackerSpent = Tracker::GIMMICK;
+	CardEnums::Tracker m_trackerSpent = CardEnums::Tracker::GIMMICK;
 
 	int m_points;
 	int m_cardsDrawing;

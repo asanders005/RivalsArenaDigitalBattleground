@@ -1,6 +1,5 @@
 #pragma once
 #include "CardComponent.h"
-#include "../Framework/GameEventData.h"
 #include "Event/EventManager.h"
 
 
@@ -25,7 +24,7 @@ private:
 	int m_maxDiscard = 0;
 	int m_defaultPointsAwarded = 0;
 	std::vector<PointsAwardedPerCard> m_specialPoints;
-	Tracker m_trackerAddedTo = Tracker::XP;
+	CardEnums::Tracker m_trackerAddedTo = CardEnums::Tracker::XP;
 
 	void OnOtherCardDiscard(const Event& event);
 

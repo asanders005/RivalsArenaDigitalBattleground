@@ -1,8 +1,8 @@
 #include "DeckComponent.h"
 #include "Engine.h"
 #include "Framework/GameEventData.h"
-#include "Components/PlayerComponent.h"
-#include "Components/PileComponent.h"
+#include "Components/Players/PlayerComponent.h"
+#include "Components/UI/PileComponent.h"
 
 #include <algorithm>
 #include <iostream>

@@ -1,6 +1,5 @@
 #pragma once
 #include "CardComponent.h"
-#include "../Framework/GameEventData.h"
 #include "Event/EventManager.h"
 
 class IncomingDamageCardComponent : public CardComponent
@@ -20,7 +19,7 @@ private:
 	int m_maxPointsSpent = 0;
 	int m_minPointsSpent = 0;
 	float m_modificationPerPointSpent = 0;
-	Tracker m_trackerSpent = Tracker::GIMMICK;
+	CardEnums::Tracker m_trackerSpent = CardEnums::Tracker::GIMMICK;
 
 	int m_points;
 	float m_modification;

@@ -1,22 +1,10 @@
 #pragma once
 #include "Components/Component.h"
-#include "../Framework/GameEventData.h"
 #include "Event/EventManager.h"
 #include <string>
 
-class CardComponent : public Component, public Observer
+namespace CardEnums
 {
-public:
-	CLASS_DECLARATION(CardComponent)
-	CLASS_PROTOTYPE(CardComponent)
-
-	void OnPlay(const Event& event);
-	void OnDiscard(const Event& event);
-
-	virtual void Ability() = 0;
-
-	CardComponent(std::string deckID, std::string cardID) : m_deckID{ deckID }, m_cardID{ cardID } {};
-
 	enum class CardTier : char
 	{
 		STARTER,
@@ -41,6 +29,20 @@ public:
 		HERO_XP,
 		GIMMICK
 	};
+}
+
+class CardComponent : public Component, public Observer
+{
+public:
+	CLASS_DECLARATION(CardComponent)
+
+	void OnPlay(const Event& event);
+	void OnDiscard(const Event& event);
+
+	virtual void Ability() = 0;
+
+	CardComponent() = default;
+	CardComponent(std::string deckID, std::string cardID) : m_deckID{ deckID }, m_cardID{ cardID } {};
 
 	void Initialize() override;
 
@@ -61,8 +63,8 @@ protected:
 	std::string m_cardID;
 
 
-	CardTier m_tier = CardTier::STARTER;
-	PlayPhase m_phase = PlayPhase::TURN;
+	CardEnums::CardTier m_tier = CardEnums::CardTier::STARTER;
+	CardEnums::PlayPhase m_phase = CardEnums::PlayPhase::TURN;
 
 
 };

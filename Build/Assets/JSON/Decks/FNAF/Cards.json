@@ -13,7 +13,7 @@
           "textureName": "Textures/Decks/FNAF/Springlock.png"
         },
         {
-          "type": "CardComponent",
+          "type": "TrackerModifierCardComponent",
           "name": "Springlock",
           "cardTier": "Starter"
         }
@@ -32,7 +32,7 @@
           "textureName": "Textures/Decks/FNAF/Saferoom.png"
         },
         {
-          "type": "CardComponent",
+          "type": "IncomingDamageCardComponent",
           "name": "Saferoom",
           "cardTier": "Starter"
         }
@@ -51,7 +51,7 @@
           "textureName": "Textures/Decks/FNAF/Fire.png"
         },
         {
-          "type": "CardComponent",
+          "type": "TrackerModifierCardComponent",
           "name": "Fire",
           "cardTier": "Tier_1"
         }
@@ -70,7 +70,7 @@
           "textureName": "Textures/Decks/FNAF/Freddy_Fazbear's_Pizza.png"
         },
         {
-          "type": "CardComponent",
+          "type": "TrackerModifierCardComponent",
           "name": "Freddys Pizza",
           "cardTier": "Tier_1"
         }
@@ -89,7 +89,7 @@
           "textureName": "Textures/Decks/FNAF/S.C.U.P.R..png"
         },
         {
-          "type": "CardComponent",
+          "type": "TrackerModifierCardComponent",
           "name": "S.C.U.P.R.",
           "cardTier": "Tier_2"
         }
@@ -108,7 +108,7 @@
           "textureName": "Textures/Decks/FNAF/Midnight_Motorist.png"
         },
         {
-          "type": "CardComponent",
+          "type": "TrackerModifierCardComponent",
           "name": "Midnight Motorist",
           "cardTier": "Tier_2"
         }
@@ -127,7 +127,7 @@
           "textureName": "Textures/Decks/FNAF/Freddy_Fazbear.png"
         },
         {
-          "type": "CardComponent",
+          "type": "TrackerModifierCardComponent",
           "name": "Freddy Fazbear",
           "cardTier": "Hero"
         }
@@ -146,7 +146,7 @@
           "textureName": "Textures/Decks/FNAF/Springtrap.png"
         },
         {
-          "type": "CardComponent",
+          "type": "TrackerModifierCardComponent",
           "name": "Springtrap",
           "cardTier": "Hero"
         }

@@ -1,20 +1,23 @@
 #include "TrackerModifierCardComponent.h"
+#include "Framework/GameEventData.h"
+
+FACTORY_REGISTER(TrackerModifierCardComponent);
 
 void TrackerModifierCardComponent::Ability()
 {
 	switch (m_tracker)
 	{
-	case Tracker::HEALTH:
+	case CardEnums::Tracker::HEALTH:
 	{
 		EVENT_NOTIFY_DATA(ModifyHealth, new TrackerEventData(m_targetPlayer, m_changeAmount));
 		break;
 	}
-	case Tracker::XP:
+	case CardEnums::Tracker::XP:
 	{
 		EVENT_NOTIFY_DATA(ModifyXP, new TrackerEventData(m_targetPlayer, m_changeAmount));
 		break;
 	}
-	case Tracker::HERO_XP:
+	case CardEnums::Tracker::HERO_XP:
 	{
 		EVENT_NOTIFY_DATA(ModifyHeroXP, new TrackerEventData(m_targetPlayer, m_changeAmount));
 		break;
@@ -38,10 +41,10 @@ void TrackerModifierCardComponent::Read(const json_t& value)
 	std::string tracker = "";
 	READ_DATA_NAME(value, "Tracker", tracker);
 
-	if (tracker == "XP") m_tracker = Tracker::XP;
-	else if (tracker == "HERO_XP") m_tracker = Tracker::HERO_XP;
-	else if (tracker == "GIMMICK") m_tracker = Tracker::GIMMICK;
-	else m_tracker = Tracker::HEALTH;
+	if (tracker == "XP") m_tracker = CardEnums::Tracker::XP;
+	else if (tracker == "HERO_XP") m_tracker = CardEnums::Tracker::HERO_XP;
+	else if (tracker == "GIMMICK") m_tracker = CardEnums::Tracker::GIMMICK;
+	else m_tracker = CardEnums::Tracker::HEALTH;
 }
 
 void TrackerModifierCardComponent::Write(json_t& value)

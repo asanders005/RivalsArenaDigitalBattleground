@@ -2,11 +2,11 @@
 #include "Engine.h"
 
 #include "Framework/GameEventData.h"
-#include "Components/DeckComponent.h"
-#include "Components/PlayerComponent.h"
-#include "Components/CardComponent.h"
-#include "Components/CounterComponent.h"
-#include "Components/TrackerModifierCardComponent.h"
+#include "Components/Players/DeckComponent.h"
+#include "Components/Players/PlayerComponent.h"
+#include "Components/Cards/CardComponent.h"
+#include "Components/Cards/CounterComponent.h"
+#include "Components/Cards/TrackerModifierCardComponent.h"
 
 #include <functional>
 
