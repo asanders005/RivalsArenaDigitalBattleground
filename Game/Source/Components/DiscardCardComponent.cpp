@@ -62,10 +62,10 @@ void DiscardCardComponent::Read(const json_t& value)
 {
 	std::vector<std::string> specialPointsList;
 
-	READ_DATA_NAME(value, "minDiscard", m_minDiscard);
-	READ_DATA_NAME(value, "maxDiscard", m_maxDiscard);
-	READ_DATA_NAME(value, "defaultPointsAwarded", m_defaultPointsAwarded);
-	READ_DATA_NAME(value, "specialPointsList", specialPointsList);
+	READ_DATA_NAME(value, "MinDiscard", m_minDiscard);
+	READ_DATA_NAME(value, "MaxDiscard", m_maxDiscard);
+	READ_DATA_NAME(value, "DefaultPointsAwarded", m_defaultPointsAwarded);
+	READ_DATA_NAME(value, "SpecialPointsList", specialPointsList);
 
 	for (std::string specialCase : specialPointsList)
 	{

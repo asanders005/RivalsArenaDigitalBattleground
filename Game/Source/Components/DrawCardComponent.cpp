@@ -70,9 +70,9 @@ void DrawCardComponent::AbilityFunctionality()
 
 void DrawCardComponent::Read(const json_t& value)
 {
-	READ_DATA_NAME(value, "pointCostPerCard", m_pointCostPerCard);
-	READ_DATA_NAME(value, "minCardsDrawn", m_minCardsDrawn);
-	READ_DATA_NAME(value, "maxCardsDrawn", m_maxCardsDrawn);
+	READ_DATA_NAME(value, "PointCostPerCard", m_pointCostPerCard);
+	READ_DATA_NAME(value, "MinCardsDrawn", m_minCardsDrawn);
+	READ_DATA_NAME(value, "MaxCardsDrawn", m_maxCardsDrawn);
 
 	std::string tracker = "";
 	READ_DATA_NAME(value, "Tracker", tracker);

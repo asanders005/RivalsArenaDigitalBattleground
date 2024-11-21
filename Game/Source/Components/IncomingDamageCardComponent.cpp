@@ -75,12 +75,12 @@ void IncomingDamageCardComponent::Initialize()
 
 void IncomingDamageCardComponent::Read(const json_t& value)
 {
-	READ_DATA_NAME(value, "baseModificationAmount", m_baseModificationAmount);
-	READ_DATA_NAME(value, "multiply", m_multiply);
-	READ_DATA_NAME(value, "roundUp", m_roundUp);
-	READ_DATA_NAME(value, "maxPointsSpent", m_maxPointsSpent);
-	READ_DATA_NAME(value, "minPointsSpent", m_minPointsSpent);
-	READ_DATA_NAME(value, "modificationPerPoint", m_modificationPerPointSpent);
+	READ_DATA_NAME(value, "BaseModificationAmount", m_baseModificationAmount);
+	READ_DATA_NAME(value, "Multiply", m_multiply);
+	READ_DATA_NAME(value, "RoundUp", m_roundUp);
+	READ_DATA_NAME(value, "MaxPointsSpent", m_maxPointsSpent);
+	READ_DATA_NAME(value, "MinPointsSpent", m_minPointsSpent);
+	READ_DATA_NAME(value, "ModificationPerPoint", m_modificationPerPointSpent);
 
 	std::string tracker = "";
 	READ_DATA_NAME(value, "Tracker", tracker);
