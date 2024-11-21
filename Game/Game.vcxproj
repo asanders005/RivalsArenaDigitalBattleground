@@ -165,6 +165,7 @@
   <ItemGroup>
     <ClCompile Include="Source\Components\CardComponent.cpp" />
     <ClCompile Include="Source\Components\DeckComponent.cpp" />
+    <ClCompile Include="Source\Components\DummyCardComponent.cpp" />
     <ClCompile Include="Source\Components\PileComponent.cpp" />
     <ClCompile Include="Source\Components\PlayerComponent.cpp" />
     <ClCompile Include="Source\Components\TrackerModifierCardComponent.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="Source\Components\CardComponent.h" />
     <ClInclude Include="Source\Components\CounterComponent.h" />
     <ClInclude Include="Source\Components\DeckComponent.h" />
+    <ClInclude Include="Source\Components\DummyCardComponent.h" />
     <ClInclude Include="Source\Components\PileComponent.h" />
     <ClInclude Include="Source\Components\TrackerModifierCardComponent.h" />
     <ClInclude Include="Source\Components\PlayerComponent.h" />

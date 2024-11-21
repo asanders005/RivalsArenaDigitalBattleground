@@ -89,6 +89,7 @@ void DeckComponent::DisplayPile(const std::string& pile)
 
 void DeckComponent::UpdateDisplayPile(int index)
 {
+	EVENT_NOTIFY(RefreshPileDisplay);
 	std::vector<std::string> temp;
 	switch (m_displayingPile)
 	{
@@ -101,7 +102,7 @@ void DeckComponent::UpdateDisplayPile(int index)
 				index = (index + 5 > m_discard.size()) ? m_discard.size() - 5 : (index < 0) ? 0 : index;
 				for (; index < index + 5; index++)
 				{
-					auto card = Factory::Instance().Create<Actor>(temp[index]);
+					auto card = Factory::Instance().Create<Actor>(temp[index] + "_Dummy");
 					card->transform.position = { Vector2{ index * 180.0f + 70, 500.0f } };
 					owner->scene->AddActor(std::move(card), true);
 				}
@@ -110,7 +111,7 @@ void DeckComponent::UpdateDisplayPile(int index)
 			{
 				for (int i = 0; i < m_discard.size(); i++)
 				{
-					auto card = Factory::Instance().Create<Actor>(temp[i]);
+					auto card = Factory::Instance().Create<Actor>(temp[i] + "_Dummy");
 					card->transform.position = { Vector2{ i * 180.0f + 70, 500.0f } };
 					owner->scene->AddActor(std::move(card), true);
 				}
@@ -126,7 +127,7 @@ void DeckComponent::UpdateDisplayPile(int index)
 				index = (index + 5 > m_upgradesConsumable.size()) ? m_upgradesConsumable.size() - 5 : (index < 0) ? 0 : index;
 				for (; index < index + 5; index++)
 				{
-					auto card = Factory::Instance().Create<Actor>(temp[index]);
+					auto card = Factory::Instance().Create<Actor>(temp[index] + "_Dummy");
 					card->transform.position = { Vector2{ index * 180.0f + 70, 500.0f } };
 					owner->scene->AddActor(std::move(card), true);
 				}
@@ -135,7 +136,7 @@ void DeckComponent::UpdateDisplayPile(int index)
 			{
 				for (int i = 0; i < m_upgradesConsumable.size(); i++)
 				{
-					auto card = Factory::Instance().Create<Actor>(temp[i]);
+					auto card = Factory::Instance().Create<Actor>(temp[i] + "_Dummy");
 					card->transform.position = { Vector2{ i * 180.0f + 70, 500.0f } };
 					owner->scene->AddActor(std::move(card), true);
 				}
@@ -151,7 +152,7 @@ void DeckComponent::UpdateDisplayPile(int index)
 				index = (index + 5 > m_upgradesHeroes.size()) ? m_upgradesHeroes.size() - 5 : (index < 0) ? 0 : index;
 				for (; index < index + 5; index++)
 				{
-					auto card = Factory::Instance().Create<Actor>(temp[index]);
+					auto card = Factory::Instance().Create<Actor>(temp[index] + "_Dummy");
 					card->transform.position = { Vector2{ index * 180.0f + 70, 500.0f } };
 					owner->scene->AddActor(std::move(card), true);
 				}
@@ -160,7 +161,7 @@ void DeckComponent::UpdateDisplayPile(int index)
 			{
 				for (int i = 0; i < m_upgradesHeroes.size(); i++)
 				{
-					auto card = Factory::Instance().Create<Actor>(temp[i]);
+					auto card = Factory::Instance().Create<Actor>(temp[i] + "_Dummy");
 					card->transform.position = { Vector2{ i * 180.0f + 70, 500.0f } };
 					owner->scene->AddActor(std::move(card), true);
 				}

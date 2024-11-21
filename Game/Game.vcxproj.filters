@@ -47,6 +47,9 @@
     <ClCompile Include="Source\Components\PileComponent.cpp">
       <Filter>Source\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Components\DummyCardComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint">
@@ -85,6 +88,9 @@
       <Filter>Source\Components</Filter>
     </ClInclude>
     <ClInclude Include="Source\Components\PileComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\DummyCardComponent.h">
       <Filter>Source\Components</Filter>
     </ClInclude>
   </ItemGroup>
