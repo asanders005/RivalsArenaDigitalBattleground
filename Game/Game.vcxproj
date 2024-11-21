@@ -163,16 +163,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Components\ButtonComponent.cpp" />
-    <ClCompile Include="Source\Components\CardComponent.cpp" />
-    <ClCompile Include="Source\Components\DeckComponent.cpp" />
-    <ClCompile Include="Source\Components\DummyCardComponent.cpp" />
-    <ClCompile Include="Source\Components\PileComponent.cpp" />
-    <ClCompile Include="Source\Components\DiscardCardComponent.cpp" />
-    <ClCompile Include="Source\Components\DrawCardComponent.cpp" />
-    <ClCompile Include="Source\Components\IncomingDamageCardComponent.cpp" />
-    <ClCompile Include="Source\Components\PlayerComponent.cpp" />
-    <ClCompile Include="Source\Components\TrackerModifierCardComponent.cpp" />
+    <ClCompile Include="Source\Components\Cards\CardComponent.cpp" />
+    <ClCompile Include="Source\Components\Cards\DiscardCardComponent.cpp" />
+    <ClCompile Include="Source\Components\Cards\DrawCardComponent.cpp" />
+    <ClCompile Include="Source\Components\Cards\DummyCardComponent.cpp" />
+    <ClCompile Include="Source\Components\Cards\IncomingDamageCardComponent.cpp" />
+    <ClCompile Include="Source\Components\Cards\TrackerModifierCardComponent.cpp" />
+    <ClCompile Include="Source\Components\Players\DeckComponent.cpp" />
+    <ClCompile Include="Source\Components\Players\PlayerComponent.cpp" />
+    <ClCompile Include="Source\Components\UI\ButtonComponent.cpp" />
+    <ClCompile Include="Source\Components\UI\PileComponent.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\RivalsArena.cpp" />
   </ItemGroup>
@@ -188,17 +188,17 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Components\ButtonComponent.h" />
-    <ClInclude Include="Source\Components\CardComponent.h" />
-    <ClInclude Include="Source\Components\CounterComponent.h" />
-    <ClInclude Include="Source\Components\DeckComponent.h" />
-    <ClInclude Include="Source\Components\DummyCardComponent.h" />
-    <ClInclude Include="Source\Components\PileComponent.h" />
-    <ClInclude Include="Source\Components\DiscardCardComponent.h" />
-    <ClInclude Include="Source\Components\DrawCardComponent.h" />
-    <ClInclude Include="Source\Components\IncomingDamageCardComponent.h" />
-    <ClInclude Include="Source\Components\TrackerModifierCardComponent.h" />
-    <ClInclude Include="Source\Components\PlayerComponent.h" />
+    <ClInclude Include="Source\Components\Cards\CardComponent.h" />
+    <ClInclude Include="Source\Components\Cards\CounterComponent.h" />
+    <ClInclude Include="Source\Components\Cards\DiscardCardComponent.h" />
+    <ClInclude Include="Source\Components\Cards\DrawCardComponent.h" />
+    <ClInclude Include="Source\Components\Cards\DummyCardComponent.h" />
+    <ClInclude Include="Source\Components\Cards\IncomingDamageCardComponent.h" />
+    <ClInclude Include="Source\Components\Cards\TrackerModifierCardComponent.h" />
+    <ClInclude Include="Source\Components\Players\DeckComponent.h" />
+    <ClInclude Include="Source\Components\Players\PlayerComponent.h" />
+    <ClInclude Include="Source\Components\UI\ButtonComponent.h" />
+    <ClInclude Include="Source\Components\UI\PileComponent.h" />
     <ClInclude Include="Source\Framework\GameEventData.h" />
     <ClInclude Include="Source\RivalsArena.h" />
   </ItemGroup>

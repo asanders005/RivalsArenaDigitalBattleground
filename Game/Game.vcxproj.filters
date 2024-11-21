@@ -1,88 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Source">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Source\Components">
-      <UniqueIdentifier>{133fc11c-79ed-40c2-9d7d-088b5218d0af}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Framework">
-      <UniqueIdentifier>{f8721ef4-75c5-4679-a314-a195c85ffd8f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\JSON">
-      <UniqueIdentifier>{276a32de-7396-48a2-a1a8-4941ce913715}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\JSON\Decks">
-      <UniqueIdentifier>{ff4f274d-30ed-410d-8f0f-cd821a3bfca2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\JSON\Decks\FNAF">
-      <UniqueIdentifier>{f8343875-f1c9-4f0d-8e8d-832fe9d3326c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Components\Players">
-      <UniqueIdentifier>{86fbe5d1-8a89-48f5-9791-83fcae1e7fc3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Components\Cards">
-      <UniqueIdentifier>{9df290cc-eadd-4664-9f5e-5e69eacabb1e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Components\UI">
-      <UniqueIdentifier>{91c28567-7288-404d-81d2-93e355781aa8}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\RivalsArena.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Components\DeckComponent.cpp">
+    <ClCompile Include="Source\Components\Cards\CardComponent.cpp">
+      <Filter>Source\Components\Cards</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Cards\DiscardCardComponent.cpp">
+      <Filter>Source\Components\Cards</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Cards\DrawCardComponent.cpp">
+      <Filter>Source\Components\Cards</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Cards\DummyCardComponent.cpp">
+      <Filter>Source\Components\Cards</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Cards\IncomingDamageCardComponent.cpp">
+      <Filter>Source\Components\Cards</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Cards\TrackerModifierCardComponent.cpp">
+      <Filter>Source\Components\Cards</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Players\DeckComponent.cpp">
       <Filter>Source\Components\Players</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Components\PlayerComponent.cpp">
+    <ClCompile Include="Source\Components\Players\PlayerComponent.cpp">
       <Filter>Source\Components\Players</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Components\CardComponent.cpp">
-      <Filter>Source\Components\Cards</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Components\DummyCardComponent.cpp">
-      <Filter>Source\Components\Cards</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Components\TrackerModifierCardComponent.cpp">
-      <Filter>Source\Components\Cards</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Components\ButtonComponent.cpp">
+    <ClCompile Include="Source\Components\UI\ButtonComponent.cpp">
       <Filter>Source\Components\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Components\DummyCardComponent.cpp">
-    <ClCompile Include="Source\Components\DiscardCardComponent.cpp">
-      <Filter>Source\Components</Filter>
+    <ClCompile Include="Source\Components\UI\PileComponent.cpp">
+      <Filter>Source\Components\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Components\IncomingDamageCardComponent.cpp">
-      <Filter>Source\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Components\DrawCardComponent.cpp">
-      <Filter>Source\Components</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="cpp.hint">
-      <Filter>Source</Filter>
-    </None>
-    <None Include="..\Build\Assets\JSON\Decks\FNAF\Cards.json">
-      <Filter>Resource Files\JSON\Decks\FNAF</Filter>
-    </None>
-    <None Include="..\Build\Assets\JSON\Decks\FNAF\Deck.json">
-      <Filter>Resource Files\JSON\Decks\FNAF</Filter>
-    </None>
-    <None Include="..\Build\Assets\JSON\Initialize.json">
-      <Filter>Resource Files\JSON</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\RivalsArena.h">
@@ -91,36 +45,84 @@
     <ClInclude Include="Source\Framework\GameEventData.h">
       <Filter>Source\Framework</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Components\DeckComponent.h">
+    <ClInclude Include="Source\Components\Cards\CardComponent.h">
+      <Filter>Source\Components\Cards</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\Cards\CounterComponent.h">
+      <Filter>Source\Components\Cards</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\Cards\DiscardCardComponent.h">
+      <Filter>Source\Components\Cards</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\Cards\DrawCardComponent.h">
+      <Filter>Source\Components\Cards</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\Cards\DummyCardComponent.h">
+      <Filter>Source\Components\Cards</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\Cards\IncomingDamageCardComponent.h">
+      <Filter>Source\Components\Cards</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\Cards\TrackerModifierCardComponent.h">
+      <Filter>Source\Components\Cards</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\Players\DeckComponent.h">
       <Filter>Source\Components\Players</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Components\PlayerComponent.h">
+    <ClInclude Include="Source\Components\Players\PlayerComponent.h">
       <Filter>Source\Components\Players</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Components\CardComponent.h">
-      <Filter>Source\Components\Cards</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Components\DummyCardComponent.h">
-      <Filter>Source\Components\Cards</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Components\TrackerModifierCardComponent.h">
-      <Filter>Source\Components\Cards</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Components\ButtonComponent.h">
+    <ClInclude Include="Source\Components\UI\ButtonComponent.h">
       <Filter>Source\Components\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Components\PileComponent.h">
+    <ClInclude Include="Source\Components\UI\PileComponent.h">
       <Filter>Source\Components\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Components\DummyCardComponent.h">
-    <ClInclude Include="Source\Components\DiscardCardComponent.h">
-      <Filter>Source\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Components\IncomingDamageCardComponent.h">
-      <Filter>Source\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Components\DrawCardComponent.h">
-      <Filter>Source\Components</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Build\Assets\JSON\Decks\FNAF\Cards.json">
+      <Filter>Resources\JSON\Decks\FNAF</Filter>
+    </None>
+    <None Include="..\Build\Assets\JSON\Decks\FNAF\Deck.json">
+      <Filter>Resources\JSON\Decks\FNAF</Filter>
+    </None>
+    <None Include="..\Build\Assets\JSON\Initialize.json">
+      <Filter>Resources\JSON</Filter>
+    </None>
+    <None Include="cpp.hint">
+      <Filter>Source</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{1a2f4fff-6d3c-4b14-9136-a98048b90612}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Framework">
+      <UniqueIdentifier>{9479bf28-1c8e-44f6-b3f0-a5e8530f176d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{a35c16c3-94c0-42fc-9dbf-2d99a4ed3e6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\JSON">
+      <UniqueIdentifier>{54aa8601-7fdb-4006-8a24-f05a39f94a06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\JSON\Decks">
+      <UniqueIdentifier>{738655bf-d221-453b-95ba-26557bbcde9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\JSON\Decks\FNAF">
+      <UniqueIdentifier>{df6eb2b2-26dc-4b06-8b73-87ea5002f7ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components">
+      <UniqueIdentifier>{5bcf65b1-ac6d-4b52-872b-6905aac6de99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components\Cards">
+      <UniqueIdentifier>{129f847e-265c-407c-ad44-f5a2f2cab69e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components\Players">
+      <UniqueIdentifier>{b8737756-8c25-4a0a-bc94-fde22ac663ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components\UI">
+      <UniqueIdentifier>{2e91c778-0812-46ab-8396-deb83e47457b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
