@@ -44,19 +44,25 @@
     <ClCompile Include="Source\Components\TrackerModifierCardComponent.cpp">
       <Filter>Source\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Components\PileComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\DummyCardComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint">
       <Filter>Source</Filter>
-    </None>
-    <None Include="Build\Assets\JSON\Initialize.json">
-      <Filter>Resource Files\JSON</Filter>
     </None>
     <None Include="..\Build\Assets\JSON\Decks\FNAF\Cards.json">
       <Filter>Resource Files\JSON\Decks\FNAF</Filter>
     </None>
     <None Include="..\Build\Assets\JSON\Decks\FNAF\Deck.json">
       <Filter>Resource Files\JSON\Decks\FNAF</Filter>
+    </None>
+    <None Include="..\Build\Assets\JSON\Initialize.json">
+      <Filter>Resource Files\JSON</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +85,12 @@
       <Filter>Source\Components</Filter>
     </ClInclude>
     <ClInclude Include="Source\Components\TrackerModifierCardComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\PileComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\DummyCardComponent.h">
       <Filter>Source\Components</Filter>
     </ClInclude>
   </ItemGroup>

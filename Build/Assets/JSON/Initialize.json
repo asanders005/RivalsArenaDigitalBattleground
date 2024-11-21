@@ -9,6 +9,22 @@
           "type": "PlayerComponent"
         }
       ]
+    },
+    {
+      "name": "UniversalPile",
+      "tag": "Pile",
+      "prototype": true,
+      "transform": {
+        "scale": 0.25
+      },
+      "components": [
+        {
+          "type": "TextureComponent"
+        },
+        {
+          "type": "PileComponent"
+        }
+      ]
     }
   ]
 }

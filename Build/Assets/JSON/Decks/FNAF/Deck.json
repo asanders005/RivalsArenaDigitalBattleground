@@ -1,5 +1,6 @@
 {
   "deck": {
+    "name" : "FNAF",
     "starter": [
       "Springlock",
       "Springlock",
@@ -11,14 +12,14 @@
     ],
     "tier1": [
       "Fire",
-      "Freddys Pizza"
+      "Freddys_Pizza"
     ],
     "tier2": [
       "S.C.U.P.R.",
-      "Midnight Motorist"
+      "Midnight_Motorist"
     ],
     "hero": [
-      "Freddy Fazbear",
+      "Freddy_Fazbear",
       "Springtrap"
     ]
   }

@@ -16,9 +16,11 @@ public:
 		std::vector<std::string> hero;
 	};
 	CLASS_DECLARATION(DeckComponent)
-		CLASS_PROTOTYPE(DeckComponent)
+	CLASS_PROTOTYPE(DeckComponent)
 
-		void Initialize() override;
+	DeckComponent(std::string id) : m_deckID{ id } {}
+
+	void Initialize() override;
 
 	void Update(float dt) override;
 
@@ -29,17 +31,37 @@ public:
 	void OnBuyConsumable(const Event& event);
 	void OnUpgradeConsumable(const Event& event);
 
+	void OnDisplayPile(const Event& event);
+
 private:
 	void ShuffleDraw();
 
+	void DisplayPile(const std::string& pile);
+	void UpdateDisplayPile(int index);
+
 private:
+	enum class DisplayingPile
+	{
+		NONE,
+		DISCARD,
+		CONSUMABLE,
+		HERO
+	};
+
+private:
+	std::string m_deckID;
+	std::string m_deckName;
+
 	// Vectors containing strings to create cards from
 	int m_cardsInHand = 0;
 	std::list<std::string> m_draw;
 	std::list<std::string> m_hand;
 	std::list<std::string> m_discard;
+	std::list<std::string> m_heroes;
 	std::list<std::string> m_upgradesConsumable;
 	std::list<std::string> m_upgradesHeroes;
+
+	DisplayingPile m_displayingPile = DisplayingPile::NONE;
 
 	std::default_random_engine m_rng = std::default_random_engine{ (unsigned int)time(0) };
 };

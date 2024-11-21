@@ -31,7 +31,7 @@ public:
 	void Draw(Renderer& renderer) override;
 
 	//Events
-	//void OnCardPlay(const Event& event);
+	void OnCheckCard(const Event& event);
 
 private:
 	void CreatePlayer(const std::string& playerID);

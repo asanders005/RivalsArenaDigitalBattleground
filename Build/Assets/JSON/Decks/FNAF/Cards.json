@@ -58,7 +58,7 @@
       ]
     },
     {
-      "name": "Freddys Pizza",
+      "name": "Freddys_Pizza",
       "tag": "card",
       "prototype": true,
       "transform": {
@@ -96,7 +96,7 @@
       ]
     },
     {
-      "name": "Midnight Motorist",
+      "name": "Midnight_Motorist",
       "tag": "card",
       "prototype": true,
       "transform": {
@@ -115,7 +115,7 @@
       ]
     },
     {
-      "name": "Freddy Fazbear",
+      "name": "Freddy_Fazbear",
       "tag": "card",
       "prototype": true,
       "transform": {
@@ -147,6 +147,158 @@
         },
         {
           "type": "CardComponent",
+          "name": "Springtrap",
+          "cardTier": "Hero"
+        }
+      ]
+    },
+    {
+      "name": "Springlock_Dummy",
+      "tag": "dummyCard",
+      "prototype": true,
+      "transform": {
+        "scale": 0.15
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "Textures/Decks/FNAF/Springlock.png"
+        },
+        {
+          "type": "DummyCardComponent",
+          "name": "Springlock",
+          "cardTier": "Starter"
+        }
+      ]
+    },
+    {
+      "name": "Saferoom_Dummy",
+      "tag": "dummyCard",
+      "prototype": true,
+      "transform": {
+        "scale": 0.15
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "Textures/Decks/FNAF/Saferoom.png"
+        },
+        {
+          "type": "DummyCardComponent",
+          "name": "Saferoom",
+          "cardTier": "Starter"
+        }
+      ]
+    },
+    {
+      "name": "Fire_Dummy",
+      "tag": "dummyCard",
+      "prototype": true,
+      "transform": {
+        "scale": 0.25
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "Textures/Decks/FNAF/Fire.png"
+        },
+        {
+          "type": "DummyCardComponent",
+          "name": "Fire",
+          "cardTier": "Tier_1"
+        }
+      ]
+    },
+    {
+      "name": "Freddys_Pizza_Dummy",
+      "tag": "dummyCard",
+      "prototype": true,
+      "transform": {
+        "scale": 0.25
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "Textures/Decks/FNAF/Freddy_Fazbear's_Pizza.png"
+        },
+        {
+          "type": "DummyCardComponent",
+          "name": "Freddys Pizza",
+          "cardTier": "Tier_1"
+        }
+      ]
+    },
+    {
+      "name": "S.C.U.P.R._Dummy",
+      "tag": "dummyCard",
+      "prototype": true,
+      "transform": {
+        "scale": 0.25
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "Textures/Decks/FNAF/S.C.U.P.R..png"
+        },
+        {
+          "type": "DummyCardComponent",
+          "name": "S.C.U.P.R.",
+          "cardTier": "Tier_2"
+        }
+      ]
+    },
+    {
+      "name": "Midnight_Motorist_Dummy",
+      "tag": "dummyCard",
+      "prototype": true,
+      "transform": {
+        "scale": 0.25
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "Textures/Decks/FNAF/Midnight_Motorist.png"
+        },
+        {
+          "type": "DummyCardComponent",
+          "name": "Midnight Motorist",
+          "cardTier": "Tier_2"
+        }
+      ]
+    },
+    {
+      "name": "Freddy_Fazbear_Dummy",
+      "tag": "dummyCard",
+      "prototype": true,
+      "transform": {
+        "scale": 0.25
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "Textures/Decks/FNAF/Freddy_Fazbear.png"
+        },
+        {
+          "type": "DummyCardComponent",
+          "name": "Freddy Fazbear",
+          "cardTier": "Hero"
+        }
+      ]
+    },
+    {
+      "name": "Springtrap_Dummy",
+      "tag": "dummyCard",
+      "prototype": true,
+      "transform": {
+        "scale": 0.25
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "Textures/Decks/FNAF/Springtrap.png"
+        },
+        {
+          "type": "DummyCardComponent",
           "name": "Springtrap",
           "cardTier": "Hero"
         }
