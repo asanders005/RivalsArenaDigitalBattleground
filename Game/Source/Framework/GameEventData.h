@@ -39,13 +39,25 @@ struct PileTextureUpdateEventData : public EventData
 struct CardNameEventData : public EventData
 {
 	CardNameEventData() = default;
-	CardNameEventData(const std::string& cardID, const std::string& cardName) :
-		cardID{ cardID },
-		cardName{ cardName } 
+	CardNameEventData(const std::string& cardName, const std::string& targetPlayer, const std::string& deckID) :
+		cardName{ cardName },
+		targetPlayer{ targetPlayer },
+		deckID{ deckID }
 	{}
 
 	std::string cardID;
 	std::string cardName;
+	std::string deckID;
+};
+
+struct CardIDEventData : public EventData
+{
+	CardIDEventData() = default;
+	CardIDEventData(const std::string& cardID) :
+		cardID{ cardID }
+	{}
+
+	std::string cardID;
 };
 
 struct CardBuyEventData : public EventData
@@ -59,11 +71,46 @@ struct CardBuyEventData : public EventData
 
 struct TrackerEventData : public EventData
 {
-	TrackerEventData(std::string targetPlayer, int changeValue) :
+	TrackerEventData(std::string targetPlayer, int changeValue, bool roundUp = false) :
 		targetPlayer{ targetPlayer },
-		changeValue{ changeValue } 
+		changeValue{ (float) changeValue },
+		roundUp{ roundUp }
+	{}
+
+	TrackerEventData(std::string targetPlayer, float changeValue, bool roundUp = false) :
+		targetPlayer{ targetPlayer },
+		changeValue{ changeValue },
+		roundUp{ roundUp }
 	{}
 
 	std::string targetPlayer;
-	int changeValue = 0;
+	float changeValue = 0;
+	bool roundUp = false;
+};
+
+struct PointSpendingQueryEventData : public EventData
+{
+	PointSpendingQueryEventData(std::string targetPlayer, std::string cardID, int changeValue, CardComponent::Tracker trackerModifying) :
+		targetPlayer{ targetPlayer },
+		cardID{ cardID },
+		changeValue{ changeValue },
+		trackerModifying{ trackerModifying }
+	{}
+
+	std::string targetPlayer;
+	std::string cardID;
+	int changeValue;
+	CardComponent::Tracker trackerModifying;
+};
+
+struct CardPhaseInfoEventData : public EventData
+{
+	CardPhaseInfoEventData() = default;
+	CardPhaseInfoEventData(const std::string& cardId, const CardComponent::PlayPhase& playPhase) :
+		cardId{ cardId },
+		deckId{ deckId }
+	{}
+
+	std::string cardId;
+	std::string deckId;
 };
