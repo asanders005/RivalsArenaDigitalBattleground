@@ -163,6 +163,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Components\ButtonComponent.cpp" />
     <ClCompile Include="Source\Components\CardComponent.cpp" />
     <ClCompile Include="Source\Components\DeckComponent.cpp" />
     <ClCompile Include="Source\Components\DummyCardComponent.cpp" />
@@ -187,6 +188,7 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Components\ButtonComponent.h" />
     <ClInclude Include="Source\Components\CardComponent.h" />
     <ClInclude Include="Source\Components\CounterComponent.h" />
     <ClInclude Include="Source\Components\DeckComponent.h" />

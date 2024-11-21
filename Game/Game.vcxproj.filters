@@ -24,6 +24,15 @@
     <Filter Include="Resource Files\JSON\Decks\FNAF">
       <UniqueIdentifier>{f8343875-f1c9-4f0d-8e8d-832fe9d3326c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Components\Players">
+      <UniqueIdentifier>{86fbe5d1-8a89-48f5-9791-83fcae1e7fc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components\Cards">
+      <UniqueIdentifier>{9df290cc-eadd-4664-9f5e-5e69eacabb1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components\UI">
+      <UniqueIdentifier>{91c28567-7288-404d-81d2-93e355781aa8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -33,19 +42,22 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\Components\DeckComponent.cpp">
-      <Filter>Source\Components</Filter>
+      <Filter>Source\Components\Players</Filter>
     </ClCompile>
     <ClCompile Include="Source\Components\PlayerComponent.cpp">
-      <Filter>Source\Components</Filter>
+      <Filter>Source\Components\Players</Filter>
     </ClCompile>
     <ClCompile Include="Source\Components\CardComponent.cpp">
-      <Filter>Source\Components</Filter>
+      <Filter>Source\Components\Cards</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\DummyCardComponent.cpp">
+      <Filter>Source\Components\Cards</Filter>
     </ClCompile>
     <ClCompile Include="Source\Components\TrackerModifierCardComponent.cpp">
-      <Filter>Source\Components</Filter>
+      <Filter>Source\Components\Cards</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Components\PileComponent.cpp">
-      <Filter>Source\Components</Filter>
+    <ClCompile Include="Source\Components\ButtonComponent.cpp">
+      <Filter>Source\Components\UI</Filter>
     </ClCompile>
     <ClCompile Include="Source\Components\DummyCardComponent.cpp">
     <ClCompile Include="Source\Components\DiscardCardComponent.cpp">
@@ -76,26 +88,29 @@
     <ClInclude Include="Source\RivalsArena.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Components\PlayerComponent.h">
-      <Filter>Source\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Components\DeckComponent.h">
-      <Filter>Source\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Components\CounterComponent.h">
-      <Filter>Source\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Framework\GameEventData.h">
       <Filter>Source\Framework</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Components\DeckComponent.h">
+      <Filter>Source\Components\Players</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\PlayerComponent.h">
+      <Filter>Source\Components\Players</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Components\CardComponent.h">
-      <Filter>Source\Components</Filter>
+      <Filter>Source\Components\Cards</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\DummyCardComponent.h">
+      <Filter>Source\Components\Cards</Filter>
     </ClInclude>
     <ClInclude Include="Source\Components\TrackerModifierCardComponent.h">
-      <Filter>Source\Components</Filter>
+      <Filter>Source\Components\Cards</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\ButtonComponent.h">
+      <Filter>Source\Components\UI</Filter>
     </ClInclude>
     <ClInclude Include="Source\Components\PileComponent.h">
-      <Filter>Source\Components</Filter>
+      <Filter>Source\Components\UI</Filter>
     </ClInclude>
     <ClInclude Include="Source\Components\DummyCardComponent.h">
     <ClInclude Include="Source\Components\DiscardCardComponent.h">
