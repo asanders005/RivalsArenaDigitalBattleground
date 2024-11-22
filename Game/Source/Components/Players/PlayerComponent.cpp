@@ -74,11 +74,12 @@ void PlayerComponent::Read(const json_t& value)
 	PlayerComponent::Initialize();
 
 	//Read if need
+	READ_DATA(value, playerID);
 	READ_DATA(value, m_health);
 	READ_DATA(value, m_exp);
 	READ_DATA(value, m_heroExp);
-	READ_DATA(value, playerID);
 	READ_DATA(value, isActive);
+	READ_DATA(value, isDied);
 }
 
 void PlayerComponent::Write(json_t& value)

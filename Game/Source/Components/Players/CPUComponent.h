@@ -50,10 +50,6 @@ public:
 
 private:
     std::string playerID = "CPU";
-    Component* m_deck;
-
-    std::list<std::string> m_hand;
-    RivalsArena::eState& gameState;
 
     int m_health = 0;
     int m_exp = 0;
@@ -61,6 +57,9 @@ private:
     bool isActive = false;
     bool isDied = false;
 
+    RivalsArena::eState& gameState;
+    Component* m_deck;
+    std::list<std::string> m_hand;
 public:
 
     CPUComponent() = default;

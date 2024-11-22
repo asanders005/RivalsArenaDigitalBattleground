@@ -9,6 +9,15 @@ FACTORY_REGISTER(CPUComponent)
 
 void CPUComponent::Read(const json_t& value)
 {
+    CPUComponent::Initialize();
+
+    READ_DATA(value, playerID);
+    READ_DATA(value, m_health);
+    READ_DATA(value, m_exp);
+    READ_DATA(value, m_heroExp);
+    READ_DATA(value, isActive);
+    READ_DATA(value, isDied);
+   
 }
 
 void CPUComponent::Write(json_t& value)
@@ -44,7 +53,8 @@ void CPUComponent::DrawCard()
 
 void CPUComponent::DiscardCard(const std::string& cardName)
 {
-    EVENT_NOTIFY_DATA(DiscardCard, new CardNameEventData(cardName, playerID,false));
+    auto card = owner->scene->GetActor(cardName)->GetComponent<CardComponent>();
+    EVENT_NOTIFY_DATA(DiscardCard, new CardNameEventData(card->GetCardID(), cardName, card->GetDeckId()));
 }
 
 void CPUComponent::EvaluateCards()
@@ -201,10 +211,16 @@ const std::list<std::string>& CPUComponent::GetHand() const {
     return m_hand;
 }
 
-CardComponent* CPUComponent::GetCardComponent(const std::string& cardName) {
+CardComponent* CPUComponent::GetCardComponent(const std::string& cardName)
+{
     // Logic to retrieve the CardComponent instance for a given card name
-    auto iter = std::find_if(m_hand.begin(), m_hand.end(), [&](const auto& card) {
-        return card == cardName; // Match by name
+    auto iter = std::find_if(m_hand.begin(), m_hand.end(), [&](const auto& card)
+        {
+            return card == cardName; // Match by name
         });
+
     return iter != m_hand.end() ? /* fetch card component */ nullptr : nullptr;
 }
+
+
+
