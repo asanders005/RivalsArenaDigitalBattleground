@@ -52,6 +52,7 @@ public:
 	//Added
 	std::string GetCardName() { return m_cardName; }
 	std::string GetCardID() { return m_cardID; }
+	std::string GetDeckId() { return m_deckID; }
 	int GetCoolDownTimer() { return m_cooldownTimer; }
 	int GetCoolDown() { return m_cooldown; }
 	bool GeTIsOptional() { return m_optional; }
