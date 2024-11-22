@@ -37,6 +37,9 @@
     <ClCompile Include="Source\Components\UI\PileComponent.cpp">
       <Filter>Source\Components\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Components\Players\CPUComponent.cpp">
+      <Filter>Source\Components\Players</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\RivalsArena.h">
@@ -77,6 +80,9 @@
     </ClInclude>
     <ClInclude Include="Source\Components\UI\PileComponent.h">
       <Filter>Source\Components\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\Players\CPUComponent.h">
+      <Filter>Source\Components\Players</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

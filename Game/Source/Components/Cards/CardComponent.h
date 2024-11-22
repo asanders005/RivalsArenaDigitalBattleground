@@ -49,7 +49,26 @@ public:
 
 	void Update(float dt) override;
 
+	//Added
+	std::string GetCardName() { return m_cardName; }
+	std::string GetCardID() { return m_cardID; }
+	int GetCoolDownTimer() { return m_cooldownTimer; }
+	int GetCoolDown() { return m_cooldown; }
+	bool GeTIsOptional() { return m_optional; }
+	bool GetIsDefensive() { return m_defensive; }
+	bool GetTargetPlayer() 
+	{
+		return !m_targetPlayer.empty();
+	}
+    CardEnums::CardTier GetCardTier() { return m_tier; }
+	CardEnums::PlayPhase GetPlayPhase() { return m_phase; }
+	int GetPriority() { return m_priority; }
+	
+	int SetProity(int priority_value) { m_priority = priority_value; }
+
+
 protected:
+	int m_priority = 0;
 
 	void DiscardCard();
 

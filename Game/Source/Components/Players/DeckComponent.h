@@ -33,6 +33,8 @@ public:
 
 	void OnDisplayPile(const Event& event);
 
+	std::list<std::string> GetHand() { return m_hand; }
+
 private:
 	void ShuffleDraw();
 

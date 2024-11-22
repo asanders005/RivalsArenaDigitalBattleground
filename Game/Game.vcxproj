@@ -169,6 +169,7 @@
     <ClCompile Include="Source\Components\Cards\DummyCardComponent.cpp" />
     <ClCompile Include="Source\Components\Cards\IncomingDamageCardComponent.cpp" />
     <ClCompile Include="Source\Components\Cards\TrackerModifierCardComponent.cpp" />
+    <ClCompile Include="Source\Components\Players\CPUComponent.cpp" />
     <ClCompile Include="Source\Components\Players\DeckComponent.cpp" />
     <ClCompile Include="Source\Components\Players\PlayerComponent.cpp" />
     <ClCompile Include="Source\Components\UI\ButtonComponent.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="Source\Components\Cards\DummyCardComponent.h" />
     <ClInclude Include="Source\Components\Cards\IncomingDamageCardComponent.h" />
     <ClInclude Include="Source\Components\Cards\TrackerModifierCardComponent.h" />
+    <ClInclude Include="Source\Components\Players\CPUComponent.h" />
     <ClInclude Include="Source\Components\Players\DeckComponent.h" />
     <ClInclude Include="Source\Components\Players\PlayerComponent.h" />
     <ClInclude Include="Source\Components\UI\ButtonComponent.h" />
