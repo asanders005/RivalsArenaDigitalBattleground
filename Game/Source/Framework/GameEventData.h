@@ -50,6 +50,17 @@ struct CardNameEventData : public EventData
 	std::string deckID;
 };
 
+struct CardDeckIDEventData : public EventData
+{
+	CardDeckIDEventData(const std::string& cardID, const std::string& deckID) :
+		cardID{ cardID },
+		deckID{ deckID }
+	{}
+
+	std::string cardID;
+	std::string deckID;
+};
+
 struct CardIDEventData : public EventData
 {
 	CardIDEventData() = default;
@@ -108,9 +119,9 @@ struct CardPhaseInfoEventData : public EventData
 	CardPhaseInfoEventData() = default;
 	CardPhaseInfoEventData(const std::string& cardId, const CardEnums::PlayPhase& playPhase) :
 		cardId{ cardId },
-		deckId{ deckId }
+		phase{ playPhase }
 	{}
 
 	std::string cardId;
-	std::string deckId;
+	CardEnums::PlayPhase phase;
 };

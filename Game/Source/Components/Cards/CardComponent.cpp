@@ -85,7 +85,6 @@ void CardComponent::OnPlay(const Event& event)
 
 			Ability();
 		}
-		delete data;
 	}
 }
 
@@ -97,7 +96,6 @@ void CardComponent::OnDiscard(const Event& event)
 		{
 			DiscardCard();
 		}
-		delete data;
 	}
 }
 
@@ -105,7 +103,7 @@ void CardComponent::DiscardCard()
 {
 	if (m_tier != CardEnums::CardTier::HERO)
 	{
-		EVENT_NOTIFY_DATA(DiscardCard, new CardNameEventData(m_cardName, m_targetPlayer, m_deckID));
+		EVENT_NOTIFY_DATA(DiscardCard, new CardDeckIDEventData(m_cardID, m_deckID));
 		owner->isDestroyed = true;
 	}
 }

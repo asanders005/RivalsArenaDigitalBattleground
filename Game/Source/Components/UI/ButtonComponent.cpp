@@ -6,7 +6,6 @@ FACTORY_REGISTER(ButtonComponent);
 
 void ButtonComponent::Initialize()
 {
-	ADD_OBSERVER(UpdateBtnText, ButtonComponent::OnUpdateText);
 }
 
 void ButtonComponent::Update(float dt)
@@ -28,18 +27,8 @@ void ButtonComponent::Update(float dt)
 		
 		if (mouseOver)
 		{
+			std::cout << buttonID << " Clicked" << std::endl;
 			EVENT_NOTIFY_DATA(ButtonClicked, new StringEventData(buttonID));
-		}
-	}
-}
-
-void ButtonComponent::OnUpdateText(const Event& event)
-{
-	if (auto data = dynamic_cast<PlayerStringEventData*>(event.data))
-	{
-		if (data->targetPlayer == buttonID)
-		{
-			owner->GetComponent<TextComponent>()->SetText(data->dataString);
 		}
 	}
 }

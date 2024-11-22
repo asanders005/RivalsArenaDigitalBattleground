@@ -14,6 +14,11 @@ public:
 
 	void OnUpdateTracker(const Event& event);
 
+	// Events
+	void ModifyPlayerHealth(const Event& event);
+	void ChangeExp(const Event& event);
+	void ChangeHeroExp(const Event& event);
+	virtual void React(const Event& event);
 
 public:
 
@@ -35,10 +40,5 @@ private:
 	bool isActive = false;
 	bool isDied = false;
 
-	// Events
-	void ModifyPlayerHealth(const Event& event);
-	void ChangeExp(const Event& event);
-	void ChangeHeroExp(const Event& event);
-	void React(const Event& event);
 
 };

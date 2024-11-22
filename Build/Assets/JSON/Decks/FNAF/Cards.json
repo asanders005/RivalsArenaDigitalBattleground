@@ -15,7 +15,8 @@
         {
           "type": "TrackerModifierCardComponent",
           "name": "Springlock",
-          "cardTier": "Starter"
+          "cardTier": "Starter",
+          "PlayPhase": "Turn"
         }
       ]
     },
@@ -32,9 +33,10 @@
           "textureName": "Textures/Decks/FNAF/Saferoom.png"
         },
         {
-          "type": "IncomingDamageCardComponent",
+          "type": "TrackerModifierCardComponent",
           "name": "Saferoom",
-          "cardTier": "Starter"
+          "cardTier": "Starter",
+          "PlayPhase": "Turn"
         }
       ]
     },

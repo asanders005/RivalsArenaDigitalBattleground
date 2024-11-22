@@ -10,7 +10,6 @@ public:
 
 	void Ability() override;
 	void Initialize() override;
-	void Update(float dt) override;
 
 private:
 	int m_baseModificationAmount = 0;

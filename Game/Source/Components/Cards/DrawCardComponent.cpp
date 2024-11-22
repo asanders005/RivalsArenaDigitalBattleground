@@ -3,6 +3,8 @@
 
 void DrawCardComponent::Initialize()
 {
+	CardComponent::Initialize();
+
 	ADD_OBSERVER(PlayConfirmation, DrawCardComponent::OnPlayConfirmation);
 }
 
@@ -86,10 +88,3 @@ void DrawCardComponent::Read(const json_t& value)
 void DrawCardComponent::Write(json_t& value)
 {
 }
-
-
-void DrawCardComponent::Update(float dt)
-{
-}
-
-

@@ -1,35 +1,15 @@
 #include "CPUComponent.h"
-#include "..//Cards/CardComponent.h"
-#include "..//..//Framework/GameEventData.h"
-#include "..//..//Engine/Source/Framework/Actor.h"
-#include "..//..//Engine/Source/Framework/Scene.h"
 #include "DeckComponent.h"
+#include "Components/Cards/CardComponent.h"
+#include "Framework/GameEventData.h"
+#include "Engine.h"
 
 FACTORY_REGISTER(CPUComponent)
 
-void CPUComponent::Read(const json_t& value)
-{
-    CPUComponent::Initialize();
-
-    READ_DATA(value, playerID);
-    READ_DATA(value, m_health);
-    READ_DATA(value, m_exp);
-    READ_DATA(value, m_heroExp);
-    READ_DATA(value, isActive);
-    READ_DATA(value, isDied);
-   
-}
-
-void CPUComponent::Write(json_t& value)
-{
-}
 
 void CPUComponent::Initialize()
 {
-    ADD_OBSERVER(ModifyHealth, CPUComponent::ModifyHealth);
-    ADD_OBSERVER(ModifyExp, CPUComponent::ModifyExp);
-    ADD_OBSERVER(ModifyHeroExp, CPUComponent::ModifyHeroExp);
-    ADD_OBSERVER(OnReaction, CPUComponent::OnReaction);
+	PlayerComponent::Initialize();
 
     m_deck = owner->GetComponent<DeckComponent>();
 
@@ -54,7 +34,7 @@ void CPUComponent::DrawCard()
 void CPUComponent::DiscardCard(const std::string& cardName)
 {
     auto card = owner->scene->GetActor(cardName)->GetComponent<CardComponent>();
-    EVENT_NOTIFY_DATA(DiscardCard, new CardNameEventData(card->GetCardID(), cardName, card->GetDeckId()));
+    EVENT_NOTIFY_DATA(DiscardCard, new CardDeckIDEventData(card->GetCardID(), card->GetDeckId()));
 }
 
 void CPUComponent::EvaluateCards()
@@ -153,51 +133,12 @@ int CPUComponent::EvaluateCardPriority(const std::string& cardName)
 
 void CPUComponent::EndTurn(const Event& event)
 {
-    EVENT_NOTIFY(EndPlayerTurn, playerID);
+    EVENT_NOTIFY(EndPlayerTurn);
 }
 
-void CPUComponent::ModifyHealth(const Event& event)
-{
-    int damage = 0;
-
-    auto eventData = dynamic_cast<const TrackerEventData*>(event.data);
 
 
-    if (this->playerID == eventData->targetPlayer)
-    {
-        damage = eventData->changeValue + damage;
-
-        if (damage <= 0)
-        {
-            return;
-        }
-
-        m_health += damage;
-    }
-}
-
-void CPUComponent::ModifyExp(const Event& event)
-{
-    auto eventData = dynamic_cast<const TrackerEventData*>(event.data);
-
-    if (this->playerID == eventData->targetPlayer)
-    {
-        m_exp += eventData->changeValue;
-    }
-}
-
-void CPUComponent::ModifyHeroExp(const Event& event)
-{
-    auto eventData = dynamic_cast<const TrackerEventData*>(event.data);
-
-    if (this->playerID == eventData->targetPlayer)
-    {
-
-        m_heroExp += eventData->changeValue;
-    }
-}
-
-void CPUComponent::OnReaction(const Event& event)
+void CPUComponent::React(const Event& event)
 {
     auto eventData = dynamic_cast<const TrackerEventData*>(event.data);
 
@@ -222,5 +163,17 @@ CardComponent* CPUComponent::GetCardComponent(const std::string& cardName)
     return iter != m_hand.end() ? /* fetch card component */ nullptr : nullptr;
 }
 
+void CPUComponent::Read(const json_t& value)
+{
+    READ_DATA(value, playerID);
+    READ_DATA(value, m_health);
+    READ_DATA(value, m_exp);
+    READ_DATA(value, m_heroExp);
+    READ_DATA(value, isActive);
+    READ_DATA(value, isDied);
+   
+}
 
-
+void CPUComponent::Write(json_t& value)
+{
+}

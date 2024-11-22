@@ -173,9 +173,10 @@ void DeckComponent::UpdateDisplayPile(int index)
 
 void DeckComponent::OnDraw(const Event& event)
 {
+	if (!event.data) return;
 	if (auto data = dynamic_cast<StringEventData*>(event.data))
 	{
-		if (owner->GetComponent<PlayerComponent>()->playerID == data->string)
+		if (m_deckID == data->string)
 		{
 
 			int currentCard = m_cardsInHand + 1;
@@ -196,48 +197,52 @@ void DeckComponent::OnDraw(const Event& event)
 				m_draw.pop_back();
 				m_hand.push_back(cardID);
 
-				auto card = Factory::Instance().Create<Actor>(cardName);
-				card->transform.position = { Vector2{ i * 180.0f + 70, 600.0f } };
-				owner->scene->AddActor(std::move(card), true);
-				currentCard++;
-				std::cout << "Drawing Card: " << cardName << std::endl;
+				if (auto card = Factory::Instance().Create<Actor>(cardName))
+				{
+					card->transform.position = { Vector2{ i * 180.0f + 70, 600.0f } };
+					card->GetComponent<CardComponent>()->SetCardID(cardID);
+					card->GetComponent<CardComponent>()->SetDeckID(m_deckID);
+
+					owner->scene->AddActor(std::move(card), true);
+					currentCard++;
+					std::cout << "Drawing Card: " << cardName << std::endl;
+				}
 			}
 			m_cardsInHand = 5;
 		}
-		delete data;
 	}
 }
 
 void DeckComponent::OnDiscard(const Event& event)
 {
-	if (auto data = dynamic_cast<CardNameEventData*>(event.data))
+	if (!event.data) return;
+	if (auto data = dynamic_cast<CardDeckIDEventData*>(event.data))
 	{
-		//if (owner->GetComponent<PlayerComponent>().id == data->get()->playerID)
-		//{
-		std::string cardID = data->cardName;
-		if (!cardID.empty())
+		if (m_deckID == data->deckID)
 		{
-			auto iter = std::find(m_hand.begin(), m_hand.end(), cardID);
-			if (iter != m_hand.end())
+			std::string cardID = data->cardID;
+			if (!cardID.empty())
 			{
-				m_hand.erase(iter);
-				m_cardsInHand--;
-				m_discard.push_back(cardID);
-				std::cout << "Discarding: " << cardID << std::endl;
+				auto iter = std::find(m_hand.begin(), m_hand.end(), cardID);
+				if (iter != m_hand.end())
+				{
+					m_hand.erase(iter);
+					m_cardsInHand--;
+					m_discard.push_back(cardID);
+					std::cout << "Discarding: " << cardID << std::endl;
+				}
+				else
+				{
+					std::cout << "Card: " << cardID << " is not in hand\n";
+				}
+				//if (m_cardsInHand == 0) EVENT_NOTIFY_DATA(DrawCards, new StringEventData(owner->GetComponent<PlayerComponent>()->playerID));
 			}
-			else
-			{
-				std::cout << "Card: " << cardID << " is not in hand\n";
-			}
-			if (m_cardsInHand == 0) EVENT_NOTIFY_DATA(DrawCards, new StringEventData(owner->GetComponent<PlayerComponent>()->playerID));
-		}
 
 		/*for (auto card : m_discard)
 		{
 			std::cout << card << std::endl;
 		}*/
-		//}
-		delete data;
+		}
 	}
 }
 
@@ -264,13 +269,13 @@ void DeckComponent::OnUpgradeConsumable(const Event& event)
 
 void DeckComponent::OnDisplayPile(const Event& event)
 {
+	if (!event.data) return;
 	if (auto data = dynamic_cast<PlayerStringEventData*>(event.data))
 	{
 		if (data->targetPlayer == owner->GetComponent<PlayerComponent>()->playerID)
 		{
 			DisplayPile(data->dataString);
 		}
-		delete data;
 	}
 }
 

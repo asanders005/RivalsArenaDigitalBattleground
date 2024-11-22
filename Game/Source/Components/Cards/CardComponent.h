@@ -52,7 +52,9 @@ public:
 	//Added
 	std::string GetCardName() { return m_cardName; }
 	std::string GetCardID() { return m_cardID; }
+	void SetCardID(const std::string& cardID) { m_cardID = cardID; }
 	std::string GetDeckId() { return m_deckID; }
+	void SetDeckID(const std::string& deckID) { m_deckID = deckID; }
 	int GetCoolDownTimer() { return m_cooldownTimer; }
 	int GetCoolDown() { return m_cooldown; }
 	bool GeTIsOptional() { return m_optional; }
@@ -65,7 +67,7 @@ public:
 	CardEnums::PlayPhase GetPlayPhase() { return m_phase; }
 	int GetPriority() { return m_priority; }
 	
-	int SetProity(int priority_value) { m_priority = priority_value; }
+	void SetProity(int priority_value) { m_priority = priority_value; }
 
 
 protected:
