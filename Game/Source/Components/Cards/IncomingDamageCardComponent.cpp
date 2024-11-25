@@ -5,6 +5,8 @@ FACTORY_REGISTER(IncomingDamageCardComponent);
 
 void IncomingDamageCardComponent::Initialize()
 {
+	CardComponent::Initialize();
+
 	ADD_OBSERVER(PlayConfirmation, IncomingDamageCardComponent::OnPlayConfirmation);
 }
 
@@ -66,10 +68,6 @@ void IncomingDamageCardComponent::AbilityFunctionality()
 	}
 
 	DiscardCard();
-}
-
-void IncomingDamageCardComponent::Update(float dt)
-{
 }
 
 void IncomingDamageCardComponent::Read(const json_t& value)

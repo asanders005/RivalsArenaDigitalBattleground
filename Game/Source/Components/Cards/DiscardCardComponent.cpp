@@ -4,6 +4,8 @@
 
 void DiscardCardComponent::Initialize()
 {
+	CardComponent::Initialize();
+
 	ADD_OBSERVER(DiscardCard, DiscardCardComponent::OnOtherCardDiscard);
 }
 
@@ -84,9 +86,5 @@ void DiscardCardComponent::Read(const json_t& value)
 }
 
 void DiscardCardComponent::Write(json_t& value)
-{
-}
-
-void DiscardCardComponent::Update(float dt)
 {
 }

@@ -31,4 +31,5 @@ void EventManager::Notify(const Event& event)
 			dispatcher.eventHandler(event);
 		}
 	}
+	delete event.data;
 }

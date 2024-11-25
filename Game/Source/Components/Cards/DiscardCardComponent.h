@@ -11,7 +11,6 @@ public:
 
 	void Ability() override;
 	void Initialize() override;
-	void Update(float dt) override;
 
 	struct PointsAwardedPerCard {
 		std::string cardName;

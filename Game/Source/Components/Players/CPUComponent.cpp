@@ -1,11 +1,11 @@
 #include "CPUComponent.h"
-#include "..//Cards/CardComponent.h"
-#include "..//..//Framework/GameEventData.h"
-#include "..//..//Engine/Source/Framework/Actor.h"
-#include "..//..//Engine/Source/Framework/Scene.h"
 #include "DeckComponent.h"
+#include "Components/Cards/CardComponent.h"
+#include "Framework/GameEventData.h"
+#include "Engine.h"
 
 FACTORY_REGISTER(CPUComponent);
+
 
 void CPUComponent::Read(const json_t& value)
 {
@@ -25,7 +25,8 @@ void CPUComponent::Write(json_t& value)
 
 void CPUComponent::Initialize()
 {
-    PlayerComponent::Initialize();
+	PlayerComponent::Initialize();
+  
     m_deck = owner->GetComponent<DeckComponent>();
     std::list<std::string> m_deckName = owner->GetComponent<DeckComponent>()->GetHand();
 
@@ -85,8 +86,8 @@ void CPUComponent::OnDiscardCard(const std::string& cardName)
 {
     auto card = owner->scene->GetActor(cardName)->GetComponent<CardComponent>();
 
+
     EVENT_NOTIFY_DATA(DiscardCard, new CardNameEventData(card->GetCardID(), cardName, card->GetDeckId()));
-}
 
 void CPUComponent::EvaluateCards()
 {
@@ -184,18 +185,26 @@ int CPUComponent::EvaluateCardPriority(const std::string& cardName)
 
 void CPUComponent::EndTurn(const Event& event)
 {
-    //
-}
 
 void CPUComponent::OnReact(const Event& event)
+  
+    EVENT_NOTIFY(EndPlayerTurn);
+}
+
+
+
+void CPUComponent::React(const Event& event)
+
 {
     auto eventData = dynamic_cast<const TrackerEventData*>(event.data);
 
     if (this->playerID == eventData->targetPlayer)
     {
 
+
         m_heroExp += eventData->changeValue;
     }
+
 
 }
 const std::list<std::string>& CPUComponent::GetHand()
@@ -213,3 +222,4 @@ CardComponent* CPUComponent::GetCardComponent(const std::string& cardName)
 
     return iter != m_hand.end() ? /* fetch card component */ nullptr : nullptr;
 }
+

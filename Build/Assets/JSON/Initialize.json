@@ -11,6 +11,16 @@
       ]
     },
     {
+      "name": "CPUPlayer",
+      "tag": "CPU",
+      "prototype": true,
+      "components": [
+        {
+          "type": "CPUComponent"
+        }
+      ]
+    },
+    {
       "name": "UniversalPile",
       "tag": "Pile",
       "prototype": true,
@@ -23,6 +33,20 @@
         },
         {
           "type": "PileComponent"
+        }
+      ]
+    },
+    {
+      "name": "UniversalButton",
+      "tag": "Button",
+      "prototype": true,
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "Textures/Test.jpg"
+        },
+        {
+          "type": "ButtonComponent"
         }
       ]
     }

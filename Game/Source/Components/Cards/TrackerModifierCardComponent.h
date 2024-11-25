@@ -11,8 +11,6 @@ public:
 	TrackerModifierCardComponent() = default;
 
 	void Ability() override;
-	void Initialize() override;
-	void Update(float dt) override;
 
 private:
 	CardEnums::Tracker m_tracker = CardEnums::Tracker::HEALTH;

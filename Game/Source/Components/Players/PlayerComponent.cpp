@@ -16,7 +16,7 @@ void PlayerComponent::Initialize()
 	ADD_OBSERVER(ModifyHealth, PlayerComponent::ModifyPlayerHealth);
 	ADD_OBSERVER(ModifyXP, PlayerComponent::ChangeExp);
 	ADD_OBSERVER(ModifyHeroXP, PlayerComponent::ChangeHeroExp);
-	ADD_OBSERVER(onReaction, PlayerComponent::React);
+	ADD_OBSERVER(Reaction, PlayerComponent::React);
 }
 
 void PlayerComponent::Update(float dt)
