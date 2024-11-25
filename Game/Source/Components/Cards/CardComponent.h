@@ -65,7 +65,7 @@ public:
 	CardEnums::PlayPhase GetPlayPhase() { return m_phase; }
 	int GetPriority() { return m_priority; }
 	
-	int SetProity(int priority_value) { m_priority = priority_value; }
+	void SetProity(int priority_value) { m_priority = priority_value; }
 
 
 protected:
