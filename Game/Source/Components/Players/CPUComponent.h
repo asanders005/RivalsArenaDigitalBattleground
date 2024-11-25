@@ -26,12 +26,12 @@ public:
     void Update(float dt) override;
 
     //Getters
-    float GetHealth();
-    float GetExp();
-    float GetHeroExp();
-    std::string GetID();
-    bool GetIsActive();
-    bool GetIsDied();
+    float GetHealth() { return m_health; }
+    float GetExp() { return m_exp; }
+    float GetHeroExp() { return m_heroExp; }
+    std::string GetID() { return playerID; }
+    bool GetIsActive() { return isActive; }
+    bool GetIsDied() { return isDied; }
 
     //Setters
     void SetCPUID(std::string cpuName) { playerID = cpuName; }
