@@ -41,36 +41,6 @@ void CPUComponent::Update(float dt)
 
 }
 
-float CPUComponent::GetHealth()
-{
-    return 0.0f;
-}
-
-float CPUComponent::GetExp()
-{
-    return 0.0f;
-}
-
-float CPUComponent::GetHeroExp()
-{
-    return 0.0f;
-}
-
-std::string CPUComponent::GetID()
-{
-    return std::string();
-}
-
-bool CPUComponent::GetIsActive()
-{
-    return false;
-}
-
-bool CPUComponent::GetIsDied()
-{
-    return false;
-}
-
 void CPUComponent::ExecuteTurn()
 {
     EvaluateCards(); // Evaluate and sort the hand
@@ -188,7 +158,7 @@ void CPUComponent::EndTurn(const Event& event)
 
 void CPUComponent::OnReact(const Event& event)
   
-    EVENT_NOTIFY(EndPlayerTurn);
+    
 }
 
 
