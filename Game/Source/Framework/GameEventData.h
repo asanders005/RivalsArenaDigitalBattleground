@@ -12,6 +12,17 @@ struct StringEventData : public EventData
 	std::string string;
 };
 
+struct StringBoolEventData : public EventData
+{
+	StringBoolEventData(const std::string& string, bool _bool) :
+		string{ string },
+		_bool{ _bool }
+	{}
+
+	std::string string;
+	bool _bool;
+};
+
 struct PlayerStringEventData : public EventData
 {
 	PlayerStringEventData(const std::string& targetPlayer, const std::string& dataString) :
