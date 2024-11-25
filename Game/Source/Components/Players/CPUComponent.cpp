@@ -4,16 +4,36 @@
 #include "Framework/GameEventData.h"
 #include "Engine.h"
 
-FACTORY_REGISTER(CPUComponent)
+FACTORY_REGISTER(CPUComponent);
 
+
+void CPUComponent::Read(const json_t& value)
+{
+    CPUComponent::Initialize();
+
+    READ_DATA(value, playerID);
+    READ_DATA(value, m_health);
+    READ_DATA(value, m_exp);
+    READ_DATA(value, m_heroExp);
+    READ_DATA(value, isActive);
+    READ_DATA(value, isDied);
+}
+
+void CPUComponent::Write(json_t& value)
+{
+}
 
 void CPUComponent::Initialize()
 {
 	PlayerComponent::Initialize();
-
+  
     m_deck = owner->GetComponent<DeckComponent>();
+    std::list<std::string> m_deckName = owner->GetComponent<DeckComponent>()->GetHand();
 
-    m_hand = owner->GetComponent<DeckComponent>()->GetHand();
+    for (const auto& e : m_deckName)
+    {
+        m_hand.push_back(e);
+    }
 }
 
 void CPUComponent::Update(float dt)
@@ -21,21 +41,53 @@ void CPUComponent::Update(float dt)
 
 }
 
+float CPUComponent::GetHealth()
+{
+    return 0.0f;
+}
+
+float CPUComponent::GetExp()
+{
+    return 0.0f;
+}
+
+float CPUComponent::GetHeroExp()
+{
+    return 0.0f;
+}
+
+std::string CPUComponent::GetID()
+{
+    return std::string();
+}
+
+bool CPUComponent::GetIsActive()
+{
+    return false;
+}
+
+bool CPUComponent::GetIsDied()
+{
+    return false;
+}
+
 void CPUComponent::ExecuteTurn()
 {
     EvaluateCards(); // Evaluate and sort the hand
-    PlayBestCard();
+    PlayBestCard();//Play the best card
 }
 
 void CPUComponent::DrawCard()
 {
+    //If needed
 }
 
-void CPUComponent::DiscardCard(const std::string& cardName)
+void CPUComponent::OnDiscardCard(const std::string& cardName)
 {
     auto card = owner->scene->GetActor(cardName)->GetComponent<CardComponent>();
-    EVENT_NOTIFY_DATA(DiscardCard, new CardDeckIDEventData(card->GetCardID(), card->GetDeckId()));
-}
+
+
+    EVENT_NOTIFY_DATA(DiscardCard, new CardNameEventData(card->GetCardID(), cardName, card->GetDeckId()));
 
 void CPUComponent::EvaluateCards()
 {
@@ -82,8 +134,8 @@ void CPUComponent::PlayBestCard()
         if (bestCard->GetCoolDownTimer() == 0) {
 
             EVENT_NOTIFY_DATA(Play, new CardIDEventData(bestCard->GetCardID()));
-            
-            DiscardCard(bestcard);
+
+            OnDiscardCard(bestcard);
         }
     }
 }
@@ -98,21 +150,21 @@ int CPUComponent::EvaluateCardPriority(const std::string& cardName)
     // Priority logic (similar to the standalone function)
     switch (card->GetCardTier()) {
     case CardEnums::CardTier::STARTER: score += 1; break;
-    case CardEnums::CardTier::TIER_1: score += 3; break; 
-    case CardEnums::CardTier::TIER_2: score += 5; break; 
-    case CardEnums::CardTier::HERO: score += 10; break; 
+    case CardEnums::CardTier::TIER_1: score += 3; break;
+    case CardEnums::CardTier::TIER_2: score += 5; break;
+    case CardEnums::CardTier::HERO: score += 10; break;
     }
     // Phase-specific priorities
     switch (card->GetPlayPhase()) {
-    case CardEnums::PlayPhase::START_OF_TURN: score += (gameState == RivalsArena::eState::UPKEEP) ? 5 : -5; break; 
-    case CardEnums::PlayPhase::TURN: score += (gameState == RivalsArena::eState::MAIN) ? 5 : -5; break; 
-    case CardEnums::PlayPhase::END_OF_TURN: score += (gameState == RivalsArena::eState::END) ? 5 : -5; break; 
-    case CardEnums::PlayPhase::PASSIVE: score += 2; break; 
-    case CardEnums::PlayPhase::REACTION: score += (gameState == RivalsArena::eState::REACT) ? 8 : -5; break;
+    case CardEnums::PlayPhase::START_OF_TURN: score += (*gameState == RivalsArena::eState::UPKEEP) ? 5 : -5; break;
+    case CardEnums::PlayPhase::TURN: score += (*gameState == RivalsArena::eState::MAIN) ? 5 : -5; break;
+    case CardEnums::PlayPhase::END_OF_TURN: score += (*gameState == RivalsArena::eState::END) ? 5 : -5; break;
+    case CardEnums::PlayPhase::PASSIVE: score += 2; break;
+    case CardEnums::PlayPhase::REACTION: score += (*gameState == RivalsArena::eState::REACT) ? 8 : -5; break;
     }
 
     // Defensive cards have higher priority when under attack
-    if (card->GetIsDefensive() && gameState == RivalsArena::eState::REACT) {
+    if (card->GetIsDefensive() && *gameState == RivalsArena::eState::REACT) {
         score += 7;
     }
 
@@ -133,22 +185,30 @@ int CPUComponent::EvaluateCardPriority(const std::string& cardName)
 
 void CPUComponent::EndTurn(const Event& event)
 {
+
+void CPUComponent::OnReact(const Event& event)
+  
     EVENT_NOTIFY(EndPlayerTurn);
 }
 
 
 
 void CPUComponent::React(const Event& event)
+
 {
     auto eventData = dynamic_cast<const TrackerEventData*>(event.data);
 
     if (this->playerID == eventData->targetPlayer)
     {
 
+
         m_heroExp += eventData->changeValue;
     }
+
+
 }
-const std::list<std::string>& CPUComponent::GetHand() const {
+const std::list<std::string>& CPUComponent::GetHand()
+{
     return m_hand;
 }
 
@@ -163,17 +223,3 @@ CardComponent* CPUComponent::GetCardComponent(const std::string& cardName)
     return iter != m_hand.end() ? /* fetch card component */ nullptr : nullptr;
 }
 
-void CPUComponent::Read(const json_t& value)
-{
-    READ_DATA(value, playerID);
-    READ_DATA(value, m_health);
-    READ_DATA(value, m_exp);
-    READ_DATA(value, m_heroExp);
-    READ_DATA(value, isActive);
-    READ_DATA(value, isDied);
-   
-}
-
-void CPUComponent::Write(json_t& value)
-{
-}

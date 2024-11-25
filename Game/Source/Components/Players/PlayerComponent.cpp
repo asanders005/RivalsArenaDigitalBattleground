@@ -1,10 +1,18 @@
 #include "PlayerComponent.h"
 #include "Framework/GameEventData.h"
+#include "Framework/Actor.h"
+#include "Framework/Scene.h"
 
 FACTORY_REGISTER(PlayerComponent);
 
 void PlayerComponent::Initialize()
 {
+	if (auto player = Factory::Instance().Create<Actor>(playerID))
+	{
+		this->owner->scene->AddActor(std::move(player), true);
+
+	}
+
 	ADD_OBSERVER(ModifyHealth, PlayerComponent::ModifyPlayerHealth);
 	ADD_OBSERVER(ModifyXP, PlayerComponent::ChangeExp);
 	ADD_OBSERVER(ModifyHeroXP, PlayerComponent::ChangeHeroExp);
