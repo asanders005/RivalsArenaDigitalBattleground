@@ -6,6 +6,7 @@ FACTORY_REGISTER(ButtonComponent);
 
 void ButtonComponent::Initialize()
 {
+	ADD_OBSERVER(DisplayButton, ButtonComponent::OnDisplayUpdate);
 }
 
 void ButtonComponent::Update(float dt)
@@ -29,6 +30,24 @@ void ButtonComponent::Update(float dt)
 		{
 			std::cout << buttonID << " Clicked" << std::endl;
 			EVENT_NOTIFY_DATA(ButtonClicked, new StringEventData(buttonID));
+		}
+	}
+}
+
+void ButtonComponent::OnDisplayUpdate(const Event& event)
+{
+	if (auto data = dynamic_cast<StringBoolEventData*>(event.data))
+	{
+		if (data->string == buttonID)
+		{
+			if (data->_bool)
+			{
+				owner->Activate();
+			}
+			else
+			{
+				owner->Deactivate();
+			}
 		}
 	}
 }

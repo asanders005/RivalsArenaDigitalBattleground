@@ -12,6 +12,8 @@ public:
 
 	void Update(float dt) override;
 
+	void OnDisplayUpdate(const Event& event);
+
 public:
 	std::string buttonID;
 };
