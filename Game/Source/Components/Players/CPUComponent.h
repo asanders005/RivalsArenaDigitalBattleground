@@ -78,7 +78,6 @@ private:
 public:
 
     CPUComponent() = default;
-};
 
     RivalsArena::eState gameState;
     class DeckComponent* m_deck;
