@@ -187,7 +187,7 @@ int CPUComponent::EvaluateCardPriority(const std::string& cardName)
 
 void CPUComponent::EndTurn(const Event& event)
 {
-	EVENT_NOTIFY_DATA(DrawCard, new StringEventData(GetID()));
+	
 }
 
 void CPUComponent::OnReact(const Event& event)
