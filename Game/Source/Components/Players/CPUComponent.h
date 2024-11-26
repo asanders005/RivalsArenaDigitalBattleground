@@ -43,7 +43,7 @@ public:
     void EvaluateCards();
     void SortHandByPriority();
     void PlayBestCard();
-    void SetGameState(RivalsArena::eState* state) { gameState = state; }
+    void SetGameState(RivalsArena::eState state) { gameState = state; }
     int EvaluateCardPriority(const std::string& cardName);
 
     //Events
@@ -71,14 +71,14 @@ private:
 
 
     RivalsArena::eState* gameState = nullptr;
-    Component* m_deck = nullptr;
+
     std::list<std::string> m_hand;
 public:
 
     CPUComponent() = default;
 
-    RivalsArena::eState gameState;
-    class DeckComponent* m_deck;
+    RivalsArena::eState gameState = RivalsArena::eState::UPKEEP;
+    class DeckComponent* m_deck = nullptr;
     std::list<std::string> m_hand;
 };
 
