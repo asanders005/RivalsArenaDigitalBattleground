@@ -34,6 +34,10 @@ public:
 	void OnDisplayPile(const Event& event);
 
 	std::list<std::string> GetHand() { return m_hand; }
+	std::list<std::string> GetHeroes() { return m_heroes; }
+	std::list<std::string> GetUpgradeConsumables() { return m_upgradesConsumable; }
+	std::list<std::string> GetUpgradeHeroes() { return m_upgradesHeroes; }
+
 
 private:
 	void ShuffleDraw();
@@ -66,4 +70,5 @@ private:
 	DisplayingPile m_displayingPile = DisplayingPile::NONE;
 
 	std::default_random_engine m_rng = std::default_random_engine{ (unsigned int)time(0) };
+	void BuyCard(const std::string& cardName);
 };
