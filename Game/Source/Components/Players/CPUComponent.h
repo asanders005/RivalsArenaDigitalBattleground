@@ -57,9 +57,7 @@ private:
     std::string playerID;
 
     void React(const Event& event) override;
-    const std::list<std::string>& GetHand() const;
-    class CardComponent* GetCardComponent(const std::string& cardName);
-
+    
 public:
     std::string playerID;
 
