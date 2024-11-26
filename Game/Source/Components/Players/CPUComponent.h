@@ -53,9 +53,8 @@ public:
     class CardComponent* GetCardComponent(const std::string& cardName);
     void React(const Event& event) override;
 
-private:
     std::string playerID;
-
+private:
     float m_health = 0;
     float m_exp = 0;
     float m_heroExp = 0;
