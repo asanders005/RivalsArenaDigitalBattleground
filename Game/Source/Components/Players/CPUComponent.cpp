@@ -201,9 +201,8 @@ void CPUComponent::React(const Event& event)
 
     if (this->playerID == eventData->targetPlayer)
     {
-
-
-        m_heroExp += eventData->changeValue;
+	    int migatedDamage = UseSheildCards();
+	    m_heroExp += eventData->changeValue - migatedDamage;
     }
 
 
