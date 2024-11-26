@@ -46,11 +46,17 @@ public:
     void SetGameState(RivalsArena::eState state) { gameState = state; }
     int EvaluateCardPriority(const std::string& cardName);
 
+
+
     //Events
     void EndTurn(const Event& event);
     void OnReact(const Event& event);
     const std::list<std::string>& GetHand();
     class CardComponent* GetCardComponent(const std::string& cardName);
+    void EvaluateAndBuyCard();
+    bool HasTierCard();
+    CardComponent* FindBestShieldCard();
+    int UseSheildCards();
     void React(const Event& event) override;
 
     std::string playerID;
@@ -60,6 +66,7 @@ private:
     float m_heroExp = 0;
     bool isActive = false;
     bool isDied = false;
+    bool isUnderAttack = false;
 
 public:
 

@@ -27,13 +27,9 @@ void CPUComponent::Initialize()
 {
 	PlayerComponent::Initialize();
   
-    m_deck = owner->GetComponent<DeckComponent>();
-    std::list<std::string> m_deckName = owner->GetComponent<DeckComponent>()->GetHand();
+    m_deck = owner->GetComponent<DeckComponent>(playerID);
 
-    for (const auto& e : m_deckName)
-    {
-        m_hand.push_back(e);
-    }
+    m_hand = m_deck->GetHand();
 }
 
 void CPUComponent::Update(float dt)
@@ -54,10 +50,9 @@ void CPUComponent::DrawCard()
 
 void CPUComponent::OnDiscardCard(const std::string& cardName)
 {
-    auto card = owner->scene->GetActor(cardName)->GetComponent<CardComponent>();
+     auto card = GetCardComponent(cardName);
 
-
-    EVENT_NOTIFY_DATA(DiscardCard, new CardNameEventData(card->GetCardID(), cardName, card->GetDeckId()));
+     EVENT_NOTIFY_DATA(DiscardCard, new CardDeckIDEventData(card->GetCardID(), GetID()));
 }
 
 void CPUComponent::EvaluateCards()
@@ -77,7 +72,7 @@ void CPUComponent::SortHandByPriority()
 
     for (std::string cardName : m_hand)
     {
-        auto card = owner->scene->GetActor(cardName)->GetComponent<CardComponent>();
+        auto card = GetCardComponent(cardName);
 
         if (card->GetPriority() >= 0) {
             sort_hand.push_back(card->GetCardName());
@@ -97,18 +92,20 @@ void CPUComponent::SortHandByPriority()
 
 void CPUComponent::PlayBestCard()
 {
-    if (!m_hand.empty()) {
-        std::string& bestcard = m_hand.front();
+    while (!m_hand.empty())
+{
+    for (std::string cardNames : m_hand)
+    {
+        auto cards = GetCardComponent(cardNames);
 
-        auto bestCard = owner->scene->GetActor(bestcard)->GetComponent<CardComponent>();
+        if (cards->GetCoolDownTimer() == 0) //Check if they can play ir
+        {
+            EVENT_NOTIFY_DATA(Play, new CardIDEventData(cards->GetCardID()));
 
-        if (bestCard->GetCoolDownTimer() == 0) {
-
-            EVENT_NOTIFY_DATA(Play, new CardIDEventData(bestCard->GetCardID()));
-
-            OnDiscardCard(bestcard);
+            OnDiscardCard(cardNames);
         }
     }
+}
 }
 
 int CPUComponent::EvaluateCardPriority(const std::string& cardName)
@@ -190,6 +187,7 @@ int CPUComponent::EvaluateCardPriority(const std::string& cardName)
 
 void CPUComponent::EndTurn(const Event& event)
 {
+	
 }
 
 void CPUComponent::OnReact(const Event& event)
@@ -217,12 +215,143 @@ const std::list<std::string>& CPUComponent::GetHand()
 
 CardComponent* CPUComponent::GetCardComponent(const std::string& cardName)
 {
-    // Logic to retrieve the CardComponent instance for a given card name
-    auto iter = std::find_if(m_hand.begin(), m_hand.end(), [&](const auto& card)
-        {
-            return card == cardName; // Match by name
-        });
+    auto card = this->owner->GetComponent<CardComponent>(cardName);
 
-    return iter != m_hand.end() ? /* fetch card component */ nullptr : nullptr;
+    return card;
 }
+
+void CPUComponent::EvaluateAndBuyCard()
+{
+    std::list<std::string> heroes = m_deck->GetHeroes();
+    std::list<std::string> upgradeConusmables = m_deck->GetUpgradeConsumables();
+    std::list<std::string> upgradedHeroes = m_deck->GetUpgradeHeroes();
+
+    std::string bestHeroToBuy;
+    std::string bestUpgradedHeroToBuy;
+    std::string bestUpgradedConsumablesToBuy;
+
+    int highestPriority = -1;
+
+    for (const auto& heroName : heroes)
+    {
+        int priority = EvaluateCardPriority(heroName);
+
+        if (priority > highestPriority)
+        {
+            highestPriority = priority;
+            bestHeroToBuy = heroName;
+        }
+    }
+
+    for (const auto& upHeroesName : upgradedHeroes)
+    {
+        int priority = EvaluateCardPriority(upHeroesName);
+
+        if (GetCardComponent(upHeroesName)->GetCardTier() == CardEnums::CardTier::TIER_2 && !HasTierCard())
+        {
+            continue;
+        }
+
+        if (priority > highestPriority)
+        {
+            highestPriority = priority;
+            bestUpgradedHeroToBuy = upHeroesName;
+        }
+    }
+    
+    for (const auto& upConusmables : upgradeConusmables)
+    {
+
+        int priority = EvaluateCardPriority(upConusmables);
+
+        if (GetCardComponent(upConusmables)->GetCardTier() == CardEnums::CardTier::TIER_2 && !HasTierCard())
+        {
+            continue;
+        }
+
+        if (priority > highestPriority)
+        {
+            highestPriority = priority;
+            bestUpgradedConsumablesToBuy = upConusmables;
+        }
+
+    }
+}
+
+bool CPUComponent::HasTierCard()
+{
+    for (const auto& cardName : m_hand)
+    {
+        auto card = GetCardComponent(cardName);
+        if (card && card->GetCardTier() == CardEnums::CardTier::TIER_1)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+CardComponent* CPUComponent::FindBestShieldCard()
+{
+    CardComponent* bestShield = nullptr;
+    int highestDefense = 0;
+    bool ifAny = false;
+
+    for (const auto& cardName : m_hand)
+    {
+        auto card = GetCardComponent(cardName);
+        if (card && card->GetPlayPhase() == CardEnums::PlayPhase::REACTION)
+    {
+    if (card->GetIsDefensive()) {
+            /*if (card.defense > highestDefense)
+            {
+                highestDefense = defense;
+                bestShield = card;
+            }*/
+
+            ifAny = true;
+        }
+
+    }
+}
+if (!ifAny) {
+    return nullptr;
+}
+
+return bestShield;
+}
+
+int CPUComponent::UseSheildCards()
+{
+    int mitigatedDamage = 0;
+
+    if (!isUnderAttack)
+    {
+        return 0;
+    }
+
+    if (FindBestShieldCard() == nullptr)
+    {
+        return 0;
+    }
+
+    auto shieldCard = FindBestShieldCard();
+    if (shieldCard)
+    {
+        //Change get the sheild card
+        //mitigatedDamage -= shieldCard->GetDefenseValue();
+        
+        CPUComponent::OnDiscardCard(shieldCard->GetCardName());
+    }
+
+    // Notify the attacker about the damage received by the CPU
+    //EVENT_NOTIFY_DATA(DamageDealt, new TrackerEventData{ m_playerID, mitigatedDamage });
+
+    // Reset attack flags
+    isUnderAttack = false;
+
+    return mitigatedDamage;
+}
+
+
 
