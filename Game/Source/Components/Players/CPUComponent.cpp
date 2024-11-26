@@ -125,13 +125,47 @@ int CPUComponent::EvaluateCardPriority(const std::string& cardName)
     case CardEnums::CardTier::TIER_2: score += 5; break;
     case CardEnums::CardTier::HERO: score += 10; break;
     }
+	
     // Phase-specific priorities
     switch (card->GetPlayPhase()) {
-    case CardEnums::PlayPhase::START_OF_TURN: score += (gameState == RivalsArena::eState::UPKEEP) ? 5 : -5; break;
-    case CardEnums::PlayPhase::TURN: score += (gameState == RivalsArena::eState::MAIN) ? 5 : -5; break;
-    case CardEnums::PlayPhase::END_OF_TURN: score += (gameState == RivalsArena::eState::END) ? 5 : -5; break;
-    case CardEnums::PlayPhase::PASSIVE: score += 2; break;
-    case CardEnums::PlayPhase::REACTION: score += (gameState == RivalsArena::eState::REACT) ? 8 : -5; break;
+    case CardEnums::PlayPhase::START_OF_TURN:
+        if (gameState == RivalsArena::eState::UPKEEP)
+        {
+            score += 5;
+        }
+        else {
+            score += -5;
+        }
+        break;
+    case CardEnums::PlayPhase::TURN:
+        if (gameState == RivalsArena::eState::MAIN)
+        {
+            score += 5;
+        }
+        else {
+            score += -5;
+        }
+        break;
+    case CardEnums::PlayPhase::END_OF_TURN:
+        if (gameState == RivalsArena::eState::END)
+        {
+            score += 5;
+        }
+        else {
+            score += -5;
+        }
+        break;
+    case CardEnums::PlayPhase::PASSIVE:
+        score += 2; break;
+    case CardEnums::PlayPhase::REACTION:
+        if (gameState == RivalsArena::eState::REACT)
+        {
+            score += 8;
+        }
+        else {
+            score += -5;
+        }
+        break;
     }
 
     // Defensive cards have higher priority when under attack
