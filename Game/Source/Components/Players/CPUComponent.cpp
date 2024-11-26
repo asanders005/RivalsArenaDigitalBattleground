@@ -50,10 +50,9 @@ void CPUComponent::DrawCard()
 
 void CPUComponent::OnDiscardCard(const std::string& cardName)
 {
-    auto card = GetCardComponent(cardName);
+     auto card = GetCardComponent(cardName);
 
-
-    EVENT_NOTIFY_DATA(DiscardCard, new CardNameEventData(card->GetCardID(), cardName, card->GetDeckId()));
+     EVENT_NOTIFY_DATA(DiscardCard, new CardDeckIDEventData(card->GetCardID(), GetID()));
 }
 
 void CPUComponent::EvaluateCards()
@@ -93,18 +92,20 @@ void CPUComponent::SortHandByPriority()
 
 void CPUComponent::PlayBestCard()
 {
-    if (!m_hand.empty()) {
-        std::string bestcardname = m_hand.front();
+    while (!m_hand.empty())
+{
+    for (std::string cardNames : m_hand)
+    {
+        auto cards = GetCardComponent(cardNames);
 
-        auto bestCard = GetCardComponent(bestcardname);
+        if (cards->GetCoolDownTimer() == 0) //Check if they can play ir
+        {
+            EVENT_NOTIFY_DATA(Play, new CardIDEventData(cards->GetCardID()));
 
-        if (bestCard->GetCoolDownTimer() == 0) {
-
-            EVENT_NOTIFY_DATA(Play, new CardIDEventData(bestCard->GetCardID()));
-
-            OnDiscardCard(bestcardname);
+            OnDiscardCard(cardNames);
         }
     }
+}
 }
 
 int CPUComponent::EvaluateCardPriority(const std::string& cardName)
@@ -186,6 +187,7 @@ int CPUComponent::EvaluateCardPriority(const std::string& cardName)
 
 void CPUComponent::EndTurn(const Event& event)
 {
+	EVENT_NOTIFY_DATA(DrawCard, new StringEventData(GetID()));
 }
 
 void CPUComponent::OnReact(const Event& event)
@@ -293,46 +295,63 @@ CardComponent* CPUComponent::FindBestShieldCard()
 {
     CardComponent* bestShield = nullptr;
     int highestDefense = 0;
+    bool ifAny = false;
 
     for (const auto& cardName : m_hand)
     {
         auto card = GetCardComponent(cardName);
         if (card && card->GetPlayPhase() == CardEnums::PlayPhase::REACTION)
-        {
-            if (card->GetIsDefensive()) {
-                /*if (card.defense > highestDefense)
-                {
-                    highestDefense = defense;
-                    bestShield = card;
-                }*/
-            }
+    {
+    if (card->GetIsDefensive()) {
+            /*if (card.defense > highestDefense)
+            {
+                highestDefense = defense;
+                bestShield = card;
+            }*/
 
+            ifAny = true;
         }
+
     }
-    return bestShield;
+}
+if (!ifAny) {
+    return nullptr;
 }
 
-void CPUComponent::HandleReactPhase()
-{
-    if (!isUnderAttack) return;
+return bestShield;
+}
 
-    int mitigatedDamage = 10;
+int CPUComponent::UseSheildCards()
+{
+    int mitigatedDamage = 0;
+
+    if (!isUnderAttack)
+    {
+        return 0;
+    }
+
+    if (FindBestShieldCard() == nullptr)
+    {
+        return 0;
+    }
 
     auto shieldCard = FindBestShieldCard();
     if (shieldCard)
     {
         //Change get the sheild card
         //mitigatedDamage -= shieldCard->GetDefenseValue();
-        mitigatedDamage = std::max(0, mitigatedDamage);
+        
         CPUComponent::OnDiscardCard(shieldCard->GetCardName());
     }
-    m_health -= mitigatedDamage;
 
     // Notify the attacker about the damage received by the CPU
     //EVENT_NOTIFY_DATA(DamageDealt, new TrackerEventData{ m_playerID, mitigatedDamage });
 
     // Reset attack flags
     isUnderAttack = false;
+
+    return mitigatedDamage;
 }
+
 
 
