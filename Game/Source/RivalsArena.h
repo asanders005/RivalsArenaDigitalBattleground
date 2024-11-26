@@ -33,6 +33,8 @@ public:
 
 	//Events
 	void OnCheckCard(const Event& event);
+	void OnCheckBuyCard(const Event& event);
+	void OnSelectPlayer(const Event& event);
 	void OnButtonPressed(const Event& event);
 
 private:
@@ -46,6 +48,9 @@ private:
 	std::vector<std::string> m_players;
 	std::string m_activePlayer;
 	int m_activePlayerIndex;
+
+	std::vector<std::string> m_selectButtonIDs;
+	std::string pendingCardID;
 
 	std::unique_ptr<class Scene> m_scene;
 	class Actor* m_audioController{ nullptr };

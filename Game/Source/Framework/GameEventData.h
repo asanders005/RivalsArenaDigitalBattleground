@@ -12,6 +12,28 @@ struct StringEventData : public EventData
 	std::string string;
 };
 
+struct StringBoolEventData : public EventData
+{
+	StringBoolEventData(const std::string& string, bool _bool) :
+		string{ string },
+		_bool{ _bool }
+	{}
+
+	std::string string;
+	bool _bool;
+};
+
+struct StringIntEventData : public EventData
+{
+	StringIntEventData(const std::string& string, int _int) :
+		string{ string },
+		_int{ _int }
+	{}
+
+	std::string string;
+	int _int;
+};
+
 struct PlayerStringEventData : public EventData
 {
 	PlayerStringEventData(const std::string& targetPlayer, const std::string& dataString) :
@@ -74,10 +96,27 @@ struct CardIDEventData : public EventData
 struct CardBuyEventData : public EventData
 {
 	CardBuyEventData() = default;
-	CardBuyEventData(const std::string& cardName /*::CardTier cardTier*/) : cardName{ cardName }/*, cardTier{ cardTier }*/ {}
+	CardBuyEventData(const std::string& cardName, const CardEnums::CardTier& cardTier) : 
+		cardName{ cardName }, 
+		cardTier{ cardTier } 
+	{}
+	CardBuyEventData(const std::string& cardName, const CardEnums::CardTier& cardTier, const std::string& targetPlayer, int expReqs) :
+		cardName{ cardName },
+		cardTier{ cardTier },
+		expReqs{ expReqs }
+	{}
+	CardBuyEventData(const CardBuyEventData& data)
+	{
+		this->cardName = data.cardName;
+		this->cardTier = data.cardTier;
+		this->targetPlayer = data.targetPlayer;
+		this->expReqs = data.expReqs;
+	}
 
-	std::string cardName;
-	//CardTier cardTier;
+	std::string cardName = "";
+	CardEnums::CardTier cardTier = CardEnums::CardTier::STARTER;
+	std::string targetPlayer = "";
+	int expReqs = 0;
 };
 
 struct TrackerEventData : public EventData

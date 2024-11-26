@@ -1,5 +1,5 @@
 #pragma once
-#include "Components/Component.h"
+#include "Components/Cards/CardComponent.h"
 #include "Event/EventManager.h"
 
 class DummyCardComponent : public Component, Observer
@@ -13,4 +13,10 @@ class DummyCardComponent : public Component, Observer
 
 	//Events
 	void OnRefreshPileDisplay(const Event& event);
+
+private:
+	std::string m_cardName;
+	CardEnums::CardTier m_tier;
+
+	bool isDestroyed = false;
 };

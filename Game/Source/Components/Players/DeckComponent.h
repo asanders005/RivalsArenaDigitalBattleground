@@ -27,9 +27,7 @@ public:
 	// Events
 	void OnDraw(const Event& event);
 	void OnDiscard(const Event& event);
-	void OnBuyHero(const Event& event);
-	void OnBuyConsumable(const Event& event);
-	void OnUpgradeConsumable(const Event& event);
+	void OnBuyCard(const Event& event);
 
 	void OnDisplayPile(const Event& event);
 

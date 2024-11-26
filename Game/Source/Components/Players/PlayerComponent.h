@@ -19,6 +19,7 @@ public:
 	void ChangeExp(const Event& event);
 	void ChangeHeroExp(const Event& event);
 	virtual void React(const Event& event);
+	void CheckExp(const Event& event);
 
 public:
 

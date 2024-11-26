@@ -9,6 +9,7 @@ void PlayerComponent::Initialize()
 	ADD_OBSERVER(ModifyXP, PlayerComponent::ChangeExp);
 	ADD_OBSERVER(ModifyHeroXP, PlayerComponent::ChangeHeroExp);
 	ADD_OBSERVER(Reaction, PlayerComponent::React);
+	ADD_OBSERVER(CheckPlayerExp, PlayerComponent::CheckExp);
 }
 
 void PlayerComponent::Update(float dt)
@@ -24,6 +25,35 @@ void PlayerComponent::OnUpdateTracker(const Event& event)
 void PlayerComponent::React(const Event& event)
 {
 	//Each Child Class will have one
+}
+
+void PlayerComponent::CheckExp(const Event& event)
+{
+	if (auto data = dynamic_cast<CardBuyEventData*>(event.data))
+	{
+		if (data->targetPlayer == playerID)
+		{
+			switch (data->cardTier)
+			{
+			case CardEnums::CardTier::TIER_1:
+				if (m_exp >= data->expReqs)
+				{
+					EVENT_NOTIFY_DATA(BuyCard, data);
+					m_exp -= data->expReqs;
+				}
+				break;
+			case CardEnums::CardTier::TIER_2:
+				if (m_exp >= data->expReqs)
+				{
+					EVENT_NOTIFY_DATA(SelectUpgradeSacrifice, data);
+					m_exp -= data->expReqs;
+				}
+				break;
+			case CardEnums::CardTier::HERO:
+				break;
+			}
+		}
+	}
 }
 
 void PlayerComponent::ModifyPlayerHealth(const Event& event)

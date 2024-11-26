@@ -34,9 +34,7 @@ void DeckComponent::Initialize()
 
 	ADD_OBSERVER(DrawCard, DeckComponent::OnDraw);
 	ADD_OBSERVER(DiscardCard, DeckComponent::OnDiscard);
-	ADD_OBSERVER(BuyHero, DeckComponent::OnBuyHero);
-	ADD_OBSERVER(BuyConsumable, DeckComponent::OnBuyConsumable);
-	ADD_OBSERVER(UpgradeConsumable, DeckComponent::OnUpgradeConsumable);
+	ADD_OBSERVER(BuyCard, DeckComponent::OnBuyCard);
 
 	ADD_OBSERVER(DisplayPile, DeckComponent::OnDisplayPile);
 }
@@ -79,6 +77,10 @@ void DeckComponent::DisplayPile(const std::string& pile)
 	else if (pile == "PileHeroesUpgrade")
 	{
 		m_displayingPile = DisplayingPile::HERO;
+	}
+	else
+	{
+		m_displayingPile = DisplayingPile::NONE;
 	}
 
 	if (m_displayingPile != DisplayingPile::NONE)
@@ -246,25 +248,20 @@ void DeckComponent::OnDiscard(const Event& event)
 	}
 }
 
-void DeckComponent::OnBuyHero(const Event& event)
+void DeckComponent::OnBuyCard(const Event& event)
 {
-	// Work on during Beta
-	/*EventData eventData = std::get<EventData&>(event.data);
-	if (CardBuyEventData data = dynamic_cast<CardBuyEventData&>(eventData))
+	if (auto data = dynamic_cast<CardBuyEventData*>(event.data))
 	{
-
+		if (data->cardTier != CardEnums::CardTier::HERO)
+		{
+			auto iter = std::find(m_upgradesConsumable.begin(), m_upgradesConsumable.end(), data->cardName);
+			if (iter != m_upgradesConsumable.end())
+			{
+				m_upgradesConsumable.erase(iter);
+				m_discard.push_back(data->cardName);
+			}
+		}
 	}
-	auto hero = Factory::Instance().Create<Actor>();*/
-}
-
-void DeckComponent::OnBuyConsumable(const Event& event)
-{
-	// Work on during Beta
-}
-
-void DeckComponent::OnUpgradeConsumable(const Event& event)
-{
-	// Work on during Beta
 }
 
 void DeckComponent::OnDisplayPile(const Event& event)
