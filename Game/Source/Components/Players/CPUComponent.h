@@ -56,7 +56,7 @@ public:
     void EvaluateAndBuyCard();
     bool HasTierCard();
     CardComponent* FindBestShieldCard();
-    void HandleReactPhase();
+    int UseSheildCards();
     void React(const Event& event) override;
 
     std::string playerID;
