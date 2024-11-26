@@ -58,6 +58,7 @@ void CPUComponent::OnDiscardCard(const std::string& cardName)
 
 
     EVENT_NOTIFY_DATA(DiscardCard, new CardNameEventData(card->GetCardID(), cardName, card->GetDeckId()));
+}
 
 void CPUComponent::EvaluateCards()
 {
