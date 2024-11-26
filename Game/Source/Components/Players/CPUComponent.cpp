@@ -216,14 +216,6 @@ CardComponent* CPUComponent::GetCardComponent(const std::string& cardName)
     auto card = this->owner->GetComponent<CardComponent>(cardName);
 
     return card;
-
-    // Logic to retrieve the CardComponent instance for a given card name
-    auto iter = std::find_if(m_hand.begin(), m_hand.end(), [&](const auto& card)
-        {
-            return card == cardName; // Match by name
-        });
-
-    return iter != m_hand.end() ?  nullptr : nullptr;
 }
 
 void CPUComponent::EvaluateAndBuyCard()
