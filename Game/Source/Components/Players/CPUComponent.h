@@ -48,20 +48,13 @@ public:
 
     //Events
     void EndTurn(const Event& event);
-
     void OnReact(const Event& event);
     const std::list<std::string>& GetHand();
     class CardComponent* GetCardComponent(const std::string& cardName);
-
-private:
-    std::string playerID;
-
     void React(const Event& event) override;
-    
-public:
-    std::string playerID;
 
 private:
+    std::string playerID;
 
     float m_health = 0;
     float m_exp = 0;
@@ -69,10 +62,6 @@ private:
     bool isActive = false;
     bool isDied = false;
 
-
-    RivalsArena::eState* gameState = nullptr;
-
-    std::list<std::string> m_hand;
 public:
 
     CPUComponent() = default;
