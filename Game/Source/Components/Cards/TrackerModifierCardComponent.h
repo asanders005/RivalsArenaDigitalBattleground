@@ -11,9 +11,13 @@ public:
 	TrackerModifierCardComponent() = default;
 
 	void Ability() override;
+	void Initialize() override;
 
 private:
 	CardEnums::Tracker m_tracker = CardEnums::Tracker::HEALTH;
 	int m_changeAmount = 0;
+
+	void OnPlayerSelected(const Event& event);
+	void AbilityFunctionality();
 
 };
