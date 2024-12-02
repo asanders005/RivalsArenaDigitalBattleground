@@ -17,7 +17,9 @@
           "name": "Springlock",
           "cardTier": "STARTER",
           "playPhase": "TURN",
-          "defensive": false
+          "defensive": false,
+          "changeAmount": 1,
+          "tracker": "HEALTH"
         }
       ]
     },
@@ -37,7 +39,9 @@
           "type": "TrackerModifierCardComponent",
           "name": "Saferoom",
           "cardTier": "STARTER",
-          "playPhase": "TURN"
+          "playPhase": "TURN",
+          "defensive": true,
+          "baseModificationAmount": 1
         }
       ]
     },
@@ -56,7 +60,10 @@
         {
           "type": "TrackerModifierCardComponent",
           "name": "Fire",
-          "cardTier": "TIER_1"
+          "cardTier": "TIER_1",
+          "defensive": false,
+          "changeAmount": 3,
+          "tracker": "HEALTH"
         }
       ]
     },
@@ -74,8 +81,11 @@
         },
         {
           "type": "TrackerModifierCardComponent",
-          "name": "Freddys Pizza",
-          "cardTier": "TIER_1"
+          "name": "Freddy Fazbear's Pizza",
+          "cardTier": "TIER_1",
+          "defensive": true,
+          "changeAmount": 2,
+          "tracker": "HEALTH"
         }
       ]
     },
@@ -94,7 +104,18 @@
         {
           "type": "TrackerModifierCardComponent",
           "name": "S.C.U.P.R.",
-          "cardTier": "TIER_2"
+          "cardTier": "TIER_2",
+          "defensive": true,
+          "changeAmount": 5,
+          "tracker": "HEALTH"
+        },
+        {
+          "type": "TrackerModifierCardComponent",
+          "name": "S.C.U.P.R.",
+          "cardTier": "TIER_2",
+          "defensive": true,
+          "changeAmount": 2,
+          "tracker": "GIMMICK"
         }
       ]
     },
@@ -113,7 +134,10 @@
         {
           "type": "TrackerModifierCardComponent",
           "name": "Midnight Motorist",
-          "cardTier": "TIER_2"
+          "cardTier": "TIER_2",
+          "defensive": false,
+          "changeAmount": 4,
+          "tracker": "HEALTH"
         }
       ]
     },
