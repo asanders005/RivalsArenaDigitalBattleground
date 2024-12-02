@@ -63,6 +63,7 @@ public:
 	{
 		return !m_targetPlayer.empty();
 	}
+	
     CardEnums::CardTier GetCardTier() { return m_tier; }
 	CardEnums::PlayPhase GetPlayPhase() { return m_phase; }
 	int GetPriority() { return m_priority; }
@@ -87,6 +88,7 @@ protected:
 
 	CardEnums::CardTier m_tier = CardEnums::CardTier::STARTER;
 	CardEnums::PlayPhase m_phase = CardEnums::PlayPhase::TURN;
+
 
 
 };

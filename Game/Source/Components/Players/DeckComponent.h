@@ -32,11 +32,12 @@ public:
 	void OnUpgradeConsumable(const Event& event);
 
 	void OnDisplayPile(const Event& event);
-
-	std::list<std::string> GetHand() { return m_hand; }
-	std::list<std::string> GetHeroes() { return m_heroes; }
-	std::list<std::string> GetUpgradeConsumables() { return m_upgradesConsumable; }
-	std::list<std::string> GetUpgradeHeroes() { return m_upgradesHeroes; }
+	
+	std::list<std::string>* GetHand() { return &m_hand; }
+	std::list<std::string>* GetHeroes() { return &m_heroes; }
+	std::list<std::string>* GetUpgradeConsumables() { return &m_upgradesConsumable; }
+	std::list<std::string>* GetUpgradeHeroes() { return &m_upgradesHeroes; }
+	std::list<std::string>* GetDrawHand() { return &m_hand; }
 
 
 private:

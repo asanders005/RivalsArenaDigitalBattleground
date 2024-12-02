@@ -4,6 +4,10 @@
 #include "Framework/GameEventData.h"
 #include "Engine.h"
 
+#include <algorithm>
+#include <iostream>
+#include <typeinfo>
+
 FACTORY_REGISTER(CPUComponent);
 
 
@@ -26,10 +30,8 @@ void CPUComponent::Write(json_t& value)
 void CPUComponent::Initialize()
 {
 	PlayerComponent::Initialize();
-  
-    m_deck = owner->GetComponent<DeckComponent>(playerID);
+    //ADD_OBSERVER(CpuUpkeep, CPUComponent::ExecuteTurn);
 
-    m_hand = m_deck->GetHand();
 }
 
 void CPUComponent::Update(float dt)
@@ -37,10 +39,17 @@ void CPUComponent::Update(float dt)
 
 }
 
-void CPUComponent::ExecuteTurn()
+void CPUComponent::ExecuteTurn(const Event& event)
 {
-    EvaluateCards(); // Evaluate and sort the hand
-    PlayBestCard();//Play the best card
+
+    auto eventData = dynamic_cast<const TrackerEventData*>(event.data);
+    if (this->playerID == eventData->targetPlayer)
+    {
+        EvaluateCards(); // Evaluate and sort the hand
+        PlayBestCard();//Play the best card
+        EvaluateAndBuyCard();        
+    }
+
 }
 
 void CPUComponent::DrawCard()
@@ -53,11 +62,13 @@ void CPUComponent::OnDiscardCard(const std::string& cardName)
      auto card = GetCardComponent(cardName);
 
      EVENT_NOTIFY_DATA(DiscardCard, new CardDeckIDEventData(card->GetCardID(), GetID()));
+
+     
 }
 
 void CPUComponent::EvaluateCards()
 {
-    for (std::string cardName : m_hand)
+    for (std::string cardName : *my_hand)
     {
         EvaluateCardPriority(cardName);
     }
@@ -67,34 +78,41 @@ void CPUComponent::EvaluateCards()
 
 void CPUComponent::SortHandByPriority()
 {
-    std::list<std::string> sort_hand;
-    std::list<std::string> sort_hand2;
+    std::list<std::string>* sort_hand{};
+    std::list<std::string>* sort_hand2{};
 
-    for (std::string cardName : m_hand)
+    for (std::string cardName : *my_hand)
     {
         auto card = GetCardComponent(cardName);
 
         if (card->GetPriority() >= 0) {
-            sort_hand.push_back(card->GetCardName());
+
+            sort_hand->push_back(cardName);
+            //sort_hand.push_back(card->GetCardName());
         }
         else {
-            sort_hand2.push_back(card->GetCardName());
+            sort_hand2->push_back(cardName);
+            //sort_hand2.push_back(card->GetCardName());
         }
 
     }
 
-    for (std::string cardName : sort_hand) {
-        sort_hand2.push_back(cardName);
+    for (std::string cardName : *sort_hand) {
+        sort_hand2->push_back(cardName);
+        //sort_hand2.push_back(cardName);
+
     }
 
-    m_hand = sort_hand2;
+    my_hand = sort_hand2;
 }
 
 void CPUComponent::PlayBestCard()
 {
-    while (!m_hand.empty())
+    bool isEmpty = my_hand->empty();
+
+    while (!my_hand->empty())
 {
-    for (std::string cardNames : m_hand)
+    for (std::string cardNames : *my_hand)
     {
         auto cards = GetCardComponent(cardNames);
 
@@ -190,8 +208,11 @@ void CPUComponent::EndTurn(const Event& event)
 	
 }
 
+
+
 void CPUComponent::OnReact(const Event& event)
 {   
+
 }
 
 void CPUComponent::React(const Event& event)
@@ -207,10 +228,6 @@ void CPUComponent::React(const Event& event)
 
 
 }
-const std::list<std::string>& CPUComponent::GetHand()
-{
-    return m_hand;
-}
 
 CardComponent* CPUComponent::GetCardComponent(const std::string& cardName)
 {
@@ -221,17 +238,21 @@ CardComponent* CPUComponent::GetCardComponent(const std::string& cardName)
 
 void CPUComponent::EvaluateAndBuyCard()
 {
-    std::list<std::string> heroes = m_deck->GetHeroes();
-    std::list<std::string> upgradeConusmables = m_deck->GetUpgradeConsumables();
-    std::list<std::string> upgradedHeroes = m_deck->GetUpgradeHeroes();
+    std::list<std::string>* heroes = m_deck->GetHeroes();
+    std::list<std::string>* upgradeConusmables = m_deck->GetUpgradeConsumables();
+    std::list<std::string>* upgradedHeroes = m_deck->GetUpgradeHeroes();
 
     std::string bestHeroToBuy;
     std::string bestUpgradedHeroToBuy;
     std::string bestUpgradedConsumablesToBuy;
 
     int highestPriority = -1;
+    CardComponent* heroCardBuy{};
+    CardComponent* consumablesToBuy;
+    CardComponent* upgradedHeroToBuy;
 
-    for (const auto& heroName : heroes)
+
+    for (auto heroName : *heroes)
     {
         int priority = EvaluateCardPriority(heroName);
 
@@ -239,47 +260,59 @@ void CPUComponent::EvaluateAndBuyCard()
         {
             highestPriority = priority;
             bestHeroToBuy = heroName;
+
+            heroCardBuy = GetCardComponent(bestHeroToBuy);
         }
     }
-
-    for (const auto& upHeroesName : upgradedHeroes)
+    for (auto consumablesName : *upgradeConusmables)
     {
-        int priority = EvaluateCardPriority(upHeroesName);
-
-        if (GetCardComponent(upHeroesName)->GetCardTier() == CardEnums::CardTier::TIER_2 && !HasTierCard())
-        {
-            continue;
-        }
+        int priority = EvaluateCardPriority(consumablesName);
 
         if (priority > highestPriority)
         {
             highestPriority = priority;
-            bestUpgradedHeroToBuy = upHeroesName;
+            bestUpgradedConsumablesToBuy = consumablesName;
+
+            consumablesToBuy = GetCardComponent(bestUpgradedConsumablesToBuy);
         }
     }
-    
-    for (const auto& upConusmables : upgradeConusmables)
+
+    for (auto consumablesName : *upgradedHeroes)
     {
-
-        int priority = EvaluateCardPriority(upConusmables);
-
-        if (GetCardComponent(upConusmables)->GetCardTier() == CardEnums::CardTier::TIER_2 && !HasTierCard())
-        {
-            continue;
-        }
+        int priority = EvaluateCardPriority(consumablesName);
 
         if (priority > highestPriority)
         {
             highestPriority = priority;
-            bestUpgradedConsumablesToBuy = upConusmables;
+            bestUpgradedHeroToBuy = consumablesName;
+
+            upgradedHeroToBuy = GetCardComponent(bestUpgradedConsumablesToBuy);
         }
+    }
+
+    if (heroCardBuy)
+    {
+
+        //EVENT_NOTIFY_DATA(DrawSpecficCard, new CardIDEventData(heroCardBuy->GetCardID()));
+
 
     }
+
+    if (!bestUpgradedConsumablesToBuy.empty())
+    {
+
+    }
+
+    if (!bestUpgradedHeroToBuy.empty())
+    {
+
+    }
+
 }
 
 bool CPUComponent::HasTierCard()
 {
-    for (const auto& cardName : m_hand)
+    for (const auto& cardName : *my_hand)
     {
         auto card = GetCardComponent(cardName);
         if (card && card->GetCardTier() == CardEnums::CardTier::TIER_1)
@@ -296,29 +329,32 @@ CardComponent* CPUComponent::FindBestShieldCard()
     int highestDefense = 0;
     bool ifAny = false;
 
-    for (const auto& cardName : m_hand)
+    for (const auto& cardName : *my_hand)
     {
         auto card = GetCardComponent(cardName);
         if (card && card->GetPlayPhase() == CardEnums::PlayPhase::REACTION)
-    {
-    if (card->GetIsDefensive()) {
-            /*if (card.defense > highestDefense)
+        {
+            if (card->GetIsDefensive()) 
             {
-                highestDefense = defense;
-                bestShield = card;
-            }*/
+                /*if (card.defense > highestDefense)
+                {
+                    highestDefense = defense;
+                    bestShield = card;
+                }*/
 
-            ifAny = true;
+                ifAny = true;
+            }
+
         }
-
     }
-}
-if (!ifAny) {
-    return nullptr;
+    if (!ifAny)
+    {
+        return nullptr;
+    }
+    
+    return bestShield;
 }
 
-return bestShield;
-}
 
 int CPUComponent::UseSheildCards()
 {
@@ -352,5 +388,34 @@ int CPUComponent::UseSheildCards()
     return mitigatedDamage;
 }
 
+void CPUComponent::DrawSpecficCard()
+{
+    //std::string cardName = owner->GetComponent<DeckComponent>(m_deckID)->GetDrawHand()->back();
+
+    //std::string cardID;
+    //bool containsID = true;
+    //do
+    //{
+    //    int idNum = random(10);
+    //    cardID = m_deckID + "_Card" + std::to_string(idNum);
+
+    //    auto iter = std::find(m_hand.begin(), m_hand.end(), cardID);
+
+    //    if (iter == m_hand.end()) containsID = false;
+    //} while (containsID);
+
+    //m_hand.push_back(cardID);
+
+    //if (auto card = Factory::Instance().Create<Actor>(cardName))
+    //{
+    //    card->transform.position = { Vector2{ i * 180.0f + 70, 600.0f } };
+    //    card->GetComponent<CardComponent>()->SetCardID(cardID);
+    //    card->GetComponent<CardComponent>()->SetDeckID(cardID);
+
+    //    owner->scene->AddActor(std::move(card), true);
+
+    //    std::cout << "Drawing Card: " << cardName << std::endl;
+    //}
+}
 
 
