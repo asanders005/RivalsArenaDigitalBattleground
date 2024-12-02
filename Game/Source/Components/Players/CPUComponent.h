@@ -35,20 +35,22 @@ public:
 
     //Setters
     void SetCPUID(std::string cpuName) { playerID = cpuName; }
+    void SetDeckComponent(DeckComponent* myDeck) { m_deck = myDeck; my_hand = myDeck->GetHand(); }
+    void SetGameState(RivalsArena::eState state) { gameState = state; }
+    
 
     //Functions
-    void ExecuteTurn();
     void DrawCard();
     void OnDiscardCard(const std::string& cardName);
     void EvaluateCards();
     void SortHandByPriority();
     void PlayBestCard();
-    void SetGameState(RivalsArena::eState state) { gameState = state; }
     int EvaluateCardPriority(const std::string& cardName);
 
 
 
     //Events
+    void ExecuteTurn(const Event& event);
     void EndTurn(const Event& event);
     void OnReact(const Event& event);
     const std::list<std::string>& GetHand();
@@ -57,6 +59,7 @@ public:
     bool HasTierCard();
     CardComponent* FindBestShieldCard();
     int UseSheildCards();
+    void DrawSpecficCard();
     void React(const Event& event) override;
 
     std::string playerID;
@@ -69,11 +72,10 @@ private:
     bool isUnderAttack = false;
 
 public:
-
     CPUComponent() = default;
 
     RivalsArena::eState gameState = RivalsArena::eState::UPKEEP;
     class DeckComponent* m_deck = nullptr;
-    std::list<std::string> m_hand;
+    std::list<std::string>* my_hand;
 };
 
