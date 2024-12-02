@@ -26,61 +26,56 @@ public:
     void Update(float dt) override;
 
     //Getters
-    float GetHealth();
-    float GetExp();
-    float GetHeroExp();
-    std::string GetID();
-    bool GetIsActive();
-    bool GetIsDied();
+    float GetHealth() { return m_health; }
+    float GetExp() { return m_exp; }
+    float GetHeroExp() { return m_heroExp; }
+    std::string GetID() { return playerID; }
+    bool GetIsActive() { return isActive; }
+    bool GetIsDied() { return isDied; }
 
     //Setters
     void SetCPUID(std::string cpuName) { playerID = cpuName; }
+    void SetDeckComponent(DeckComponent* myDeck) { m_deck = myDeck; my_hand = myDeck->GetHand(); }
+    void SetGameState(RivalsArena::eState state) { gameState = state; }
+    
 
     //Functions
-    void ExecuteTurn();
     void DrawCard();
     void OnDiscardCard(const std::string& cardName);
     void EvaluateCards();
     void SortHandByPriority();
     void PlayBestCard();
-    void SetGameState(RivalsArena::eState* state) { gameState = state; }
     int EvaluateCardPriority(const std::string& cardName);
 
-    //Events
-    void EndTurn(const Event& event);
 
+
+    //Events
+    void ExecuteTurn(const Event& event);
+    void EndTurn(const Event& event);
     void OnReact(const Event& event);
     const std::list<std::string>& GetHand();
     class CardComponent* GetCardComponent(const std::string& cardName);
-
-private:
-    std::string playerID;
-
+    void EvaluateAndBuyCard();
+    bool HasTierCard();
+    CardComponent* FindBestShieldCard();
+    int UseSheildCards();
+    void DrawSpecficCard();
     void React(const Event& event) override;
-    const std::list<std::string>& GetHand() const;
-    class CardComponent* GetCardComponent(const std::string& cardName);
 
-public:
     std::string playerID;
-
 private:
-
     float m_health = 0;
     float m_exp = 0;
     float m_heroExp = 0;
     bool isActive = false;
     bool isDied = false;
+    bool isUnderAttack = false;
 
-
-    RivalsArena::eState* gameState = nullptr;
-    Component* m_deck = nullptr;
-    std::list<std::string> m_hand;
 public:
-
     CPUComponent() = default;
 
-    RivalsArena::eState gameState;
-    class DeckComponent* m_deck;
-    std::list<std::string> m_hand;
+    RivalsArena::eState gameState = RivalsArena::eState::UPKEEP;
+    class DeckComponent* m_deck = nullptr;
+    std::list<std::string>* my_hand;
 };
 

@@ -16,9 +16,9 @@ public:
 		std::vector<std::string> hero;
 	};
 	CLASS_DECLARATION(DeckComponent)
-	CLASS_PROTOTYPE(DeckComponent)
+		CLASS_PROTOTYPE(DeckComponent)
 
-	DeckComponent(std::string id) : m_deckID{ id } {}
+		DeckComponent(std::string id) : m_deckID{ id } {}
 
 	void Initialize() override;
 
@@ -33,7 +33,12 @@ public:
 
 	void OnDisplayPile(const Event& event);
 
-	std::list<std::string> GetHand() { return m_hand; }
+	std::list<std::string>* GetHand() { return &m_hand; }
+	std::list<std::string>* GetHeroes() { return &m_heroes; }
+	std::list<std::string>* GetUpgradeConsumables() { return &m_upgradesConsumable; }
+	std::list<std::string>* GetUpgradeHeroes() { return &m_upgradesHeroes; }
+	std::list<std::string>* GetDrawHand() { return &m_hand; }
+
 
 private:
 	void ShuffleDraw();
@@ -66,4 +71,5 @@ private:
 	DisplayingPile m_displayingPile = DisplayingPile::NONE;
 
 	std::default_random_engine m_rng = std::default_random_engine{ (unsigned int)time(0) };
+	void BuyCard(const std::string& cardName);
 };

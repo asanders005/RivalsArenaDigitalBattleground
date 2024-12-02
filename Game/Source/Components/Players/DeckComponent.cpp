@@ -20,7 +20,7 @@ void DeckComponent::Initialize()
 	if (auto consumables = Factory::Instance().Create<Actor>("UniversalPile"))
 	{
 		consumables->transform.position = { 355, 105 };
-		consumables->GetComponent<PileComponent>()->SetData(m_deckID, "PileConsumablesUpgrade");		
+		consumables->GetComponent<PileComponent>()->SetData(m_deckID, "PileConsumablesUpgrade");
 		owner->scene->AddActor(std::move(consumables), true);
 		EVENT_NOTIFY_DATA(UpdatePileTexture, new PileTextureUpdateEventData(m_deckID, "PileConsumablesUpgrade", "Textures/Decks/" + m_deckName + "/" + m_upgradesConsumable.front() + ".png"));
 	}
@@ -238,10 +238,10 @@ void DeckComponent::OnDiscard(const Event& event)
 				//if (m_cardsInHand == 0) EVENT_NOTIFY_DATA(DrawCards, new StringEventData(owner->GetComponent<PlayerComponent>()->playerID));
 			}
 
-		/*for (auto card : m_discard)
-		{
-			std::cout << card << std::endl;
-		}*/
+			/*for (auto card : m_discard)
+			{
+				std::cout << card << std::endl;
+			}*/
 		}
 	}
 }
@@ -281,28 +281,28 @@ void DeckComponent::OnDisplayPile(const Event& event)
 
 void DeckComponent::Read(const json_t& value)
 {
-    DeckData deck;
-    READ_DATA_NAME(value.FindMember("deck")->value.GetObject(),"name", m_deckName);
-    READ_DATA_NAME(value.FindMember("deck")->value.GetObject(),"starter", deck.starter);
-    READ_DATA_NAME(value.FindMember("deck")->value.GetObject(),"tier1", deck.tier1);
-    READ_DATA_NAME(value.FindMember("deck")->value.GetObject(),"tier2", deck.tier2);
-    READ_DATA_NAME(value.FindMember("deck")->value.GetObject(),"hero", deck.hero);
-    for ( const auto& e : deck.starter)
-    {
-        m_draw.push_back(e);
-    }
-    for ( const auto& e : deck.tier1)
-    {
-        m_upgradesConsumable.push_back(e);
-    }
-    for ( const auto& e : deck.tier2)
-    {
-        m_upgradesConsumable.push_back(e);
-    }
-    for ( const auto& e : deck.hero)
-    {
-        m_upgradesHeroes.push_back(e);
-    }
+	DeckData deck;
+	READ_DATA_NAME(value.FindMember("deck")->value.GetObject(), "name", m_deckName);
+	READ_DATA_NAME(value.FindMember("deck")->value.GetObject(), "starter", deck.starter);
+	READ_DATA_NAME(value.FindMember("deck")->value.GetObject(), "tier1", deck.tier1);
+	READ_DATA_NAME(value.FindMember("deck")->value.GetObject(), "tier2", deck.tier2);
+	READ_DATA_NAME(value.FindMember("deck")->value.GetObject(), "hero", deck.hero);
+	for (const auto& e : deck.starter)
+	{
+		m_draw.push_back(e);
+	}
+	for (const auto& e : deck.tier1)
+	{
+		m_upgradesConsumable.push_back(e);
+	}
+	for (const auto& e : deck.tier2)
+	{
+		m_upgradesConsumable.push_back(e);
+	}
+	for (const auto& e : deck.hero)
+	{
+		m_upgradesHeroes.push_back(e);
+	}
 }
 
 void DeckComponent::Write(json_t& value)
