@@ -1,4 +1,5 @@
 #include "EventManager.h"
+#include <iostream>
 
 void EventManager::AddObserver(const id_t& id, Observer* observer, EventHandler eventHandler)
 {
@@ -14,7 +15,10 @@ void EventManager::RemoveObserver(Observer* observer)
 	for (auto& element : m_dispatchers)
 	{
 		auto dispatchers = element.second;
-		std::erase_if(dispatchers, [observer](auto& dispatcher) { return dispatcher.observer == observer; });
+		std::erase_if(dispatchers, [observer](auto& dispatcher) 
+			{
+				return dispatcher.observer == observer; 
+			});
 	}
 }
 

@@ -3,6 +3,11 @@
 
 FACTORY_REGISTER(DummyCardComponent);
 
+DummyCardComponent::~DummyCardComponent()
+{
+	REMOVE_OBSERVER;
+}
+
 void DummyCardComponent::Initialize()
 {
 	ADD_OBSERVER(RefreshPileDisplay, DummyCardComponent::OnRefreshPileDisplay);
@@ -25,6 +30,11 @@ void DummyCardComponent::Update(float dt)
 			{
 				return;
 			}
+			else
+			{
+				std::cout << "Dummy Card Clicked: " << m_cardName << std::endl;
+				EVENT_NOTIFY_DATA(DummyCardClicked, new CardBuyEventData(m_cardName, m_tier));
+			}
 			EVENT_NOTIFY(DummyCardClicked);
 		}
 		else
@@ -36,7 +46,12 @@ void DummyCardComponent::Update(float dt)
 
 void DummyCardComponent::OnRefreshPileDisplay(const Event& event)
 {
-	if (owner) owner->isDestroyed = true;
+	if (owner)
+	{
+		isDestroyed = true;
+		owner->isDestroyed = true;
+		REMOVE_OBSERVER;
+	}
 }
 
 void DummyCardComponent::Read(const json_t& value)

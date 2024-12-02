@@ -10,35 +10,35 @@
 
 void DeckComponent::Initialize()
 {
-	if (auto discard = Factory::Instance().Create<Actor>("UniversalPile"))
+	if (m_deckID.substr(0, 3) != "CPU")
 	{
-		discard->transform.position = { 50, 50 };
-		discard->GetComponent<PileComponent>()->SetData(m_deckID, "PileDiscard");
-		owner->scene->AddActor(std::move(discard), true);
-		EVENT_NOTIFY_DATA(UpdatePileTexture, new PileTextureUpdateEventData(m_deckID, "PileDiscard", "Textures/Test.jpg"));
-	}
-	if (auto consumables = Factory::Instance().Create<Actor>("UniversalPile"))
-	{
-		consumables->transform.position = { 355, 105 };
-		consumables->GetComponent<PileComponent>()->SetData(m_deckID, "PileConsumablesUpgrade");		
-		owner->scene->AddActor(std::move(consumables), true);
-		EVENT_NOTIFY_DATA(UpdatePileTexture, new PileTextureUpdateEventData(m_deckID, "PileConsumablesUpgrade", "Textures/Decks/" + m_deckName + "/" + m_upgradesConsumable.front() + ".png"));
-	}
-	if (auto heroes = Factory::Instance().Create<Actor>("UniversalPile"))
-	{
-		heroes->transform.position = { 655, 105 };
-		heroes->GetComponent<PileComponent>()->SetData(m_deckID, "PileHeroesUpgrade");
-		owner->scene->AddActor(std::move(heroes), true);
-		EVENT_NOTIFY_DATA(UpdatePileTexture, new PileTextureUpdateEventData(m_deckID, "PileHeroesUpgrade", "Textures/Decks/" + m_deckName + "/" + m_upgradesHeroes.front() + ".png"));
+		if (auto discard = Factory::Instance().Create<Actor>("UniversalPile"))
+		{
+			discard->transform.position = { 50, 50 };
+			discard->GetComponent<PileComponent>()->SetData(m_deckID, "PileDiscard");
+			owner->scene->AddActor(std::move(discard), true);
+			EVENT_NOTIFY_DATA(UpdatePileTexture, new PileTextureUpdateEventData(m_deckID, "PileDiscard", "Textures/Test.jpg"));
+		}
+		if (auto consumables = Factory::Instance().Create<Actor>("UniversalPile"))
+		{
+			consumables->transform.position = { 355, 105 };
+			consumables->GetComponent<PileComponent>()->SetData(m_deckID, "PileConsumablesUpgrade");
+			owner->scene->AddActor(std::move(consumables), true);
+			EVENT_NOTIFY_DATA(UpdatePileTexture, new PileTextureUpdateEventData(m_deckID, "PileConsumablesUpgrade", "Textures/Decks/" + m_deckName + "/" + m_upgradesConsumable.front() + ".png"));
+		}
+		if (auto heroes = Factory::Instance().Create<Actor>("UniversalPile"))
+		{
+			heroes->transform.position = { 655, 105 };
+			heroes->GetComponent<PileComponent>()->SetData(m_deckID, "PileHeroesUpgrade");
+			owner->scene->AddActor(std::move(heroes), true);
+			EVENT_NOTIFY_DATA(UpdatePileTexture, new PileTextureUpdateEventData(m_deckID, "PileHeroesUpgrade", "Textures/Decks/" + m_deckName + "/" + m_upgradesHeroes.front() + ".png"));
+		}
+		ADD_OBSERVER(DisplayPile, DeckComponent::OnDisplayPile);
 	}
 
 	ADD_OBSERVER(DrawCard, DeckComponent::OnDraw);
 	ADD_OBSERVER(DiscardCard, DeckComponent::OnDiscard);
-	ADD_OBSERVER(BuyHero, DeckComponent::OnBuyHero);
-	ADD_OBSERVER(BuyConsumable, DeckComponent::OnBuyConsumable);
-	ADD_OBSERVER(UpgradeConsumable, DeckComponent::OnUpgradeConsumable);
-
-	ADD_OBSERVER(DisplayPile, DeckComponent::OnDisplayPile);
+	ADD_OBSERVER(BuyCard, DeckComponent::OnBuyCard);
 }
 
 void DeckComponent::Update(float dt)
@@ -80,6 +80,10 @@ void DeckComponent::DisplayPile(const std::string& pile)
 	{
 		m_displayingPile = DisplayingPile::HERO;
 	}
+	else
+	{
+		m_displayingPile = DisplayingPile::NONE;
+	}
 
 	if (m_displayingPile != DisplayingPile::NONE)
 	{
@@ -100,10 +104,11 @@ void DeckComponent::UpdateDisplayPile(int index)
 			if (m_discard.size() >= 5)
 			{
 				index = (index + 5 > m_discard.size()) ? m_discard.size() - 5 : (index < 0) ? 0 : index;
-				for (; index < index + 5; index++)
+				int maxIndex = index + 5;
+				for (; index < maxIndex; index++)
 				{
 					auto card = Factory::Instance().Create<Actor>(temp[index] + "_Dummy");
-					card->transform.position = { Vector2{ index * 180.0f + 70, 500.0f } };
+					card->transform.position = { Vector2{ index * 180.0f + 200, 500.0f } };
 					owner->scene->AddActor(std::move(card), true);
 				}
 			}
@@ -112,7 +117,7 @@ void DeckComponent::UpdateDisplayPile(int index)
 				for (int i = 0; i < m_discard.size(); i++)
 				{
 					auto card = Factory::Instance().Create<Actor>(temp[i] + "_Dummy");
-					card->transform.position = { Vector2{ i * 180.0f + 70, 500.0f } };
+					card->transform.position = { Vector2{ i * 180.0f + 200, 500.0f } };
 					owner->scene->AddActor(std::move(card), true);
 				}
 			}
@@ -125,10 +130,11 @@ void DeckComponent::UpdateDisplayPile(int index)
 			if (m_upgradesConsumable.size() >= 5)
 			{
 				index = (index + 5 > m_upgradesConsumable.size()) ? m_upgradesConsumable.size() - 5 : (index < 0) ? 0 : index;
-				for (; index < index + 5; index++)
+				int maxIndex = index + 5;
+				for (; index < maxIndex; index++)
 				{
 					auto card = Factory::Instance().Create<Actor>(temp[index] + "_Dummy");
-					card->transform.position = { Vector2{ index * 180.0f + 70, 500.0f } };
+					card->transform.position = { Vector2{ index * 180.0f + 200, 500.0f } };
 					owner->scene->AddActor(std::move(card), true);
 				}
 			}
@@ -137,7 +143,7 @@ void DeckComponent::UpdateDisplayPile(int index)
 				for (int i = 0; i < m_upgradesConsumable.size(); i++)
 				{
 					auto card = Factory::Instance().Create<Actor>(temp[i] + "_Dummy");
-					card->transform.position = { Vector2{ i * 180.0f + 70, 500.0f } };
+					card->transform.position = { Vector2{ i * 180.0f + 200, 500.0f } };
 					owner->scene->AddActor(std::move(card), true);
 				}
 			}
@@ -150,10 +156,11 @@ void DeckComponent::UpdateDisplayPile(int index)
 			if (m_upgradesHeroes.size() >= 5)
 			{
 				index = (index + 5 > m_upgradesHeroes.size()) ? m_upgradesHeroes.size() - 5 : (index < 0) ? 0 : index;
-				for (; index < index + 5; index++)
+				int maxIndex = index + 5;
+				for (; index < maxIndex; index++)
 				{
 					auto card = Factory::Instance().Create<Actor>(temp[index] + "_Dummy");
-					card->transform.position = { Vector2{ index * 180.0f + 70, 500.0f } };
+					card->transform.position = { Vector2{ index * 180.0f + 200, 500.0f } };
 					owner->scene->AddActor(std::move(card), true);
 				}
 			}
@@ -162,7 +169,7 @@ void DeckComponent::UpdateDisplayPile(int index)
 				for (int i = 0; i < m_upgradesHeroes.size(); i++)
 				{
 					auto card = Factory::Instance().Create<Actor>(temp[i] + "_Dummy");
-					card->transform.position = { Vector2{ i * 180.0f + 70, 500.0f } };
+					card->transform.position = { Vector2{ i * 180.0f + 200, 500.0f } };
 					owner->scene->AddActor(std::move(card), true);
 				}
 			}

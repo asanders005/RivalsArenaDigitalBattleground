@@ -73,7 +73,7 @@
         },
         {
           "type": "TrackerModifierCardComponent",
-          "name": "Freddys Pizza",
+          "name": "Freddys_Pizza",
           "cardTier": "Tier_1"
         }
       ]
@@ -111,7 +111,7 @@
         },
         {
           "type": "TrackerModifierCardComponent",
-          "name": "Midnight Motorist",
+          "name": "Midnight_Motorist",
           "cardTier": "Tier_2"
         }
       ]
@@ -130,7 +130,7 @@
         },
         {
           "type": "TrackerModifierCardComponent",
-          "name": "Freddy Fazbear",
+          "name": "Freddy_Fazbear",
           "cardTier": "Hero"
         }
       ]
@@ -225,7 +225,7 @@
         },
         {
           "type": "DummyCardComponent",
-          "name": "Freddys Pizza",
+          "name": "Freddys_Pizza",
           "cardTier": "Tier_1"
         }
       ]
@@ -263,7 +263,7 @@
         },
         {
           "type": "DummyCardComponent",
-          "name": "Midnight Motorist",
+          "name": "Midnight_Motorist",
           "cardTier": "Tier_2"
         }
       ]
@@ -282,7 +282,7 @@
         },
         {
           "type": "DummyCardComponent",
-          "name": "Freddy Fazbear",
+          "name": "Freddy_Fazbear",
           "cardTier": "Hero"
         }
       ]

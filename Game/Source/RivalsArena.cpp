@@ -59,6 +59,8 @@ void RivalsArena::Update(float dt)
 		for (auto& player : m_players)
 		{
 			EVENT_NOTIFY_DATA(DrawCard, new StringEventData{ player });
+			CreateButton("PlayerSelect_" + player, Vector2{ randomf(200.0f, 800.0f), 300.0f }, "false");
+			m_selectButtonIDs.push_back("PlayerSelect_" + player);
 		}
 
 		CreateButton("BtnNextPhase", { 800, 500 }, "Next Phase");

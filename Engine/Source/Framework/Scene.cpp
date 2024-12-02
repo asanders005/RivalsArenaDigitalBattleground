@@ -20,12 +20,33 @@ void Scene::Initialize()
 
 void Scene::Update(float dt)
 {
-	for (auto& actor : actors)
+	auto iter = actors.begin();
+	while (iter != actors.end())
 	{
-		if (actor->isActive) actor->Update(dt);
+		if ((*iter)->isActive && !(*iter)->isDestroyed)
+		{
+			(*iter)->Update(dt);
+			++iter; // only increment when not erasing
+		}
+		else
+		{
+			iter = actors.erase(iter); // erase and update iterator
+		}
 	}
-	
-	std::erase_if(actors, [](auto& actor) { return actor->isDestroyed; });
+
+
+	//for (auto& actor : actors)
+	//{
+	//	if (actor->isActive && !actor->isDestroyed) actor->Update(dt);
+	//	if (actor->isDestroyed)
+	//	{
+
+	//		//std::cout << "destroyed: " << actor->name << std::endl;
+	//	}
+	//}
+	//
+
+	//std::erase_if(actors, [](auto& actor) { return actor->isDestroyed; });
 }
 
 void Scene::Draw(Renderer& renderer)
@@ -39,6 +60,8 @@ void Scene::Draw(Renderer& renderer)
 void Scene::AddActor(std::unique_ptr<Actor> actor, bool initialize)
 {
 	actor->scene = this;
+	static int id = 0;
+	actor->name = "created: " + actor->name + std::to_string(id++);
 	if (initialize) actor->Initialize();
 	actors.push_back(std::move(actor));
 }

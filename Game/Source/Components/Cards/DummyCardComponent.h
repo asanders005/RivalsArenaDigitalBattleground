@@ -4,9 +4,12 @@
 
 class DummyCardComponent : public Component, Observer
 {
+public:
 	CLASS_DECLARATION(DummyCardComponent)
 	CLASS_PROTOTYPE(DummyCardComponent)
 
+	virtual ~DummyCardComponent();
+		
 	void Initialize() override;
 
 	void Update(float dt) override;
