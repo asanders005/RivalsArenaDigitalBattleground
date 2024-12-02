@@ -15,8 +15,9 @@
         {
           "type": "TrackerModifierCardComponent",
           "name": "Springlock",
-          "cardTier": "Starter",
-          "PlayPhase": "Turn"
+          "cardTier": "STARTER",
+          "playPhase": "TURN",
+          "defensive": false
         }
       ]
     },
@@ -35,8 +36,8 @@
         {
           "type": "TrackerModifierCardComponent",
           "name": "Saferoom",
-          "cardTier": "Starter",
-          "PlayPhase": "Turn"
+          "cardTier": "STARTER",
+          "playPhase": "TURN"
         }
       ]
     },
@@ -55,7 +56,7 @@
         {
           "type": "TrackerModifierCardComponent",
           "name": "Fire",
-          "cardTier": "Tier_1"
+          "cardTier": "TIER_1"
         }
       ]
     },
@@ -74,7 +75,7 @@
         {
           "type": "TrackerModifierCardComponent",
           "name": "Freddys Pizza",
-          "cardTier": "Tier_1"
+          "cardTier": "TIER_1"
         }
       ]
     },
@@ -93,7 +94,7 @@
         {
           "type": "TrackerModifierCardComponent",
           "name": "S.C.U.P.R.",
-          "cardTier": "Tier_2"
+          "cardTier": "TIER_2"
         }
       ]
     },
@@ -112,7 +113,7 @@
         {
           "type": "TrackerModifierCardComponent",
           "name": "Midnight Motorist",
-          "cardTier": "Tier_2"
+          "cardTier": "TIER_2"
         }
       ]
     },
@@ -131,7 +132,7 @@
         {
           "type": "TrackerModifierCardComponent",
           "name": "Freddy Fazbear",
-          "cardTier": "Hero"
+          "cardTier": "HERO"
         }
       ]
     },
@@ -150,7 +151,7 @@
         {
           "type": "TrackerModifierCardComponent",
           "name": "Springtrap",
-          "cardTier": "Hero"
+          "cardTier": "HERO"
         }
       ]
     },
@@ -169,7 +170,7 @@
         {
           "type": "DummyCardComponent",
           "name": "Springlock",
-          "cardTier": "Starter"
+          "cardTier": "STARTER"
         }
       ]
     },
@@ -188,7 +189,7 @@
         {
           "type": "DummyCardComponent",
           "name": "Saferoom",
-          "cardTier": "Starter"
+          "cardTier": "STARTER"
         }
       ]
     },
@@ -207,7 +208,7 @@
         {
           "type": "DummyCardComponent",
           "name": "Fire",
-          "cardTier": "Tier_1"
+          "cardTier": "TIER_1"
         }
       ]
     },
@@ -226,7 +227,7 @@
         {
           "type": "DummyCardComponent",
           "name": "Freddys Pizza",
-          "cardTier": "Tier_1"
+          "cardTier": "TIER_1"
         }
       ]
     },
@@ -245,7 +246,7 @@
         {
           "type": "DummyCardComponent",
           "name": "S.C.U.P.R.",
-          "cardTier": "Tier_2"
+          "cardTier": "TIER_2"
         }
       ]
     },
@@ -264,7 +265,7 @@
         {
           "type": "DummyCardComponent",
           "name": "Midnight Motorist",
-          "cardTier": "Tier_2"
+          "cardTier": "TIER_2"
         }
       ]
     },
@@ -283,7 +284,7 @@
         {
           "type": "DummyCardComponent",
           "name": "Freddy Fazbear",
-          "cardTier": "Hero"
+          "cardTier": "HERO"
         }
       ]
     },
@@ -302,7 +303,7 @@
         {
           "type": "DummyCardComponent",
           "name": "Springtrap",
-          "cardTier": "Hero"
+          "cardTier": "HERO"
         }
       ]
     }

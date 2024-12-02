@@ -41,15 +41,15 @@ void CardComponent::Update(float dt)
 
 void CardComponent::Read(const json_t& value)
 {
-	READ_DATA_NAME(value, "Name", m_cardName);
-	READ_DATA_NAME(value, "Cooldown", m_cooldown);
-	READ_DATA_NAME(value, "Optional", m_optional);
-	READ_DATA_NAME(value, "Defensive", m_defensive);
+	READ_DATA_NAME(value, "name", m_cardName);
+	READ_DATA_NAME(value, "cooldown", m_cooldown);
+	READ_DATA_NAME(value, "optional", m_optional);
+	READ_DATA_NAME(value, "defensive", m_defensive);
 
 	std::string tier = "";
 	std::string phase = "";
-	READ_DATA_NAME(value, "CardTier", tier);
-	READ_DATA_NAME(value, "PlayPhase", phase);
+	READ_DATA_NAME(value, "cardTier", tier);
+	READ_DATA_NAME(value, "playPhase", phase);
 
 	if (tier == "TIER_1") m_tier = CardEnums::CardTier::TIER_1;
 	else if (tier == "TIER_2") m_tier = CardEnums::CardTier::TIER_2;

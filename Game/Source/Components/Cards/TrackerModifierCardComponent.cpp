@@ -68,10 +68,10 @@ void TrackerModifierCardComponent::Read(const json_t& value)
 {
 	CardComponent::Read(value);
 
-	READ_DATA_NAME(value, "ChangeAmount", m_changeAmount);
+	READ_DATA_NAME(value, "changeAmount", m_changeAmount);
 
 	std::string tracker = "";
-	READ_DATA_NAME(value, "Tracker", tracker);
+	READ_DATA_NAME(value, "tracker", tracker);
 
 	if (tracker == "XP") m_tracker = CardEnums::Tracker::XP;
 	else if (tracker == "HERO_XP") m_tracker = CardEnums::Tracker::HERO_XP;
