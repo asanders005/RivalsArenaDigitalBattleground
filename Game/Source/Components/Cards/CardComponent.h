@@ -81,6 +81,7 @@ protected:
 	int m_cooldown = 0;
 	bool m_optional = false;
 	bool m_defensive = false;
+	bool m_cpuCard = false;
 	std::string m_targetPlayer;
 	std::string m_deckID;
 	std::string m_cardID;

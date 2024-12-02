@@ -8,28 +8,32 @@ void CardComponent::Initialize()
 {
 	ADD_OBSERVER(PlayCard, CardComponent::OnPlay);
 	ADD_OBSERVER(TryDiscardCard, CardComponent::OnDiscard);
+	if (m_cardID.substr(0, 3) == "CPU") m_cpuCard = true;
 }
 
 void CardComponent::Update(float dt)
 {
-	if (owner->scene->engine->GetInput().GetMouseButtonPressed(0) && !owner->scene->engine->GetInput().GetPrevMouseButtonDown(0))
+	if (!m_cpuCard)
 	{
-		bool isHoveringOverCard = true;
-		TextureComponent* textureComponent = owner->GetComponent<TextureComponent>();
-		Vector2 mousePosition = owner->scene->engine->GetInput().GetMousePosition();
-		Vector2 position = owner->transform.position;
-
-		if (mousePosition.x < position.x - (0.5 * (textureComponent->source.w * owner->transform.scale)) ||
-			mousePosition.x > position.x + (0.5 * (textureComponent->source.w * owner->transform.scale)) ||
-			mousePosition.y < position.y - (0.5 * (textureComponent->source.h * owner->transform.scale)) ||
-			mousePosition.y > position.y + (0.5 * (textureComponent->source.h * owner->transform.scale)))
+		if (owner->scene->engine->GetInput().GetMouseButtonPressed(0) && !owner->scene->engine->GetInput().GetPrevMouseButtonDown(0))
 		{
-			isHoveringOverCard = false;
-		}
+			bool isHoveringOverCard = true;
+			TextureComponent* textureComponent = owner->GetComponent<TextureComponent>();
+			Vector2 mousePosition = owner->scene->engine->GetInput().GetMousePosition();
+			Vector2 position = owner->transform.position;
 
-		if (isHoveringOverCard)
-		{
-			EVENT_NOTIFY_DATA(TryPlayCard, new CardPhaseInfoEventData(m_cardID, m_phase));
+			if (mousePosition.x < position.x - (0.5 * (textureComponent->source.w * owner->transform.scale)) ||
+				mousePosition.x > position.x + (0.5 * (textureComponent->source.w * owner->transform.scale)) ||
+				mousePosition.y < position.y - (0.5 * (textureComponent->source.h * owner->transform.scale)) ||
+				mousePosition.y > position.y + (0.5 * (textureComponent->source.h * owner->transform.scale)))
+			{
+				isHoveringOverCard = false;
+			}
+
+			if (isHoveringOverCard)
+			{
+				EVENT_NOTIFY_DATA(TryPlayCard, new CardPhaseInfoEventData(m_cardID, m_phase));
+			}
 		}
 	}
 }
@@ -70,14 +74,6 @@ void CardComponent::OnPlay(const Event& event)
 	{
 		if (m_cardID == data->cardID)
 		{
-			if (!m_defensive) {
-				// choose between players to play against
-			}
-			else 
-			{
-				m_targetPlayer = m_deckID;
-			}
-
 			if (m_cooldownTimer == 0)
 			{
 				m_cooldownTimer = m_cooldown;

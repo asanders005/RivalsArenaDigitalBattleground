@@ -3,7 +3,39 @@
 
 FACTORY_REGISTER(TrackerModifierCardComponent);
 
+void TrackerModifierCardComponent::Initialize()
+{
+	CardComponent::Initialize();
+
+	ADD_OBSERVER(PlayerSelected, TrackerModifierCardComponent::OnPlayerSelected);
+}
+
+
 void TrackerModifierCardComponent::Ability()
+{
+	if (m_defensive)
+	{
+		m_targetPlayer = m_deckID;
+		AbilityFunctionality();
+	}
+
+	else EVENT_NOTIFY_DATA(SelectPlayer, new CardIDEventData(m_cardID));
+}
+
+
+void TrackerModifierCardComponent::OnPlayerSelected(const Event& event)
+{
+	if (auto data = dynamic_cast<PlayerStringEventData*>(event.data))
+	{
+		if (m_cardID == data->dataString)
+		{
+			m_targetPlayer = data->targetPlayer;
+			AbilityFunctionality();
+		}
+	}
+}
+
+void TrackerModifierCardComponent::AbilityFunctionality()
 {
 	switch (m_tracker)
 	{

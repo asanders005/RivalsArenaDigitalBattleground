@@ -12,7 +12,7 @@ void DiscardCardComponent::Initialize()
 void DiscardCardComponent::Ability()
 {
 	EVENT_NOTIFY(TemporaryDiscardPhase);
-	EVENT_NOTIFY_DATA(AddToDiscardQueue, new CardNameEventData(m_cardName, m_targetPlayer, m_deckID));
+	EVENT_NOTIFY_DATA(AddToDiscardQueue, new CardNameEventData(m_cardName, m_cardName, m_deckID));
 }
 
 void DiscardCardComponent::OnOtherCardDiscard(const Event& event)
