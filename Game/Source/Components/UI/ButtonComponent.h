@@ -14,6 +14,11 @@ public:
 
 	void OnDisplayUpdate(const Event& event);
 
+	void ShowCPUHealth();
+
+	void ShowPlayerHealth();
+
+
 public:
 	std::string buttonID;
 };

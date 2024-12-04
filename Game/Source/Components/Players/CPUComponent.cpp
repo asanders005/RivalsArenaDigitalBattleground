@@ -51,15 +51,18 @@ void CPUComponent::ExecuteTurn(const Event& event)
     }
 
     if (this->playerID == eventData->targetPlayer) {
+
+        EVENT_NOTIFY_DATA(DrawCard, new StringEventData(GetID()));
+
         EvaluateCards();
 
 
-        std::cout << "Cards in Hand: " << std::endl;
-        for (auto cardsInHand : *m_deck->GetHand())
-        {
+        //std::cout << "Cards in Hand: " << std::endl;
+        //for (auto cardsInHand : *m_deck->GetHand())
+        //{
 
-            std::cout << cardsInHand << std::endl;
-        }
+        //    std::cout << cardsInHand << std::endl;
+        //}
 
 
         PlayBestCard();
@@ -77,7 +80,8 @@ void CPUComponent::DrawCard()
 void CPUComponent::OnDiscardCard(const std::string& cardName)
 {
 
-     EVENT_NOTIFY_DATA(DiscardCard, new CardDeckIDEventData(cardName, GetID()));
+     //EVENT_NOTIFY_DATA(DiscardCard, new CardNameEventData() )
+     //EVENT_NOTIFY_DATA(DiscardCard, new CardDeckIDEventData(cardName, GetID()));
 
 }
 
@@ -99,7 +103,7 @@ void CPUComponent::EvaluateCards()
     std::sort(evaluatedCards.begin(), evaluatedCards.end(),
         [](CardComponent* a, CardComponent* b) { return a->GetPriority() > b->GetPriority(); });
 
-    SortHandByPriority();
+    //SortHandByPriority();
 }
 
 void CPUComponent::SortHandByPriority()
@@ -111,7 +115,7 @@ void CPUComponent::SortHandByPriority()
     {
   
 
-        auto actor = owner->scene->GetActor(cardName);
+        //auto actor = owner->scene->GetActor(cardName);
 
         //int count = 1;
         //auto& actors = owner->scene->actors;
@@ -123,10 +127,10 @@ void CPUComponent::SortHandByPriority()
         //    std::cout << " Actor Tag = " + actor->tag << std::endl;
         //}
 
-        if (!actor) {
+        /*if (!actor) {
             std::cerr << "Actor not found for card: " << cardName << std::endl;
             continue;
-        }
+        }*/
         auto card = GetCardComponent(cardName);
 
         if (card->GetPriority() > 0) {
@@ -187,7 +191,7 @@ void CPUComponent::PlayBestCard()
             //EVENT_NOTIFY_DATA(PlayCard, new CardIDEventData(cards->GetCardID()));
 
             std::string cardName = cards->GetCardID();
-            //OnDiscardCard(cardName);
+            
             
             continue; 
         }
@@ -198,6 +202,9 @@ void CPUComponent::PlayBestCard()
         for (auto cards : cardsPlayed)
         {
             EVENT_NOTIFY_DATA(PlayCard, new CardIDEventData(cards->GetCardID()));
+
+            EVENT_NOTIFY_DATA(DiscardCard, new CardNameEventData(cards->GetCardID(), cards->GetCardName(), GetID() ));
+                
         }
     }
 }
@@ -349,30 +356,7 @@ CardComponent* CPUComponent::GetCardComponent(const std::string& cardName)
             }
         }
     }
-
-    // Attempt to retrieve the actor by name
-
-    auto* actor = owner->scene->GetActor(cardName);
-
-    if (!actor)
-    {
-        std::cerr << "Error: Actor with name '" << cardName << "' not found in the scene!" << std::endl;
-        return nullptr;
-    }
-
-    // Attempt to retrieve the CardComponent from the actor
-    auto* card = actor->GetComponent<CardComponent>();
-    if (!card)
-    {
-        std::cerr << "Error: CardComponent not found on actor '" << cardName << "'!" << std::endl;
-        return nullptr;
-    }
-
-    // Debug log
-    std::cout << "CardComponent successfully retrieved for card '" << cardName
-        << "' with ID: " << card->GetCardID() << std::endl;
-
-    return card;
+    return nullptr;
 }
 
 void CPUComponent::EvaluateAndBuyCard()
