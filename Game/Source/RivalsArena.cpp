@@ -130,14 +130,20 @@ void RivalsArena::OnSelectPlayer(const Event& event)
 {
 	if (auto data = dynamic_cast<CardIDEventData*>(event.data))
 	{
-		if (data->cardID.substr(0, 3) != "CPU" && pendingCardID != "")
-		{
-			pendingCardID = data->cardID;
-			for (auto button : m_selectButtonIDs)
-			{
-				EVENT_NOTIFY_DATA(DisplayButton, new StringBoolEventData(button, true));
-			}
-		}
+		std::string targetPlayer;
+		if (data->cardID.substr(0, 3) != "CPU") targetPlayer = "CPU";
+		if (data->cardID.substr(0, 3) == "CPU") targetPlayer = "player";
+
+		EVENT_NOTIFY_DATA(PlayerSelected, new PlayerStringEventData(targetPlayer, data->cardID));
+		//if (data->cardID.substr(0, 3) != "CPU" && pendingCardID != "")
+		//{
+			//pendingCardID = data->cardID;
+			//for (auto button : m_selectButtonIDs)
+			//{
+			//	EVENT_NOTIFY_DATA(DisplayButton, new StringBoolEventData(button, true));
+			//}
+
+		//}
 	}
 }
 

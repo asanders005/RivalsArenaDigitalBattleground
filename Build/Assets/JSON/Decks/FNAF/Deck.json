@@ -2,9 +2,9 @@
   "deck": {
     "name" : "FNAF",
     "starter": [
-      "Springlock",
-      "Springlock",
-      "Springlock",
+      "Freddy Fazbear's Pizza",
+      "Freddy Fazbear's Pizza",
+      "Freddy Fazbear's Pizza",
       "Springlock",
       "Saferoom",
       "Saferoom",
@@ -12,7 +12,7 @@
     ],
     "tier1": [
       "Fire",
-      "Freddys_Pizza"
+      "Freddy Fazbear's Pizza"
     ],
     "tier2": [
       "S.C.U.P.R.",

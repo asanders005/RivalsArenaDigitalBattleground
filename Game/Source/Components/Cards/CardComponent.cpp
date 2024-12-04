@@ -99,7 +99,7 @@ void CardComponent::DiscardCard()
 {
 	if (m_tier != CardEnums::CardTier::HERO)
 	{
-		EVENT_NOTIFY_DATA(DiscardCard, new CardDeckIDEventData(m_cardID, m_deckID));
+		EVENT_NOTIFY_DATA(DiscardCard, new CardNameEventData(m_cardID, m_cardName, m_deckID));
 		owner->isDestroyed = true;
 	}
 }
