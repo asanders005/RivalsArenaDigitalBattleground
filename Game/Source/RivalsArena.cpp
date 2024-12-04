@@ -65,8 +65,11 @@ void RivalsArena::Update(float dt)
 			CreateButton("PlayerSelect_" + player, Vector2{ randomf(200.0f, 800.0f), 300.0f }, false);
 			m_selectButtonIDs.push_back("PlayerSelect_" + player);
 
-			//CreateButton("PlayerHealth: " + m_scene->GetActor(player)->GetComponent<CPUComponent>()->GetHealth(), true)
+
 		}
+
+		CreateButton(m_activePlayer + "'s Health :", Vector2{ 100.0f, 100.0f }, true);
+
 
 		CreateButton("BtnNextPhase", { 800, 500 }, true);
 		m_state = RivalsArena::eState::UPKEEP;
