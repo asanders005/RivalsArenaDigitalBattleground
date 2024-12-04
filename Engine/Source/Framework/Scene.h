@@ -37,6 +37,6 @@ public:
 	Engine* engine{ nullptr };
 	Game* game{ nullptr };
 	
-private:
 	std::list<std::unique_ptr<Actor>> actors;
+private:
 };

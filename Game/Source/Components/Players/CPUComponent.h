@@ -18,8 +18,7 @@ class CPUComponent : public PlayerComponent
 {
 public:
     CLASS_DECLARATION(CPUComponent)
-
-        CLASS_PROTOTYPE(CPUComponent)
+    CLASS_PROTOTYPE(CPUComponent)
 
     void Initialize() override;
 
@@ -61,6 +60,7 @@ public:
     int UseSheildCards();
     void DrawSpecficCard();
     void React(const Event& event) override;
+    std::vector<CardComponent*> EvaluateCardsComponents();
 
     std::string playerID;
 private:
@@ -76,6 +76,7 @@ public:
 
     RivalsArena::eState gameState = RivalsArena::eState::UPKEEP;
     class DeckComponent* m_deck = nullptr;
+    std::vector<CardComponent*> evaluatedCards;
     std::list<std::string>* my_hand;
 };
 

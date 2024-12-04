@@ -2,7 +2,7 @@
 #include "Components/Component.h"
 #include "Event/EventManager.h"
 
-class PlayerComponent : public Component, Observer
+class PlayerComponent : public Component, public Observer
 {
 public:
 	CLASS_DECLARATION(PlayerComponent)
