@@ -197,16 +197,18 @@ void DeckComponent::OnDraw(const Event& event)
 				m_draw.pop_back();
 				m_hand.push_back(cardID);
 
-				if (auto card = Factory::Instance().Create<Actor>(cardName))
+				if (cardID.substr(0, 3) != "CPU")
 				{
-					card->transform.position = { Vector2{ i * 180.0f + 70, 600.0f } };
-					
-					card->GetComponent<CardComponent>()->SetCardID(cardID);
-					card->GetComponent<CardComponent>()->SetDeckID(m_deckID);
+					if (auto card = Factory::Instance().Create<Actor>(cardName))
+					{
+						card->transform.position = { Vector2{ (i - m_cardsInHand) * 180.0f + 70, 600.0f } };
+						card->GetComponent<CardComponent>()->SetCardID(cardID);
+						card->GetComponent<CardComponent>()->SetDeckID(m_deckID);
 
-					owner->scene->AddActor(std::move(card), true);
-					currentCard++;
-					std::cout << "Drawing Card: " << cardName << std::endl;
+						owner->scene->AddActor(std::move(card), true);
+						currentCard++;
+						std::cout << "Drawing Card: " << cardName << std::endl;
+					}
 				}
 			}
 			m_cardsInHand = 5;
@@ -217,24 +219,24 @@ void DeckComponent::OnDraw(const Event& event)
 void DeckComponent::OnDiscard(const Event& event)
 {
 	if (!event.data) return;
-	if (auto data = dynamic_cast<CardDeckIDEventData*>(event.data))
+	if (auto data = dynamic_cast<CardNameEventData*>(event.data))
 	{
 		if (m_deckID == data->deckID)
 		{
 			std::string cardID = data->cardID;
 			if (!cardID.empty())
 			{
-				auto iter = std::find(m_hand.begin(), m_hand.end(), cardID);
+				auto iter = std::find(m_hand.begin(), m_hand.end(), data->cardID);
 				if (iter != m_hand.end())
 				{
 					m_hand.erase(iter);
 					m_cardsInHand--;
-					m_discard.push_back(cardID);
-					std::cout << "Discarding: " << cardID << std::endl;
+					m_discard.push_back(data->cardName);
+					std::cout << "Discarding: " << data->cardName << std::endl;
 				}
 				else
 				{
-					std::cout << "Card: " << cardID << " is not in hand\n";
+					std::cout << "Card: " << data->cardName << " is not in hand\n";
 				}
 				//if (m_cardsInHand == 0) EVENT_NOTIFY_DATA(DrawCards, new StringEventData(owner->GetComponent<PlayerComponent>()->playerID));
 			}
