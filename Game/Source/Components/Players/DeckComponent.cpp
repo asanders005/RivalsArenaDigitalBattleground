@@ -200,6 +200,7 @@ void DeckComponent::OnDraw(const Event& event)
 				if (auto card = Factory::Instance().Create<Actor>(cardName))
 				{
 					card->transform.position = { Vector2{ i * 180.0f + 70, 600.0f } };
+					
 					card->GetComponent<CardComponent>()->SetCardID(cardID);
 					card->GetComponent<CardComponent>()->SetDeckID(m_deckID);
 

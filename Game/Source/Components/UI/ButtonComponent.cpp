@@ -30,7 +30,9 @@ void ButtonComponent::Update(float dt)
 		{
 			std::cout << buttonID << " Clicked" << std::endl;
 			EVENT_NOTIFY_DATA(ButtonClicked, new StringEventData(buttonID));
+	
 		}
+
 	}
 }
 
@@ -59,3 +61,4 @@ void ButtonComponent::Read(const json_t& value)
 void ButtonComponent::Write(json_t& value)
 {
 }
+

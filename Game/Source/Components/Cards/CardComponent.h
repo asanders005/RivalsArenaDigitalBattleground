@@ -55,7 +55,7 @@ public:
 	void SetCardID(const std::string& cardID) { m_cardID = cardID; }
 	std::string GetDeckId() { return m_deckID; }
 	void SetDeckID(const std::string& deckID) { m_deckID = deckID; }
-	int GetCoolDownTimer() { return m_cooldownTimer; }
+	int GetCoolDownTimer() const { return m_cooldownTimer; }
 	int GetCoolDown() { return m_cooldown; }
 	bool GeTIsOptional() { return m_optional; }
 	bool GetIsDefensive() { return m_defensive; }
@@ -64,15 +64,15 @@ public:
 		return !m_targetPlayer.empty();
 	}
 	
-    CardEnums::CardTier GetCardTier() { return m_tier; }
-	CardEnums::PlayPhase GetPlayPhase() { return m_phase; }
-	int GetPriority() { return m_priority; }
+	CardEnums::CardTier GetCardTier() const { return m_tier; }
+	CardEnums::PlayPhase GetPlayPhase() const { return m_phase; }
+	int GetPriority() const{ return m_priority; }
 	
 	void SetProity(int priority_value) { m_priority = priority_value; }
 
 
 protected:
-	int m_priority = 0;
+	int m_priority = 1;
 
 	void DiscardCard();
 
