@@ -33,6 +33,7 @@ bool RivalsArena::Initialize()
 	ADD_OBSERVER(TryPlayCard, RivalsArena::OnCheckCard);
 	ADD_OBSERVER(SelectPlayer, RivalsArena::OnSelectPlayer);
 	ADD_OBSERVER(ButtonClicked, RivalsArena::OnButtonPressed);
+	ADD_OBSERVER(EndTurn, RivalsArena::OnEndTurn);
 
 	return true;
 }
@@ -62,31 +63,30 @@ void RivalsArena::Update(float dt)
 		for (auto& player : m_players)
 		{
 			EVENT_NOTIFY_DATA(DrawCard, new StringEventData{ player });
-			CreateButton("PlayerSelect_" + player, Vector2{ randomf(200.0f, 800.0f), 300.0f }, false);
-			m_selectButtonIDs.push_back("PlayerSelect_" + player);
+			//CreateButton("PlayerSelect_" + player, Vector2{ randomf(200.0f, 800.0f), 300.0f }, false);
+			//m_selectButtonIDs.push_back("PlayerSelect_" + player);
 
 
 		}
 
-		CreateButton(m_activePlayer + "'s Health :", Vector2{ 100.0f, 100.0f }, true);
+		//CreateButton(m_activePlayer + "'s Health :", Vector2{ 100.0f, 100.0f }, true);
 
 
-		CreateButton("BtnNextPhase", { 800, 500 }, true);
+		CreateButton("BtnNextPhase", { 900, 400 }, true);
 		m_state = RivalsArena::eState::UPKEEP;
 		break;
 	case RivalsArena::eState::UPKEEP:
 		std::cout << m_activePlayer << "'s Turn" << std::endl;
 
-		EVENT_NOTIFY_DATA(Upkeep, new PlayerStringEventData(m_activePlayer, "CPUTurn"));
+		//EVENT_NOTIFY_DATA(Upkeep, new PlayerStringEventData(m_activePlayer, "CPUTurn"));
 
 		m_state = RivalsArena::eState::MAIN;
 		break;
 	case RivalsArena::eState::MAIN:
-		EVENT_NOTIFY_DATA(SelectPlayer, new CardIDEventData("Player1_Test"));
-
+		//EVENT_NOTIFY_DATA(SelectPlayer, new CardIDEventData("Player1_Test"));
 		if (m_activePlayer == "CPU")
 		{
-			m_state == eState::END;
+			EVENT_NOTIFY(ExecuteTurn);
 		}
 		break;
 	case RivalsArena::eState::BUY:
@@ -120,23 +120,34 @@ void RivalsArena::OnCheckCard(const Event& event)
 	if (auto data = dynamic_cast<CardPhaseInfoEventData*>(event.data))
 	{
 		std::cout << "Check Card: " << data->cardId << "; Phase: " << (int)data->phase << std::endl;
-		switch (m_state)
+		size_t pos = data->cardId.find('_');
+		if (pos != std::string::npos)
 		{
-		case RivalsArena::eState::UPKEEP:
-			if (data->phase == CardEnums::PlayPhase::START_OF_TURN) EVENT_NOTIFY_DATA(PlayCard, new CardIDEventData(data->cardId));
-			break;
-		case RivalsArena::eState::MAIN:
-			if (data->phase == CardEnums::PlayPhase::TURN)
+			if (data->cardId.substr(0, pos) == m_activePlayer)
 			{
-				EVENT_NOTIFY_DATA(PlayCard, new CardIDEventData(data->cardId));
+				switch (m_state)
+				{
+				case RivalsArena::eState::UPKEEP:
+					if (data->phase == CardEnums::PlayPhase::START_OF_TURN) EVENT_NOTIFY_DATA(PlayCard, new CardIDEventData(data->cardId));
+					break;
+				case RivalsArena::eState::MAIN:
+					if (data->phase == CardEnums::PlayPhase::TURN)
+					{
+						EVENT_NOTIFY_DATA(PlayCard, new CardIDEventData(data->cardId));
+					}
+					break;
+				case RivalsArena::eState::END:
+					if (data->phase == CardEnums::PlayPhase::END_OF_TURN) EVENT_NOTIFY_DATA(PlayCard, new CardIDEventData(data->cardId));
+					break;
+				case RivalsArena::eState::REACT:
+					if (data->phase == CardEnums::PlayPhase::REACTION) EVENT_NOTIFY_DATA(PlayCard, new CardIDEventData(data->cardId));
+					break;
+				}
 			}
-			break;
-		case RivalsArena::eState::END:
-			if (data->phase == CardEnums::PlayPhase::END_OF_TURN) EVENT_NOTIFY_DATA(PlayCard, new CardIDEventData(data->cardId));
-			break;
-		case RivalsArena::eState::REACT:
-			if (data->phase == CardEnums::PlayPhase::REACTION) EVENT_NOTIFY_DATA(PlayCard, new CardIDEventData(data->cardId));
-			break;
+		}
+		else
+		{
+			std::cerr << "Error getting substring of current player \n";
 		}
 	}
 }
@@ -182,7 +193,7 @@ void RivalsArena::OnButtonPressed(const Event& event)
 			}
 			std::cout << "Phase: " << (int)m_state << std::endl;
 		}
-		else if (data->string.substr(0, 12) == "PlayerSelect")
+		/*else if (data->string.substr(0, 12) == "PlayerSelect")
 		{
 			std::cout << "Selected Player: " << data->string.substr(13) << std::endl;
 			EVENT_NOTIFY_DATA(PlayerSelected, new PlayerStringEventData(data->string.substr(13), pendingCardID));
@@ -191,8 +202,13 @@ void RivalsArena::OnButtonPressed(const Event& event)
 				EVENT_NOTIFY_DATA(DisplayButton, new StringBoolEventData(button, false));
 			}
 			pendingCardID = "";
-		}
+		}*/
 	}
+}
+
+void RivalsArena::OnEndTurn(const Event& event)
+{
+	m_state = RivalsArena::eState::END;
 }
 
 void RivalsArena::CreatePlayer(const std::string& playerID, bool isCPU)
@@ -204,8 +220,8 @@ void RivalsArena::CreatePlayer(const std::string& playerID, bool isCPU)
 			
 
 			player->GetComponent<CPUComponent>()->playerID = playerID;
-			player->GetComponent<CPUComponent>()->SetCPUID(playerID);
-			player->GetComponent<CPUComponent>()->SetID(playerID);
+			//player->GetComponent<CPUComponent>()->SetCPUID(playerID);
+			//player->GetComponent<CPUComponent>()->SetID(playerID);
 
 			std::unique_ptr<Component> deck = std::make_unique<DeckComponent>(playerID);
 			rapidjson::Document document;

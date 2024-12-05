@@ -4,9 +4,19 @@
       "name": "player",
       "tag": "player",
       "prototype": true,
+      "transform": {
+        "position": [ 150, 50 ]
+      },
       "components": [
         {
           "type": "PlayerComponent"
+        },
+        {
+          "type": "TextComponent",
+          "text": "Player Health: 40",
+          "fontName": "Fonts/8bit.ttf",
+          "fontSize": 24,
+          "color": [ 1, 1, 1, 1 ]
         }
       ]
     },
@@ -14,9 +24,19 @@
       "name": "CPUPlayer",
       "tag": "CPU",
       "prototype": true,
+      "transform": {
+        "position": [1050, 50]
+      },
       "components": [
         {
           "type": "CPUComponent"
+        },
+        {
+          "type": "TextComponent",
+          "text": "CPU Health: 40",
+          "fontName": "Fonts/8bit.ttf",
+          "fontSize": 20,
+          "color": [ 1, 1, 1, 1 ]
         }
       ]
     },
@@ -40,10 +60,13 @@
       "name": "UniversalButton",
       "tag": "Button",
       "prototype": true,
+      "transform": {
+        "scale": 0.5
+      },
       "components": [
         {
           "type": "TextureComponent",
-          "textureName": "Textures/Test.jpg"
+          "textureName": "Textures/Buttons/nextphasebutton.png"
         },
         {
           "type": "ButtonComponent"

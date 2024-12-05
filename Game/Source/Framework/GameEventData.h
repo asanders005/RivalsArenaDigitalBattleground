@@ -93,18 +93,19 @@ struct CardBuyEventData : public EventData
 
 struct TrackerEventData : public EventData
 {
-	TrackerEventData(std::string targetPlayer, int changeValue, bool roundUp = false) :
+	TrackerEventData(const std::string& targetPlayer, int changeValue, bool roundUp = false) :
 		targetPlayer{ targetPlayer },
 		changeValue{ (float) changeValue },
 		roundUp{ roundUp }
 	{}
 
-	TrackerEventData(std::string targetPlayer, float changeValue, bool roundUp = false) :
+	TrackerEventData(const std::string& targetPlayer, float changeValue, bool roundUp = false) :
 		targetPlayer{ targetPlayer },
 		changeValue{ changeValue },
 		roundUp{ roundUp }
 	{}
 
+	std::string cardID;
 	std::string targetPlayer;
 	float changeValue = 0;
 	bool roundUp = false;

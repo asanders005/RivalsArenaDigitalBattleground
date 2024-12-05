@@ -32,8 +32,9 @@ void CPUComponent::Initialize()
 	PlayerComponent::Initialize();
 
     if (this) {
-        EventManager::Instance().AddObserver("Upkeep", this, std::bind(&CPUComponent::ExecuteTurn, this, std::placeholders::_1));
+        //EventManager::Instance().AddObserver("Upkeep", this, std::bind(&CPUComponent::ExecuteTurn, this, std::placeholders::_1));
     }
+	ADD_OBSERVER(ExecuteTurn, CPUComponent::ExecuteTurn);
 }
 
 void CPUComponent::Update(float dt)
@@ -44,32 +45,48 @@ void CPUComponent::Update(float dt)
 
 void CPUComponent::ExecuteTurn(const Event& event)
 {
-    auto eventData = dynamic_cast<const PlayerStringEventData*>(event.data);
-    if (!eventData) {
-        std::cerr << "Invalid event data for ExecuteTurn" << std::endl;
-        return;
-    }
+    //auto eventData = dynamic_cast<const PlayerStringEventData*>(event.data);
+    //if (!eventData) {
+    //    std::cerr << "Invalid event data for ExecuteTurn" << std::endl;
+    //    return;
+    //}
 
-    if (this->playerID == eventData->targetPlayer) {
+    //if (this->playerID == eventData->targetPlayer) {
 
-        EVENT_NOTIFY_DATA(DrawCard, new StringEventData(GetID()));
+    //    EVENT_NOTIFY_DATA(DrawCard, new StringEventData(GetID()));
 
-        EvaluateCards();
-
-
-        //std::cout << "Cards in Hand: " << std::endl;
-        //for (auto cardsInHand : *m_deck->GetHand())
-        //{
-
-        //    std::cout << cardsInHand << std::endl;
-        //}
+    //    EvaluateCards();
 
 
-        PlayBestCard();
+    //    //std::cout << "Cards in Hand: " << std::endl;
+    //    //for (auto cardsInHand : *m_deck->GetHand())
+    //    //{
 
-        //EvaluateAndBuyCard();
-    }
+    //    //    std::cout << cardsInHand << std::endl;
+    //    //}
 
+
+    //    PlayBestCard();
+
+    //    //EvaluateAndBuyCard();
+    //}
+
+	if (playerID == "CPU")
+	{
+		for (int i = 0; i < 5; i++)
+		{
+			float choice = randomf();
+			if (choice >= 0.715f)
+			{
+				EVENT_NOTIFY_DATA(ModifyHealth, new TrackerEventData(playerID, -2));
+			}
+			else
+			{
+				EVENT_NOTIFY_DATA(ModifyHealth, new TrackerEventData("player", 1));
+			}
+		}
+		EVENT_NOTIFY(EndTurn);
+	}
 }
 
 void CPUComponent::DrawCard()

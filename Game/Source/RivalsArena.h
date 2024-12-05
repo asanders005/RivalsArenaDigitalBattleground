@@ -35,6 +35,7 @@ public:
 	void OnCheckCard(const Event& event);
 	void OnSelectPlayer(const Event& event);
 	void OnButtonPressed(const Event& event);
+	void OnEndTurn(const Event& event);
 
 private:
 	void CreatePlayer(const std::string& playerID, bool isCPU = false);

@@ -84,7 +84,7 @@
           "name": "Freddy Fazbear's Pizza",
           "cardTier": "TIER_1",
           "defensive": true,
-          "changeAmount": 2,
+          "changeAmount": -2,
           "tracker": "HEALTH"
         }
       ]

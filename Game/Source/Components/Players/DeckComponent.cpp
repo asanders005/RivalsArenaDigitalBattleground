@@ -35,7 +35,7 @@ void DeckComponent::Initialize()
 	ADD_OBSERVER(DrawCard, DeckComponent::OnDraw);
 	ADD_OBSERVER(DiscardCard, DeckComponent::OnDiscard);
 
-	ADD_OBSERVER(DisplayPile, DeckComponent::OnDisplayPile);
+	//ADD_OBSERVER(DisplayPile, DeckComponent::OnDisplayPile);
 }
 
 void DeckComponent::Update(float dt)

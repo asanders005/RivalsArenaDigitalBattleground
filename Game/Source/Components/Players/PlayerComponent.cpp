@@ -2,6 +2,8 @@
 #include "Framework/GameEventData.h"
 #include "Framework/Actor.h"
 #include "Framework/Scene.h"
+#include "Components/TextComponent.h"
+#include <sstream>
 
 FACTORY_REGISTER(PlayerComponent);
 
@@ -19,9 +21,21 @@ void PlayerComponent::Update(float dt)
 	//
 }
 
-void PlayerComponent::OnUpdateTracker(const Event& event)
+void PlayerComponent::UpdateTracker()
 {
-	//
+	if (auto textComp = owner->GetComponent<TextComponent>())
+	{
+		std::stringstream healthText;
+		if (playerID.substr(0, 3) == "CPU")
+		{
+			healthText << "CPU Health: " << m_health;
+		}
+		else
+		{
+			healthText << "Player's Health: " << m_health;
+		}
+		textComp->SetText(healthText.str());
+	}
 
 }
 void PlayerComponent::React(const Event& event)
@@ -34,19 +48,20 @@ void PlayerComponent::ModifyPlayerHealth(const Event& event)
 	
 	int damage = 0;
 	
-	auto eventData = dynamic_cast<const TrackerEventData*>(event.data);
-	
-	
-	if (this->playerID == eventData->targetPlayer)
+	if (auto eventData = dynamic_cast<const TrackerEventData*>(event.data))
 	{
-		damage = eventData->changeValue + damage;
-
-		if (damage <= 0)
+		if (this->playerID == eventData->targetPlayer)
 		{
-			return;
-		}
+			damage += eventData->changeValue;
 
-		m_health += damage;
+			/*if (damage <= 0)
+			{
+				return;
+			}*/
+
+			m_health -= damage;
+			UpdateTracker();
+		}
 	}
 }
 

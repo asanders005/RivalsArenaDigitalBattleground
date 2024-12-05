@@ -15,7 +15,15 @@ TextComponent::TextComponent(const TextComponent& other)
 	color = other.color;
 
 	textChanged = true;
-	m_text = std::make_unique<Text>(*other.m_text);
+	if (other.m_text)
+	{
+		m_text = std::make_unique<Text>(*other.m_text);
+	}
+	else
+	{
+		auto font = ResourceManager::Instance().Get<Font>(fontName, fontSize);
+		m_text = std::make_unique<Text>(font);
+	}
 }
 
 void TextComponent::Initialize()

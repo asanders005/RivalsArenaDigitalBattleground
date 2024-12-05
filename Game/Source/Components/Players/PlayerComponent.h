@@ -12,7 +12,7 @@ public:
 
 	void Update(float dt) override;
 
-	void OnUpdateTracker(const Event& event);
+	void UpdateTracker();
 
 	// Events
 	void ModifyPlayerHealth(const Event& event);
@@ -30,11 +30,12 @@ public:
 	bool GetIsDied() { return isDied; }
 	void SetID(std::string playername) { playerID = playername; }
 
-	std::string playerID = "player";
+
+	std::string playerID;
 
 private:
 
-	int m_health = 0;
+	int m_health = 40;
 	int m_exp = 0;
 	int m_heroExp = 0;
 	bool isActive = false;

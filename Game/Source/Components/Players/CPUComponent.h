@@ -62,9 +62,9 @@ public:
     void React(const Event& event) override;
     std::vector<CardComponent*> EvaluateCardsComponents();
 
-    std::string playerID;
+    //std::string playerID;
 private:
-    float m_health = 0;
+    float m_health = 40;
     float m_exp = 0;
     float m_heroExp = 0;
     bool isActive = false;
