@@ -10,7 +10,7 @@
 
 void DeckComponent::Initialize()
 {
-	if (auto discard = Factory::Instance().Create<Actor>("UniversalPile"))
+	/*if (auto discard = Factory::Instance().Create<Actor>("UniversalPile"))
 	{
 		discard->transform.position = { 50, 50 };
 		discard->GetComponent<PileComponent>()->SetData(m_deckID, "PileDiscard");
@@ -30,13 +30,10 @@ void DeckComponent::Initialize()
 		heroes->GetComponent<PileComponent>()->SetData(m_deckID, "PileHeroesUpgrade");
 		owner->scene->AddActor(std::move(heroes), true);
 		EVENT_NOTIFY_DATA(UpdatePileTexture, new PileTextureUpdateEventData(m_deckID, "PileHeroesUpgrade", "Textures/Decks/" + m_deckName + "/" + m_upgradesHeroes.front() + ".png"));
-	}
+	}*/
 
 	ADD_OBSERVER(DrawCard, DeckComponent::OnDraw);
 	ADD_OBSERVER(DiscardCard, DeckComponent::OnDiscard);
-	ADD_OBSERVER(BuyHero, DeckComponent::OnBuyHero);
-	ADD_OBSERVER(BuyConsumable, DeckComponent::OnBuyConsumable);
-	ADD_OBSERVER(UpgradeConsumable, DeckComponent::OnUpgradeConsumable);
 
 	ADD_OBSERVER(DisplayPile, DeckComponent::OnDisplayPile);
 }
@@ -244,27 +241,6 @@ void DeckComponent::OnDiscard(const Event& event)
 		}*/
 		}
 	}
-}
-
-void DeckComponent::OnBuyHero(const Event& event)
-{
-	// Work on during Beta
-	/*EventData eventData = std::get<EventData&>(event.data);
-	if (CardBuyEventData data = dynamic_cast<CardBuyEventData&>(eventData))
-	{
-
-	}
-	auto hero = Factory::Instance().Create<Actor>();*/
-}
-
-void DeckComponent::OnBuyConsumable(const Event& event)
-{
-	// Work on during Beta
-}
-
-void DeckComponent::OnUpgradeConsumable(const Event& event)
-{
-	// Work on during Beta
 }
 
 void DeckComponent::OnDisplayPile(const Event& event)

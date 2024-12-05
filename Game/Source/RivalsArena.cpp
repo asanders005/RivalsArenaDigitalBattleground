@@ -72,7 +72,7 @@ void RivalsArena::Update(float dt)
 		m_state = RivalsArena::eState::MAIN;
 		break;
 	case RivalsArena::eState::MAIN:
-		EVENT_NOTIFY_DATA(SelectPlayer, new CardIDEventData("Player1_Test"));
+		//EVENT_NOTIFY_DATA(SelectPlayer, new CardIDEventData("Player1_Test"));
 		break;
 	case RivalsArena::eState::BUY:
 		break;
@@ -150,7 +150,7 @@ void RivalsArena::OnButtonPressed(const Event& event)
 			switch (m_state)
 			{
 			case RivalsArena::eState::MAIN:
-				m_state = RivalsArena::eState::BUY;
+				m_state = RivalsArena::eState::END;
 				break;
 			case RivalsArena::eState::BUY:
 				m_state = RivalsArena::eState::END;
