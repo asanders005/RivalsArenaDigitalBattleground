@@ -30,24 +30,44 @@ void CPUComponent::Write(json_t& value)
 void CPUComponent::Initialize()
 {
 	PlayerComponent::Initialize();
-    //ADD_OBSERVER(CpuUpkeep, CPUComponent::ExecuteTurn);
 
+    if (this) {
+        EventManager::Instance().AddObserver("Upkeep", this, std::bind(&CPUComponent::ExecuteTurn, this, std::placeholders::_1));
+    }
 }
 
 void CPUComponent::Update(float dt)
 {
-
+    //Set the Deck and Hand
+    //
 }
 
 void CPUComponent::ExecuteTurn(const Event& event)
 {
+    auto eventData = dynamic_cast<const PlayerStringEventData*>(event.data);
+    if (!eventData) {
+        std::cerr << "Invalid event data for ExecuteTurn" << std::endl;
+        return;
+    }
 
-    auto eventData = dynamic_cast<const TrackerEventData*>(event.data);
-    if (this->playerID == eventData->targetPlayer)
-    {
-        EvaluateCards(); // Evaluate and sort the hand
-        PlayBestCard();//Play the best card
-        EvaluateAndBuyCard();        
+    if (this->playerID == eventData->targetPlayer) {
+
+        EVENT_NOTIFY_DATA(DrawCard, new StringEventData(GetID()));
+
+        EvaluateCards();
+
+
+        //std::cout << "Cards in Hand: " << std::endl;
+        //for (auto cardsInHand : *m_deck->GetHand())
+        //{
+
+        //    std::cout << cardsInHand << std::endl;
+        //}
+
+
+        PlayBestCard();
+
+        //EvaluateAndBuyCard();
     }
 
 }
@@ -59,47 +79,80 @@ void CPUComponent::DrawCard()
 
 void CPUComponent::OnDiscardCard(const std::string& cardName)
 {
-     auto card = GetCardComponent(cardName);
 
-     EVENT_NOTIFY_DATA(DiscardCard, new CardDeckIDEventData(card->GetCardID(), GetID()));
+     //EVENT_NOTIFY_DATA(DiscardCard, new CardNameEventData() )
+     //EVENT_NOTIFY_DATA(DiscardCard, new CardDeckIDEventData(cardName, GetID()));
 
-     
 }
 
 void CPUComponent::EvaluateCards()
 {
-    for (std::string cardName : *my_hand)
+    for (std::string cardName : *m_deck->GetHand())
     {
+        auto* card = GetCardComponent(cardName);
+        if (card)
+        {
+            EvaluateCardPriority(cardName);
+            evaluatedCards.push_back(card);
+        }
+
         EvaluateCardPriority(cardName);
     }
 
-    SortHandByPriority();
+    // Sort cards by priority (descending)
+    std::sort(evaluatedCards.begin(), evaluatedCards.end(),
+        [](CardComponent* a, CardComponent* b) { return a->GetPriority() > b->GetPriority(); });
+
+    //SortHandByPriority();
 }
 
 void CPUComponent::SortHandByPriority()
 {
-    std::list<std::string>* sort_hand{};
-    std::list<std::string>* sort_hand2{};
+    std::list<std::string>* sort_hand = new std::list<std::string>;
+    std::list<std::string>* sort_hand2 = new std::list<std::string>;
 
-    for (std::string cardName : *my_hand)
+    for (std::string cardName : *m_deck->GetHand())
     {
+  
+
+        //auto actor = owner->scene->GetActor(cardName);
+
+        //int count = 1;
+        //auto& actors = owner->scene->actors;
+        //std::cerr << "Available actors: ";
+        //for (auto& actor : actors)
+        //{
+        //    std::cout << " ActorID = " + actor->name << std::endl;
+        //    std::cout << " Actor Scene = " + actor->scene->name << std::endl;
+        //    std::cout << " Actor Tag = " + actor->tag << std::endl;
+        //}
+
+        /*if (!actor) {
+            std::cerr << "Actor not found for card: " << cardName << std::endl;
+            continue;
+        }*/
         auto card = GetCardComponent(cardName);
 
-        if (card->GetPriority() >= 0) {
+        if (card->GetPriority() > 0) {
 
             sort_hand->push_back(cardName);
-            //sort_hand.push_back(card->GetCardName());
+           
         }
+        if (card->GetPriority() == 0)
+        {
+            continue;
+        }
+
         else {
             sort_hand2->push_back(cardName);
-            //sort_hand2.push_back(card->GetCardName());
+           
         }
 
     }
 
     for (std::string cardName : *sort_hand) {
         sort_hand2->push_back(cardName);
-        //sort_hand2.push_back(cardName);
+        
 
     }
 
@@ -108,97 +161,141 @@ void CPUComponent::SortHandByPriority()
 
 void CPUComponent::PlayBestCard()
 {
-    bool isEmpty = my_hand->empty();
+    auto cardlist = m_deck->GetHand();
 
-    while (!my_hand->empty())
-{
-    for (std::string cardNames : *my_hand)
+    std::list<CardComponent*>  cardsPlayed;
+
+    for (auto cardName : *cardlist)
     {
-        auto cards = GetCardComponent(cardNames);
+        std::cout << "Played Card: " << cardName << std::endl;
 
-        if (cards->GetCoolDownTimer() == 0) //Check if they can play ir
+        if (cardName.empty())
         {
-            EVENT_NOTIFY_DATA(Play, new CardIDEventData(cards->GetCardID()));
+            std::cerr << "Error: Card name is empty!" << std::endl;
+           
+            continue; 
+        }
 
-            OnDiscardCard(cardNames);
+        auto* cards = GetCardComponent(cardName);
+
+        if (cards == nullptr)
+        {
+            std::cerr << "Error: CardComponent not found for card: " << cardName << std::endl;
+           
+            continue; 
+        }
+
+        if (cards->GetCoolDownTimer() == 0)
+        {
+            cardsPlayed.push_back(cards);
+            //EVENT_NOTIFY_DATA(PlayCard, new CardIDEventData(cards->GetCardID()));
+
+            std::string cardName = cards->GetCardID();
+            
+            
+            continue; 
         }
     }
-}
+
+    if (!cardsPlayed.empty()) {
+
+        for (auto cards : cardsPlayed)
+        {
+            EVENT_NOTIFY_DATA(PlayCard, new CardIDEventData(cards->GetCardID()));
+
+            EVENT_NOTIFY_DATA(DiscardCard, new CardNameEventData(cards->GetCardID(), cards->GetCardName(), GetID() ));
+                
+        }
+    }
 }
 
 int CPUComponent::EvaluateCardPriority(const std::string& cardName)
 {
     int score = 0;
 
-    auto card = owner->scene->GetActor(cardName)->GetComponent<CardComponent>();
-    //if (owner->GetComponent<PlayerComponent>().id == data->get()->playerID)
+    auto* card = GetCardComponent(cardName);
 
-    // Priority logic (similar to the standalone function)
-    switch (card->GetCardTier()) {
-    case CardEnums::CardTier::STARTER: score += 1; break;
-    case CardEnums::CardTier::TIER_1: score += 3; break;
-    case CardEnums::CardTier::TIER_2: score += 5; break;
-    case CardEnums::CardTier::HERO: score += 10; break;
+    if (!card || card->GetCardID().empty()) {
+        std::cerr << "Invalid or uninitialized CardComponent for actor: " << cardName << std::endl;
+        return 0;
     }
-	
-    // Phase-specific priorities
-    switch (card->GetPlayPhase()) {
-    case CardEnums::PlayPhase::START_OF_TURN:
-        if (gameState == RivalsArena::eState::UPKEEP)
-        {
+
+        switch (static_cast<CardEnums::CardTier>(card->GetCardTier())) {
+
+        case CardEnums::CardTier::STARTER:
+            score += 1;
+            break;
+        case CardEnums::CardTier::TIER_1:
+            score += 3;
+            break;
+        case CardEnums::CardTier::TIER_2:
             score += 5;
+            break;
+        case CardEnums::CardTier::HERO:
+            score += 10;
+            break;
         }
-        else {
-            score += -5;
-        }
-        break;
-    case CardEnums::PlayPhase::TURN:
-        if (gameState == RivalsArena::eState::MAIN)
-        {
-            score += 5;
-        }
-        else {
-            score += -5;
-        }
-        break;
-    case CardEnums::PlayPhase::END_OF_TURN:
-        if (gameState == RivalsArena::eState::END)
-        {
-            score += 5;
-        }
-        else {
-            score += -5;
-        }
-        break;
-    case CardEnums::PlayPhase::PASSIVE:
-        score += 2; break;
-    case CardEnums::PlayPhase::REACTION:
-        if (gameState == RivalsArena::eState::REACT)
-        {
-            score += 8;
-        }
-        else {
-            score += -5;
-        }
-        break;
-    }
 
-    // Defensive cards have higher priority when under attack
-    if (card->GetIsDefensive() && gameState == RivalsArena::eState::REACT) {
-        score += 7;
-    }
+        // Phase-specific priorities
+        switch (card->GetPlayPhase()) {
+        case CardEnums::PlayPhase::START_OF_TURN:
+            if (gameState == RivalsArena::eState::UPKEEP)
+            {
+                score += 5;
+            }
+            else {
+                score += -5;
+            }
+            break;
+        case CardEnums::PlayPhase::TURN:
+            if (gameState == RivalsArena::eState::MAIN)
+            {
+                score += 5;
+            }
+            else {
+                score += -5;
+            }
+            break;
+        case CardEnums::PlayPhase::END_OF_TURN:
+            if (gameState == RivalsArena::eState::END)
+            {
+                score += 5;
+            }
+            else {
+                score += -5;
+            }
+            break;
+        case CardEnums::PlayPhase::PASSIVE:
+            score += 2;
+            break;
+        case CardEnums::PlayPhase::REACTION:
+            if (gameState == RivalsArena::eState::REACT)
+            {
+                score += 8;
+            }
+            else {
+                score += -5;
+            }
+            break;
+        }
 
-    // Optional cards have lower priority if actions are limited
-    if (card->GeTIsOptional()) {
-        score -= 3;
-    }
+        // Defensive cards have higher priority when under attack
+        if (card->GetIsDefensive() && gameState == RivalsArena::eState::REACT) {
+            score += 7;
+        }
 
-    // Example: Targeting a specific player
-    if (card->GetTargetPlayer() && card->GetCoolDown() == 0) { //Check if card has target player
-        score += 2;
-    }
-    card->SetProity(score);
+        // Optional cards have lower priority if actions are limited
+        if (card->GeTIsOptional()) {
+            score -= 3;
+        }
 
+        // Example: Targeting a specific player
+        if (card->GetTargetPlayer() && card->GetCoolDown() == 0) { //Check if card has target player
+            score += 2;
+        }
+        card->SetProity(score);
+
+    
     // Add more evaluation logic here based on state, phase, etc.
     return score;
 }
@@ -229,11 +326,37 @@ void CPUComponent::React(const Event& event)
 
 }
 
+
+
 CardComponent* CPUComponent::GetCardComponent(const std::string& cardName)
 {
-    auto card = this->owner->GetComponent<CardComponent>(cardName);
+    if (!owner)
+    {
+        std::cerr << "Error: Owner is null!" << std::endl;
+        return nullptr;
+    }
+    if (!owner->scene)
+    {
+        std::cerr << "Error: Scene is null!" << std::endl;
+        return nullptr;
+    }
+    auto& listofcards = owner->scene->actors;
+    
+    for (auto& cards : owner->scene->actors)
+    {
+        if (cards.get()->GetComponent<CardComponent>())  
+        {
+            if (cards.get()->GetComponent<CardComponent>()->GetDeckId() == "CPU")
+            {
+                if (cards.get()->GetComponent<CardComponent>()->GetCardID() == cardName)
+                {
 
-    return card;
+                    return cards.get()->GetComponent<CardComponent>();
+                }
+            }
+        }
+    }
+    return nullptr;
 }
 
 void CPUComponent::EvaluateAndBuyCard()
@@ -264,6 +387,7 @@ void CPUComponent::EvaluateAndBuyCard()
             heroCardBuy = GetCardComponent(bestHeroToBuy);
         }
     }
+
     for (auto consumablesName : *upgradeConusmables)
     {
         int priority = EvaluateCardPriority(consumablesName);

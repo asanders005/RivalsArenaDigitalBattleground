@@ -44,6 +44,8 @@ void RivalsArena::Shutdown()
 
 void RivalsArena::Update(float dt)
 {
+
+
 	switch (m_state)
 	{
 	case RivalsArena::eState::TITLE:
@@ -62,17 +64,30 @@ void RivalsArena::Update(float dt)
 			EVENT_NOTIFY_DATA(DrawCard, new StringEventData{ player });
 			CreateButton("PlayerSelect_" + player, Vector2{ randomf(200.0f, 800.0f), 300.0f }, false);
 			m_selectButtonIDs.push_back("PlayerSelect_" + player);
+
+
 		}
+
+		CreateButton(m_activePlayer + "'s Health :", Vector2{ 100.0f, 100.0f }, true);
+
 
 		CreateButton("BtnNextPhase", { 800, 500 }, true);
 		m_state = RivalsArena::eState::UPKEEP;
 		break;
 	case RivalsArena::eState::UPKEEP:
 		std::cout << m_activePlayer << "'s Turn" << std::endl;
+
+		EVENT_NOTIFY_DATA(Upkeep, new PlayerStringEventData(m_activePlayer, "CPUTurn"));
+
 		m_state = RivalsArena::eState::MAIN;
 		break;
 	case RivalsArena::eState::MAIN:
-		//EVENT_NOTIFY_DATA(SelectPlayer, new CardIDEventData("Player1_Test"));
+		EVENT_NOTIFY_DATA(SelectPlayer, new CardIDEventData("Player1_Test"));
+
+		if (m_activePlayer == "CPU")
+		{
+			m_state == eState::END;
+		}
 		break;
 	case RivalsArena::eState::BUY:
 		break;
@@ -130,14 +145,20 @@ void RivalsArena::OnSelectPlayer(const Event& event)
 {
 	if (auto data = dynamic_cast<CardIDEventData*>(event.data))
 	{
-		if (data->cardID.substr(0, 3) != "CPU" && pendingCardID != "")
-		{
-			pendingCardID = data->cardID;
-			for (auto button : m_selectButtonIDs)
-			{
-				EVENT_NOTIFY_DATA(DisplayButton, new StringBoolEventData(button, true));
-			}
-		}
+		std::string targetPlayer;
+		if (data->cardID.substr(0, 3) != "CPU") targetPlayer = "CPU";
+		if (data->cardID.substr(0, 3) == "CPU") targetPlayer = "player";
+
+		EVENT_NOTIFY_DATA(PlayerSelected, new PlayerStringEventData(targetPlayer, data->cardID));
+		//if (data->cardID.substr(0, 3) != "CPU" && pendingCardID != "")
+		//{
+			//pendingCardID = data->cardID;
+			//for (auto button : m_selectButtonIDs)
+			//{
+			//	EVENT_NOTIFY_DATA(DisplayButton, new StringBoolEventData(button, true));
+			//}
+
+		//}
 	}
 }
 
@@ -180,13 +201,20 @@ void RivalsArena::CreatePlayer(const std::string& playerID, bool isCPU)
 	{
 		if (auto player = Factory::Instance().Create<Actor>("CPUPlayer"))
 		{
+			
+
 			player->GetComponent<CPUComponent>()->playerID = playerID;
+			player->GetComponent<CPUComponent>()->SetCPUID(playerID);
+			player->GetComponent<CPUComponent>()->SetID(playerID);
 
 			std::unique_ptr<Component> deck = std::make_unique<DeckComponent>(playerID);
 			rapidjson::Document document;
 			Json::Load("JSON/Decks/FNAF/Deck.json", document);
 			deck->Read(document);
 			player->AddComponent(std::move(deck));
+
+			player->GetComponent<CPUComponent>()->SetDeckComponent(player->GetComponent<DeckComponent>());
+			player->GetComponent<CPUComponent>()->my_hand = player->GetComponent<DeckComponent>()->GetHand();
 
 			m_scene->AddActor(std::move(player), true);
 		}

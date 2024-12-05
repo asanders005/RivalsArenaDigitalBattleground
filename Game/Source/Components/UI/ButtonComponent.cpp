@@ -1,6 +1,7 @@
 #include "ButtonComponent.h"
 #include "Engine.h"
 #include "Framework/GameEventData.h"
+#include <Components/Players/CPUComponent.h>
 
 FACTORY_REGISTER(ButtonComponent);
 
@@ -30,6 +31,16 @@ void ButtonComponent::Update(float dt)
 		{
 			std::cout << buttonID << " Clicked" << std::endl;
 			EVENT_NOTIFY_DATA(ButtonClicked, new StringEventData(buttonID));
+	
+		}
+
+		if (buttonID == "CPUHealthButton")
+		{
+			ShowCPUHealth();
+		}
+		else if (buttonID == "PlayerHealthButton")
+		{
+			ShowPlayerHealth();
 		}
 	}
 }
@@ -58,4 +69,56 @@ void ButtonComponent::Read(const json_t& value)
 
 void ButtonComponent::Write(json_t& value)
 {
+}
+
+ void ButtonComponent::ShowCPUHealth()
+{
+	 auto& listofcards = owner->scene->actors;
+
+	 std::string health;
+
+	 for (auto& actors : owner->scene->actors)
+	 {
+		 if (actors.get()->GetComponent<CPUComponent>())
+		 {
+			 health = actors.get()->GetComponent<CPUComponent>()->GetHealth();
+		 }
+	 }
+
+	 //TextComponent::TextComponent(const TextComponent & other)
+	 //{
+		// text = other.text;
+		// fontName = other.fontName;
+		// fontSize = other.fontSize;
+		// color = other.color;
+
+		// textChanged = true;
+		// m_text = std::make_unique<Text>(*other.m_text);
+	 //}
+	 //TextComponent textcomp = std::make_unique<TextComponent>();
+
+	 //owner->AddComponent(std::make_unique<TextComponent>())
+
+	//if (!cpuComponent.empty())
+	//{
+	//	std::cout << "CPU Health: " << cpuComponent.front()->GetHealth() << std::endl;
+	//}
+	//else
+	//{
+	//	std::cerr << "CPU Component not found!" << std::endl;
+	//}
+}
+
+void ButtonComponent::ShowPlayerHealth()
+{
+	//auto playerComponent = owner->scene->GetActors<PlayerComponent>();
+
+	//if (!playerComponent.empty())
+	//{
+	//	std::cout << "Player Health: " << playerComponent.front()->GetHealth() << std::endl;
+	//}
+	//else
+	//{
+	//	std::cerr << "Player Component not found!" << std::endl;
+	//}
 }
