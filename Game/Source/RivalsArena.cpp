@@ -72,7 +72,7 @@ void RivalsArena::Update(float dt)
 		//CreateButton(m_activePlayer + "'s Health :", Vector2{ 100.0f, 100.0f }, true);
 
 
-		CreateButton("BtnNextPhase", { 900, 400 }, true);
+		CreateButton("BtnNextPhase", { 1040, 250 }, true);
 		m_state = RivalsArena::eState::UPKEEP;
 		break;
 	case RivalsArena::eState::UPKEEP:

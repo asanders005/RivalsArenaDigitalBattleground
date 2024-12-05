@@ -1,6 +1,18 @@
 {
   "actors": [
     {
+      "transform": {
+        "position": [ 600, 400 ],
+        "scale": 1
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "Textures/Backgrounds/background.png"
+        }
+      ]
+    },
+    {
       "name": "player",
       "tag": "player",
       "prototype": true,
@@ -25,7 +37,7 @@
       "tag": "CPU",
       "prototype": true,
       "transform": {
-        "position": [1050, 50]
+        "position": [ 1050, 50 ]
       },
       "components": [
         {
@@ -66,7 +78,7 @@
       "components": [
         {
           "type": "TextureComponent",
-          "textureName": "Textures/Buttons/nextphasebutton.png"
+          "textureName": "Textures/Buttons/endturnbutton.png"
         },
         {
           "type": "ButtonComponent"
